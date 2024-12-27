@@ -78,6 +78,75 @@
       transform: translateX(5px);
     }
 
+    /* Dropdown container */
+    .dropdown {
+      position: relative;
+      display: block;
+    }
+
+    .dropdown a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-right: 30px; /* Space for the arrow icon */
+    }
+
+    /* Arrow icon for dropdown */
+    .dropdown .arrow {
+      font-size: 1.4em;
+      color: #fff;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .dropdown:hover .arrow {
+      transform: rotate(90deg);
+    }
+
+    /* Dropdown content */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #333;
+      min-width: 250px; /* Set a fixed width for the dropdown */
+      z-index: 1;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+      opacity: 1;
+    }
+
+    .dropdown-content a {
+      color: #fff;
+      padding: 15px 20px;
+      text-decoration: none;
+      display: block;
+      border-bottom: 1px solid #444;
+      transition: background-color 0.3s ease, padding-left 0.2s ease;
+    }
+
+    .dropdown-content a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-content a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding-left: 30px; /* Indent on hover for a smooth effect */
+    }
+
+    /* Sub-dropdown (right of the main dropdown) */
+    .dropdown .dropdown-content .dropdown-content {
+      left: 100%; /* Position to the right of the parent dropdown */
+      top: 0;
+      border-radius: 10px;
+    }
+
     .content {
       flex: 1;
       background: #1e1e2f;
@@ -206,33 +275,21 @@
       }
     }
 
-    /* Project Section */
-    .project {
-      margin-top: 30px;
-      padding: 20px;
-      background-color: #333;
-      border-radius: 8px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    /* Additional Styling for lines below the GitHub link */
+    .github-link {
+      margin-bottom: 1cm; /* Adds 1cm space below the GitHub button */
     }
 
-    .project h3 {
-      font-size: 1.8em;
-      color: #fff;
+    .line-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2cm; /* Sets the distance between the two lines */
     }
 
-    .project .project-link {
-      display: inline-block;
-      color: #00d4ff;
-      font-size: 1.2em;
-      text-decoration: none;
-      margin-bottom: 20px;
-    }
-
-    .project img {
+    .line {
       width: 100%;
-      height: auto;
-      margin-top: 15px;
-      border-radius: 8px;
+      height: 1px;
+      background-color: #fff; /* White lines */
     }
   </style>
   {% include head-custom.html %}
@@ -285,26 +342,10 @@
           <div class="line"></div>
         </div>
       </header>
-
-      <!-- SQL Project Section -->
       <section class="main-content">
-        <h2>Welcome to My SQL Projects</h2>
-        
-        <!-- Project 1 -->
-        <div class="project">
-          <h3>Unit Testing with tSQLt on Azure Data Studio</h3>
-          <a href="https://github.com/nbahador/nbahador.github.io/blob/main/assets/docs/unit-testing-tsqlt.md" class="project-link" target="_blank">View Project Documentation</a>
-          <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/tSQLt.png?raw=true" alt="Unit Testing with tSQLt on Azure Data Studio">
-        </div>
-
-        <!-- Placeholder for future projects -->
-        <div class="project">
-          <h3>Project 2</h3>
-          <a href="#" class="project-link">View Project</a>
-        </div>
-
+        <h2>Welcome to My Website</h2>
+        <p>{{ content }}</p>
       </section>
-      
       <footer>
         <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
       </footer>
