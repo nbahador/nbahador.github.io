@@ -69,7 +69,6 @@
       border-radius: 5px;
       transition: all 0.3s ease-in-out;
       width: 100%; /* Make all links take up the full width */
-      text-align: center; /* Center the text */
     }
 
     .sidebar a:hover {
@@ -80,16 +79,30 @@
     /* Dropdown container */
     .dropdown {
       position: relative;
-      display: block; /* Make dropdown behave like a regular link */
+      display: block;
     }
 
+    .dropdown a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Arrow icon for dropdown */
+    .dropdown .arrow {
+      margin-left: 10px;
+      font-size: 1.2em;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    /* Dropdown content */
     .dropdown-content {
       display: none;
       position: absolute;
-      top: 100%; /* Align the dropdown just below the Portfolio link */
-      left: 0;
+      top: 100%;
+      right: 0;
       background-color: #333;
-      min-width: 100%; /* Make dropdown as wide as the parent link */
+      min-width: 200px; /* Set a fixed width for the dropdown */
       z-index: 1;
       border-radius: 5px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
@@ -104,6 +117,12 @@
       padding: 10px 15px;
       text-decoration: none;
       display: block;
+      border-bottom: 1px solid #444;
+      transition: background-color 0.3s ease;
+    }
+
+    .dropdown-content a:last-child {
+      border-bottom: none;
     }
 
     .dropdown-content a:hover {
@@ -267,7 +286,7 @@
       <nav>
         <a href="#intro">Introduction</a>
         <div class="dropdown">
-          <a href="{{ site.baseurl }}/portfolio">Portfolio</a>
+          <a href="{{ site.baseurl }}/portfolio">Portfolio <span class="arrow">›</span></a> <!-- Portfolio link with arrow icon -->
           <div class="dropdown-content">
             <a href="{{ site.baseurl }}/portfolio/sql">SQL</a>
             <a href="{{ site.baseurl }}/portfolio/sql/unit-testing-tsqlt-azure-data-studio">Unit Testing (tSQLt & Azure Data Studio)</a>
