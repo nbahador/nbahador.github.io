@@ -1,184 +1,58 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: 'en-US' }}">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% seo %}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Name</title>
   <style>
-    /* General Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Roboto', sans-serif;
-    }
-
     body {
-      background-color: #000; /* Black background */
+      margin: 0;
+      background: linear-gradient(135deg, #000428, #004e92);
       color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      height: 100vh;
+      font-family: Arial, sans-serif;
       overflow: hidden;
     }
 
-    .wrapper {
-      display: flex;
-      flex-direction: row;
-      width: 90%;
-      max-width: 1400px;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+    svg {
+      width: 80%;
+      max-width: 800px;
     }
 
-    .sidebar {
-      width: 300px;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      padding: 30px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    path {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: draw 4s ease-in-out forwards, glow 2s ease-in-out infinite alternate;
     }
 
-    .sidebar img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      margin-bottom: 20px;
-      border: 3px solid #fff;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0;
+      }
     }
 
-    .sidebar nav {
-      width: 100%;
-    }
-
-    .sidebar a {
-      display: block;
-      text-align: center;
-      color: #fff;
-      text-decoration: none;
-      font-size: 1.2em;
-      margin: 15px 0;
-      padding: 10px 15px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 5px;
-      transition: all 0.3s ease-in-out;
-    }
-
-    .sidebar a:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: scale(1.05);
-    }
-
-    .content {
-      flex: 1;
-      background: #1e1e2f;
-      padding: 50px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    header {
-      margin-bottom: 30px;
-    }
-
-    header h1 {
-      font-size: 3em;
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-
-    header p {
-      font-size: 1.2em;
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-
-    .btn {
-      display: inline-block;
-      font-size: 1em;
-      color: #fff;
-      background: linear-gradient(135deg, #007bff, #0056b3);
-      padding: 12px 20px;
-      text-decoration: none;
-      border-radius: 30px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      transition: all 0.3s ease-in-out;
-    }
-
-    .btn:hover {
-      background: linear-gradient(135deg, #0056b3, #003d80);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
-    }
-
-    .main-content {
-      color: #e0e0e0;
-      line-height: 1.8;
-      font-size: 1.1em;
-    }
-
-    .main-content h2 {
-      color: #fff;
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.9em;
-      color: #888;
-      margin-top: 50px;
-    }
-
-    footer a {
-      color: #007bff;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    footer a:hover {
-      color: #0056b3;
+    @keyframes glow {
+      from {
+        stroke: #fff;
+      }
+      to {
+        stroke: #ff6b6b;
+      }
     }
   </style>
-  {% include head-custom.html %}
 </head>
 <body>
-  <div class="wrapper">
-    <div class="sidebar">
-      <img src="{{ site.logo | relative_url }}" alt="Logo">
-      <nav>
-        <a href="#intro">Introduction</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#about">About Me</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-    <div class="content">
-      <header>
-        <h1>{{ site.title | default: site.github.repository_name }}</h1>
-        <p>{{ site.description | default: site.github.project_tagline }}</p>
-        {% if site.github.is_user_page %}
-          <a href="{{ site.github.owner_url }}" class="btn">View My GitHub Profile</a>
-        {% endif %}
-      </header>
-      <section class="main-content">
-        <h2>Welcome to My Website</h2>
-        <p>{{ content }}</p>
-      </section>
-      <footer>
-        <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
-      </footer>
-    </div>
-  </div>
-  <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
+  <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Replace "Nooshin" with your preferred name -->
+    <path d="M50,150 Q80,100 110,150 T180,150 Q210,100 240,150 T310,150 Q340,100 370,150 T440,150 Q470,100 500,150 T570,150" />
+  </svg>
 </body>
 </html>
