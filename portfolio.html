@@ -1,48 +1,99 @@
-<!-- _layouts/portfolio.html -->
-
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: 'en-US' }}">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% seo %}
-  <style>
-    /* Custom styles for the portfolio page */
-    .portfolio-button {
-      display: inline-block;
-      margin: 20px 0;
-      text-align: center;
-    }
-    .portfolio-button img {
-      width: 2cm;
-      height: 2cm;
-      border-radius: 50%;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - SQL Projects</title>
+    <style>
+        /* General Reset and Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #000; /* Black background */
+            font-family: Arial, sans-serif;
+            color: #fff; /* White text color for contrast */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        /* Button Styling */
+        .sql-button {
+            background: linear-gradient(45deg, #f7c1ff, #d1b7ff, #c9c9ff, #ffbbf7); /* Metallic gradient */
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #fff;
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Hover Effects for the Button */
+        .sql-button:hover {
+            background: linear-gradient(45deg, #f7c1ff, #ffbbf7, #d1b7ff, #c9c9ff); /* Slight change in gradient on hover */
+            transform: scale(1.05);
+        }
+
+        .sql-button img {
+            width: 35px; /* Icon size */
+            height: 35px;
+            margin-right: 15px;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .sql-button:hover img {
+            transform: rotate(360deg); /* Rotating the icon on hover */
+        }
+
+        /* Animated Gradient on Image */
+        .sql-button img {
+            animation: gradientAnimation 5s linear infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            50% {
+                filter: hue-rotate(180deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        .sql-button:focus {
+            outline: none;
+        }
+    </style>
 </head>
 <body>
-  <div class="wrapper">
-    <div class="sidebar">
-      <nav>
-        <a href="{{ site.baseurl }}/portfolio">Portfolio</a>
-        <a href="{{ site.baseurl }}/portfolio/sql">SQL Projects</a>
-      </nav>
-    </div>
-    <div class="content">
-      <header>
-        <h1>Welcome to My Projects</h1>
-        <div class="underline"></div>
-      </header>
-      <section class="main-content">
-        <div class="portfolio-button">
-          <a href="{{ site.baseurl }}/portfolio/sql">
-            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/sql.png" alt="SQL Projects">
-            <p>SQL Projects</p>
-          </a>
-        </div>
-      </section>
-    </div>
-  </div>
+
+    <h1>Welcome to My Portfolio</h1>
+
+    <button class="sql-button">
+        <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/sql.png?raw=true" alt="SQL Icon">
+        SQL Projects
+    </button>
+
 </body>
 </html>
