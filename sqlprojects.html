@@ -71,27 +71,13 @@
 
         /* Icon Style */
         .project-icon {
-            width: 1.5cm; /* Icon size set to 1.5cm width */
-            height: 1.5cm; /* Icon height same as width to maintain circular shape */
-            border-radius: 50%; /* Circle shape */
+            width: 2.5cm; /* Rectangular icon width */
+            height: 1.5cm; /* Rectangular icon height */
+            border-radius: 8px; /* Slight rounding of corners */
             background-image: url('https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/tSQLt.png'); /* Raw image URL */
-            background-size: cover; /* Ensure the image fits and covers the entire circle */
-            background-position: center; /* Center the image */
+            background-size: cover; /* Ensure the image covers the rectangular space */
+            background-position: center; /* Center the image within the icon */
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Icon fading animation with metallic gradient effect */
-        @keyframes fadeInOut {
-            0% {
-                transform: scale(1);
-                filter: brightness(1);
-                background: linear-gradient(145deg, #00d6ff, #ff5e57);
-            }
-            100% {
-                transform: scale(1.1);
-                filter: brightness(1.5);
-                background: linear-gradient(145deg, #ff5e57, #00d6ff);
-            }
         }
 
         .button {
