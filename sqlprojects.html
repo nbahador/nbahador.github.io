@@ -10,8 +10,8 @@
         body {
             margin: 0;
             font-family: 'Roboto', sans-serif;
-            background-color: #000; /* Black background for the page */
-            color: #fff; /* White text for the page */
+            background-color: #0a0a0a; /* Dark background for bold colors */
+            color: #fff;
             line-height: 1.6;
             display: flex;
             flex-direction: column;
@@ -21,35 +21,14 @@
             overflow: hidden;
         }
 
-        /* Gradient Animation for the h1 */
+        /* Header Section */
         h1 {
+            color: #00d6ff; /* Shiny blue */
             font-size: 3rem;
-            margin-top: 1.5cm; /* 1.5cm from the top */
+            margin-top: 1cm; /* Title 1 cm from the top edge */
             margin-left: 2cm;
             position: relative;
-            font-weight: 700;
-            background: linear-gradient(45deg, #ff0077, #ff7700, #77ff00, #0077ff);
-            -webkit-background-clip: text;
-            color: transparent;
-            animation: gradientAnimation 5s infinite;
-        }
-
-        @keyframes gradientAnimation {
-            0% {
-                background: linear-gradient(45deg, #7700ff, #00ff77, #00ffbb, #ffbb00);
-            }
-            25% {
-                background: linear-gradient(45deg, #ffbb00, #7700ff, #00ff77, #00ffbb);
-            }
-            50% {
-                background: linear-gradient(45deg, #00ff77, #7700ff, #ffbb00, #00ffbb);
-            }
-            75% {
-                background: linear-gradient(45deg, #00ffbb, #ffbb00, #7700ff, #00ff77);
-            }
-            100% {
-                background: linear-gradient(45deg, #ff0077, #ff7700, #77ff00, #0077ff);
-            }
+            font-weight: 700; /* Bold title */
         }
 
         /* Project container styles */
@@ -70,7 +49,7 @@
             justify-content: center;
             flex-direction: row;
             background: linear-gradient(145deg, #333, #444);
-            padding: 1.5rem 2rem;
+            padding: 1.5rem 2rem; /* Reduced height of project container */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             color: #fff;
             border-radius: 12px;
@@ -82,7 +61,7 @@
         }
 
         .project h2 {
-            font-size: 2rem;
+            font-size: 1.8rem; /* Reduced font size to make space for larger icon */
             color: #ff5e57; /* Bold metallic pink */
             margin-left: 1rem;
             margin-bottom: 0;
@@ -92,36 +71,35 @@
 
         /* Icon Style */
         .project-icon {
-            width: 2cm;
-            height: 2cm;
-            border-radius: 50%;
-            background-image: url('https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/tSQLt.png?raw=true');
+            width: 4cm; /* Increased width */
+            height: 4cm; /* Increased height */
+            border-radius: 50%; /* Circle shape */
+            background-image: url('https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/tSQLt.png'); /* Raw image URL */
             background-size: cover;
             background-position: center;
-            border: 6px solid;
-            border-image: linear-gradient(45deg, #ff0077, #ff7700, #77ff00, #0077ff) 1;
-            animation: rotateEdge 5s linear infinite; /* Rotating gradient edge */
+            animation: fadeInOut 4s infinite alternate;
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* Rotating Gradient Edge Animation */
-        @keyframes rotateEdge {
+        /* Icon fading animation with metallic gradient effect */
+        @keyframes fadeInOut {
             0% {
-                transform: rotate(0deg);
-                border-image: linear-gradient(45deg, #ff0077, #ff7700, #77ff00, #0077ff) 1;
+                transform: scale(1);
+                filter: brightness(1);
+                background: linear-gradient(145deg, #00d6ff, #ff5e57);
             }
             100% {
-                transform: rotate(360deg);
-                border-image: linear-gradient(45deg, #00ff77, #00ffbb, #ffbb00, #7700ff) 1;
+                transform: scale(1.1);
+                filter: brightness(1.5);
+                background: linear-gradient(145deg, #ff5e57, #00d6ff);
             }
         }
 
-        /* Button styles */
         .button {
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #111; /* Very dark gray for button */
+            background-color: #00d6ff; /* Shiny blue */
             border: none;
             padding: 12px 24px;
             margin-top: 2rem;
@@ -135,8 +113,14 @@
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
         }
 
+        .button img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
         .button:hover {
-            background-color: #333; /* Darker gray on hover */
+            background-color: #ff5e57; /* Bold pink */
             transform: scale(1.05);
         }
 
@@ -159,7 +143,7 @@
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
         }
 
-        /* Footer - Optional */
+        /* Footer - Optional (can be used for copyright, links, etc.) */
         footer {
             position: fixed;
             bottom: 1rem;
