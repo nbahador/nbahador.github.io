@@ -71,13 +71,12 @@
 
         /* Icon Style */
         .project-icon {
-            width: 4cm; /* Increased width */
-            height: 4cm; /* Increased height */
+            width: 1.5cm; /* Icon size set to 1.5cm width */
+            height: 1.5cm; /* Icon height same as width to maintain circular shape */
             border-radius: 50%; /* Circle shape */
             background-image: url('https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/tSQLt.png'); /* Raw image URL */
-            background-size: cover;
-            background-position: center;
-            animation: fadeInOut 4s infinite alternate;
+            background-size: cover; /* Ensure the image fits and covers the entire circle */
+            background-position: center; /* Center the image */
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
         }
 
