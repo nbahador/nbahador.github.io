@@ -56,12 +56,14 @@
 
         /* Wavy Line Styling */
         .wave {
+            position: relative;
             width: 100%;
             height: 50px; /* Height of the wavy line */
-            background: url('https://www.transparenttextures.com/patterns/zig-zag-2.png') repeat-x; /* Zigzag pattern */
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+            background-size: 50px 50px;
             margin-top: 2cm; /* 2cm space before the wavy line */
             margin-bottom: 3cm; /* 3cm space after the wavy line */
-            animation: waveAnimation 4s ease-in-out infinite;
+            animation: waveAnimation 3s linear infinite;
         }
 
         @keyframes waveAnimation {
@@ -69,7 +71,7 @@
                 transform: translateX(0);
             }
             100% {
-                transform: translateX(-100%);
+                transform: translateX(-50px);
             }
         }
 
