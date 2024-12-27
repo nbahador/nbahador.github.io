@@ -78,75 +78,6 @@
       transform: translateX(5px);
     }
 
-    /* Dropdown container */
-    .dropdown {
-      position: relative;
-      display: block;
-    }
-
-    .dropdown a {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-right: 30px; /* Space for the arrow icon */
-    }
-
-    /* Arrow icon for dropdown */
-    .dropdown .arrow {
-      font-size: 1.4em;
-      color: #fff;
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .dropdown:hover .arrow {
-      transform: rotate(90deg);
-    }
-
-    /* Dropdown content */
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #333;
-      min-width: 250px; /* Set a fixed width for the dropdown */
-      z-index: 1;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-      opacity: 1;
-    }
-
-    .dropdown-content a {
-      color: #fff;
-      padding: 15px 20px;
-      text-decoration: none;
-      display: block;
-      border-bottom: 1px solid #444;
-      transition: background-color 0.3s ease, padding-left 0.2s ease;
-    }
-
-    .dropdown-content a:last-child {
-      border-bottom: none;
-    }
-
-    .dropdown-content a:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-      padding-left: 30px; /* Indent on hover for a smooth effect */
-    }
-
-    /* Sub-dropdown (right of the main dropdown) */
-    .dropdown .dropdown-content .dropdown-content {
-      left: 100%; /* Position to the right of the parent dropdown */
-      top: 0;
-      border-radius: 10px;
-    }
-
     .content {
       flex: 1;
       background: #1e1e2f;
@@ -303,24 +234,9 @@
       <img src="{{ site.logo | relative_url }}" alt="Logo">
       <nav>
         <a href="#intro">Introduction</a>
-        
-        <!-- Dropdown for Portfolio -->
-        <div class="dropdown">
-          <a href="{{ site.baseurl }}/portfolio">Portfolio <span class="arrow">›</span></a>
-          <div class="dropdown-content">
-            <a href="{{ site.baseurl }}/portfolio/sql">SQL</a>
-            <a href="{{ site.baseurl }}/portfolio/sql/unit-testing-tsqlt-azure-data-studio">Unit Testing (tSQLt & Azure Data Studio)</a>
 
-            <!-- Nested Dropdown -->
-            <div class="dropdown">
-              <a href="#">More Projects <span class="arrow">›</span></a>
-              <div class="dropdown-content">
-                <a href="#">Project 1</a>
-                <a href="#">Project 2</a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- Removed the dropdown for Portfolio -->
+        <a href="{{ site.baseurl }}/portfolio">Portfolio</a>
 
         <a href="#about">About Me</a>
         <a href="#contact">Contact</a>
