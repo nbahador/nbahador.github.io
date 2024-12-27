@@ -175,12 +175,12 @@
       color: #0056b3;
     }
 
-    /* Parallel Colorful Falling Gradients */
+    /* Falling Gradient Containers */
     .falling-gradients {
       position: absolute;
       top: 0;
-      right: 0;
-      width: 50px;
+      right: 10px;
+      width: 20px;
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -188,11 +188,16 @@
       pointer-events: none;
     }
 
+    /* Individual Gradient Bars */
     .gradient {
       width: 100%;
-      height: 33.33%;
+      height: 30%;
       background: linear-gradient(180deg, #ff007f, #00d4ff, #7a00ff);
       animation: gradientFall 5s linear infinite;
+    }
+
+    .gradient:nth-child(1) {
+      animation-delay: 0s;
     }
 
     .gradient:nth-child(2) {
@@ -203,6 +208,7 @@
       animation-delay: 2s;
     }
 
+    /* Falling Gradient Animation */
     @keyframes gradientFall {
       0% {
         transform: translateY(-100%);
