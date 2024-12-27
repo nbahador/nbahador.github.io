@@ -23,12 +23,35 @@
             height: 100vh;
         }
 
-        /* Positioning the "Welcome" text */
+        /* Animated Gradient for "Welcome to My Portfolio" */
         h1 {
             margin-top: 3cm; /* 3cm from the top edge */
             font-size: 3rem;
             font-weight: bold;
             margin-bottom: 3cm; /* 3cm gap before the button */
+            background: linear-gradient(45deg, #ff0077, #ff7700, #77ff00, #0077ff); /* Bold gradient colors */
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientAnimation 5s ease-in-out infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background: linear-gradient(45deg, #ff0077, #ff7700, #77ff00, #0077ff); /* Starting colors */
+            }
+            25% {
+                background: linear-gradient(45deg, #ff0077, #7700ff, #ff7700, #00ff77); /* Change to different vibrant colors */
+            }
+            50% {
+                background: linear-gradient(45deg, #00ff77, #ff0077, #7700ff, #00ffbb); /* More vibrant mix */
+            }
+            75% {
+                background: linear-gradient(45deg, #ff7700, #ff0077, #0077ff, #ffbb00); /* More bold gradient */
+            }
+            100% {
+                background: linear-gradient(45deg, #ff0077, #ff7700, #77ff00, #0077ff); /* Back to the original */
+            }
         }
 
         /* Button Styling */
