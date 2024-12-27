@@ -75,6 +75,37 @@
       transform: scale(1.05);
     }
 
+    /* Dropdown container */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #333;
+      min-width: 200px;
+      z-index: 1;
+      border-radius: 5px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      color: #fff;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
     .content {
       flex: 1;
       background: #1e1e2f;
@@ -231,9 +262,13 @@
       <img src="{{ site.logo | relative_url }}" alt="Logo">
       <nav>
         <a href="#intro">Introduction</a>
-        <a href="{{ site.baseurl }}/portfolio">Portfolio</a> <!-- Link to the Portfolio page -->
-        <a href="{{ site.baseurl }}/portfolio/sql">SQL</a> <!-- Link to the SQL page under Portfolio -->
-        <a href="{{ site.baseurl }}/portfolio/sql/unit-testing-tsqlt-azure-data-studio">Unit Testing (tSQLt & Azure Data Studio)</a> <!-- Link to the Unit Testing page -->
+        <div class="dropdown">
+          <a href="{{ site.baseurl }}/portfolio">Portfolio</a>
+          <div class="dropdown-content">
+            <a href="{{ site.baseurl }}/portfolio/sql">SQL</a>
+            <a href="{{ site.baseurl }}/portfolio/sql/unit-testing-tsqlt-azure-data-studio">Unit Testing (tSQLt & Azure Data Studio)</a>
+          </div>
+        </div>
         <a href="#about">About Me</a>
         <a href="#contact">Contact</a>
       </nav>      
