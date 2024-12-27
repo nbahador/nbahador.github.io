@@ -102,7 +102,7 @@
       transform: rotate(90deg);
     }
 
-    /* Dropdown content */
+    /* Initially hidden dropdown content */
     .dropdown-content {
       display: none;
       position: absolute;
@@ -115,11 +115,6 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
       opacity: 0;
       transition: opacity 0.3s ease-in-out;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-      opacity: 1;
     }
 
     .dropdown-content a {
@@ -300,10 +295,12 @@
         
         <!-- Dropdown for Portfolio -->
         <div class="dropdown">
-          <a href="{{ site.baseurl }}/portfolio">Portfolio <span class="arrow">›</span></a>
-          <div class="dropdown-content">
-            <a href="{{ site.baseurl }}/portfolio/sql">SQL</a>
-            <a href="{{ site.baseurl }}/portfolio/sql/unit-testing-tsqlt-azure-data-studio">Unit Testing (tSQLt & Azure Data Studio)</a>
+          <a href="#" onclick="toggleDropdown('portfolio')">Portfolio <span class="arrow">›</span></a>
+          <div id="portfolio" class="dropdown-content">
+            <a href="{{ site.baseurl }}/portfolio/sql" onclick="toggleDropdown('sql')">SQL</a>
+            <div id="sql" class="dropdown-content">
+              <a href="{{ site.baseurl }}/portfolio/sql/unit-testing-tsqlt-azure-data-studio">Unit Testing (tSQLt & Azure Data Studio)</a>
+            </div>
           </div>
         </div>
 
@@ -337,6 +334,12 @@
     </div>
   </div>
 
-  <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
+  <script>
+    // Toggle visibility of dropdowns
+    function toggleDropdown(id) {
+      var dropdown = document.getElementById(id);
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
 </body>
 </html>
