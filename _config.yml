@@ -1,7 +1,7 @@
 title: Nooshin Bahador
-logo: /assets/img/image.jpg
-description: Some information about me.
+description: PhD in Computer Science & Engineering.
 url: "https://nbahador.github.io"
+logo: /assets/img/image.jpg
 baseurl: ""  # Leave this empty unless you're using a subpath
 show_downloads: true
 google_analytics:
