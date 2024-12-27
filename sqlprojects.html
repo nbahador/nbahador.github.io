@@ -52,7 +52,7 @@
         /* Project Card */
         .project {
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Align to the top */
             justify-content: flex-start;
             background: linear-gradient(145deg, #2a2a2a, #333);
             padding: 1rem 1rem;
@@ -70,7 +70,7 @@
         .project h2 {
             font-size: 1.6rem;
             color: #ff4081; /* Bold pink */
-            margin-left: 0.3cm; /* 0.3 cm spacing */
+            margin-left: 1rem; /* Spacing between icon and text */
             font-weight: 400; /* Normal weight (unbolded text) */
             text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
             line-height: 1.3; /* Adjust line height for better readability */
@@ -82,16 +82,15 @@
         }
 
         .project-icon {
-            width: 120px; /* Adjust width for rectangular shape */
-            height: auto; /* Adjust height automatically based on content */
+            width: 80px; /* Adjust width of the icon */
+            height: 80px; /* Fixed height to match the text height */
             background-image: url('https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/tSQLt.png');
             background-size: cover;
             background-position: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             border-radius: 8px; /* Slightly rounded corners for effect */
             transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation effect */
-            margin-right: 1rem; /* Space between the icon and text */
-            margin-top: 0.5rem; /* Add a small margin for better alignment */
+            margin-top: 0.5rem; /* Align with the text */
         }
 
         /* On hover effect for the icon */
