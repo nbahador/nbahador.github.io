@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: 'en-US' }}">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% seo %}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Light Rays and Rainbow Drops</title>
   <style>
     /* General Reset */
     * {
@@ -25,6 +24,7 @@
       position: relative;
     }
 
+    /* Wrapper and Content Styling */
     .wrapper {
       display: flex;
       flex-direction: row;
@@ -128,52 +128,44 @@
       margin-bottom: 20px;
     }
 
-    .btn {
-      display: inline-block;
-      font-size: 1em;
-      color: #fff;
-      background: linear-gradient(135deg, #007bff, #0056b3);
-      padding: 12px 20px;
-      text-decoration: none;
-      border-radius: 30px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      transition: all 0.3s ease-in-out;
+    /* Rainbow Drops */
+    .rainbow-drops {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
     }
 
-    .btn:hover {
-      background: linear-gradient(135deg, #0056b3, #003d80);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+    .drop {
+      position: absolute;
+      top: -50px;
+      width: 10px;
+      height: 20px;
+      background: linear-gradient(180deg, red, orange, yellow, green, blue, indigo, violet);
+      border-radius: 50%;
+      animation: fall 5s linear infinite;
     }
 
-    .main-content {
-      color: #e0e0e0;
-      line-height: 1.8;
-      font-size: 1.1em;
+    @keyframes fall {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+      }
     }
 
-    .main-content h2 {
-      color: #fff;
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.9em;
-      color: #888;
-      margin-top: 50px;
-    }
-
-    footer a {
-      color: #007bff;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    footer a:hover {
-      color: #0056b3;
-    }
+    /* Random Drop Generation */
+    .drop:nth-child(1) { left: 10px; animation-delay: 0s; }
+    .drop:nth-child(2) { left: 30px; animation-delay: 1s; }
+    .drop:nth-child(3) { left: 50px; animation-delay: 2s; }
+    .drop:nth-child(4) { left: 70px; animation-delay: 3s; }
+    .drop:nth-child(5) { left: 90px; animation-delay: 4s; }
 
     /* Light Rays Effect */
     .light-rays {
@@ -215,12 +207,11 @@
       }
     }
   </style>
-  {% include head-custom.html %}
 </head>
 <body>
   <div class="wrapper">
     <div class="sidebar">
-      <img src="{{ site.logo | relative_url }}" alt="Logo">
+      <img src="https://via.placeholder.com/120" alt="Logo">
       <nav>
         <a href="#intro">Introduction</a>
         <a href="#portfolio">Portfolio</a>
@@ -230,23 +221,19 @@
     </div>
     <div class="content">
       <header>
-        <h1>{{ site.title | default: site.github.repository_name }}</h1>
+        <h1>My Website</h1>
         <div class="underline"></div>
-        <p>{{ site.description | default: site.github.project_tagline }}</p>
-        {% if site.github.is_user_page %}
-          <a href="{{ site.github.owner_url }}" class="btn">View My GitHub Profile</a>
-        {% endif %}
+        <p>Welcome to the dynamic page with beautiful effects.</p>
       </header>
-      <section class="main-content">
-        <h2>Welcome to My Website</h2>
-        <p>{{ content }}</p>
-      </section>
-      <footer>
-        <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
-      </footer>
     </div>
   </div>
   <div class="light-rays"></div>
-  <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
+  <div class="rainbow-drops">
+    <div class="drop"></div>
+    <div class="drop"></div>
+    <div class="drop"></div>
+    <div class="drop"></div>
+    <div class="drop"></div>
+  </div>
 </body>
 </html>
