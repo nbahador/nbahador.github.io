@@ -28,7 +28,7 @@
             margin-top: 3cm; /* 3cm from the top edge */
             font-size: 3rem;
             font-weight: bold;
-            margin-bottom: 3cm; /* 3cm gap before the button */
+            margin-bottom: 1cm; /* 1cm gap before the wavy line */
             background: linear-gradient(45deg, #ff0077, #ff7700, #77ff00, #0077ff); /* Bold gradient colors */
             -webkit-background-clip: text;
             background-clip: text;
@@ -51,6 +51,25 @@
             }
             100% {
                 background: linear-gradient(45deg, #ff0077, #ff7700, #77ff00, #0077ff); /* Back to the original */
+            }
+        }
+
+        /* Wavy Line Styling */
+        .wave {
+            width: 100%;
+            height: 50px; /* Height of the wavy line */
+            background: url('https://www.transparenttextures.com/patterns/zig-zag-2.png') repeat-x; /* Zigzag pattern */
+            margin-top: 2cm; /* 2cm space before the wavy line */
+            margin-bottom: 3cm; /* 3cm space after the wavy line */
+            animation: waveAnimation 4s ease-in-out infinite;
+        }
+
+        @keyframes waveAnimation {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
             }
         }
 
@@ -116,6 +135,9 @@
 <body>
 
     <h1>Welcome to My Portfolio</h1>
+
+    <!-- Wavy Line Below the Title -->
+    <div class="wave"></div>
 
     <button class="sql-button">
         <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/sql.png?raw=true" alt="SQL Icon">
