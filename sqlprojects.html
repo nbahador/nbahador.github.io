@@ -23,10 +23,12 @@
 
         /* Header Section */
         h1 {
-            color: #00bcd4; /* Bright cyan */
+            background: linear-gradient(45deg, #00bcd4, #ff4081); /* Gradient from cyan to pink */
+            -webkit-background-clip: text; /* Clips the background to the text */
+            color: transparent; /* Makes the text itself transparent so the background gradient is visible */
             font-size: 3.5rem;
             margin-top: 2rem;
-            font-weight: 700;
+            font-weight: 400; /* Normal weight for unbolded text */
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 2px;
