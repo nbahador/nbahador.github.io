@@ -10,7 +10,7 @@
         body {
             margin: 0;
             font-family: 'Roboto', sans-serif;
-            background-color: #1d1d1d;
+            background-color: #0a0a0a; /* Dark background for bold colors */
             color: #fff;
             line-height: 1.6;
             display: flex;
@@ -23,28 +23,30 @@
 
         /* Header Section */
         h1 {
-            color: #fff;
+            color: #00d6ff; /* Shiny blue */
             font-size: 3rem;
-            margin-top: 1.5cm; /* Title 1.5 cm from the top edge */
+            margin-top: 1cm; /* Title 1 cm from the top edge */
             margin-left: 2cm;
             position: relative;
+            font-weight: 700; /* Bold title */
         }
 
         /* Project container styles */
         .projects-container {
             width: calc(100% - 6cm); /* Full width minus 3cm padding on both sides */
-            margin-top: 2cm; /* 2 cm below the title */
+            margin-top: 1cm; /* 1 cm below the title */
             padding: 0 3cm; /* 3cm padding on both sides */
             text-align: center;
         }
 
         .project {
-            background: linear-gradient(145deg, #2e2e2e, #1a1a1a);
+            background: linear-gradient(145deg, #0f0f0f, #1b1b1b); /* Dark metallic background */
             border-radius: 12px;
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
             margin: 1rem 0;
             padding: 1.5rem 2rem; /* Reduced height of project container */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #fff;
         }
 
         .project:hover {
@@ -54,8 +56,9 @@
 
         .project h2 {
             font-size: 2rem;
-            color: #ff5e57;
+            color: #ff5e57; /* Bold metallic pink */
             margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
 
         .project p {
@@ -68,7 +71,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #ff5e57;
+            background-color: #00d6ff; /* Shiny blue */
             border: none;
             padding: 12px 24px;
             margin-top: 2rem;
@@ -79,6 +82,7 @@
             text-decoration: none;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
         }
 
         .button img {
@@ -88,7 +92,7 @@
         }
 
         .button:hover {
-            background-color: #ff3e2a;
+            background-color: #ff5e57; /* Bold pink */
             transform: scale(1.05);
         }
 
@@ -132,7 +136,7 @@
             <h2>Project 1: SQL Database Unit Testing with tSQLt in Azure Data Studio</h2>
             <p>In this project, I demonstrated how to implement database unit testing using tSQLt in Azure Data Studio. This project is designed to ensure the integrity and correctness of SQL code with automated tests.</p>
             <a href="#" class="button">
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/file.png" alt="File Icon"> View Project
+                <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/tSQLt.png?raw=true" alt="tSQLt Icon"> View Project
             </a>
         </div>
         <!-- Add more projects as needed -->
