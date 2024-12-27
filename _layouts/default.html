@@ -175,7 +175,7 @@
       color: #0056b3;
     }
 
-    /* Falling Gradient Containers */
+    /* Falling Gradient Container */
     .falling-gradients {
       position: absolute;
       top: 0;
@@ -184,28 +184,16 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
+      justify-content: center;
       pointer-events: none;
     }
 
-    /* Individual Gradient Bars */
+    /* Single Gradient Bar */
     .gradient {
       width: 100%;
       height: 30%;
       background: linear-gradient(180deg, #ff007f, #00d4ff, #7a00ff);
       animation: gradientFall 5s linear infinite;
-    }
-
-    .gradient:nth-child(1) {
-      animation-delay: 0s;
-    }
-
-    .gradient:nth-child(2) {
-      animation-delay: 1s;
-    }
-
-    .gradient:nth-child(3) {
-      animation-delay: 2s;
     }
 
     /* Falling Gradient Animation */
@@ -246,15 +234,13 @@
         <p>{{ content }}</p>
       </section>
       <footer>
-        <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+        <p>&copy; {{ site.time | date: "%Y" }} My Website</p>
       </footer>
     </div>
   </div>
 
-  <!-- Falling gradients section -->
+  <!-- Falling gradient section -->
   <div class="falling-gradients">
-    <div class="gradient"></div>
-    <div class="gradient"></div>
     <div class="gradient"></div>
   </div>
 
