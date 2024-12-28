@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to tSQLt and the Adventure Works Database</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #2C3E50;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 1rem;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Introduction to tSQLt and the Adventure Works Database</h1>
+
+<p>In this project, I explored tSQLt, a package designed for unit testing. For this project, I used the Adventure Works database as a sample. This database was based on Adventure Works Cycles, a fictional multinational company created by Microsoft in 2010. It manufactured and sold bicycles across North America, Europe, and Asia.</p>
+
+<h2>Creating and Configuring an Azure SQL Database</h2>
+
+<p>To set up the environment for this project, I used Azure Data Studio with the Adventure Works database available on Microsoft Azure. To begin, I signed up for a free trial of Azure by visiting <a href="https://azure.microsoft.com" target="_blank">azure.microsoft.com</a> and clicking on the "Try Azure for free" button. I chose the "Start Free" option and provided the required details, including my first name, last name, address, and credit card information for verification (there were no charges for the free account). After signing up, I clicked "Go to Azure Portal" to proceed.</p>
+
+<p>Once in the portal, I clicked on "Microsoft Azure" at the top and navigated to "SQL Databases." I then clicked "Create SQL Database" and selected "Apply offer" to take advantage of the free database offer. I needed to create a new resource group and provide a name for the database. Since there was no server yet, I clicked "Create new" to set up a server, entering a unique server name, choosing a location, and setting the authentication method, including a server admin login and password. After confirming, I clicked "OK" and proceeded to the networking settings by clicking "Next." I selected the "General Purpose" serverless option with 2 V cores, applied the settings, and chose "Public endpoint" as the default connectivity method. I allowed services and resources to access the server by selecting "Yes" and added my current IP address to enable the database connection from my device. I kept the default connection policy and TLS version 1.2, then continued to the next section.</p>
+
+<h3>Displaying Images:</h3>
+
+<img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig1.png" alt="Step 1 Image">
+
+<p>Next, I reviewed the settings and selected "AdventureWorks LT" as the sample database for querying and learning. After confirming details like the subscription, resource group, region, database name, server, admin login, and configuration, I clicked "Create" to deploy the database.</p>
+
+<img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig2.png" alt="Step 2 Image">
+<img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig3.png" alt="Step 3 Image">
+<img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig4.png" alt="Step 4 Image">
+<img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig5.png" alt="Step 5 Image">
+
+<h2>Installing and Configuring Azure Data Studio</h2>
+
+<p>Afterward, I downloaded and installed Azure Data Studio. Once installed, I opened the application and maximized the window. In Azure Data Studio, I went to "Connections" and clicked "Add New Connection." I selected "Microsoft SQL Server" as the connection type and chose "Parameters" as the input method. Then, I copied the server name from the Azure portal and pasted it into the connection window in Azure Data Studio. For authentication, I chose "Azure Active Directory," added my Azure Active Directory account, and provided my password to authenticate. Once authenticated, I closed the browser window, and my account was listed in Azure Data Studio. I then chose the database, which included a default "master" database.</p>
+
+<img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig6.png" alt="Azure Data Studio Setup">
+
+<p>I encountered an error during authentication when entering my username and password, specifically "not found in MSAL cache." To resolve this, I decided to try using the latest Insider build of Azure Data Studio, which I downloaded from a GitHub link.</p>
+
+<p>After installing the Insider build, I went to the command palette (by pressing Ctrl / Cmd + Shift + P) and ran the command "Clear Azure Account Token Cache." This helped clear any cached tokens that might have been causing the authentication issue, allowing me to proceed without further errors.</p>
+
+<img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig7.png" alt="Fixing Authentication Issue">
+<img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig8.png" alt="Command Palette">
+
+<p>I ensured "Encrypt mandatory" was set to true and clicked "Connect." Once connected, I was able to see the database and its objects (tables, views, stored procedures, etc.). To run a query, I right-clicked the server name and selected "New Query."</p>
+
+<img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig9.png" alt="New Query">
+<img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig10.png" alt="Running Query">
+
+<h2>Validating Customer Order Retrieval with tSQLt Unit Testing</h2>
+
+<p>I attempted to answer a business question related to validating the accuracy of stored procedures used to retrieve customer order details from a database. Specifically, I was testing whether the stored procedure GetCustomerOrderDetails correctly returned the expected customer order data for a specific customer, based on a predefined set of conditions.</p>
+
+<h3>Displaying SQL Code:</h3>
+
+<pre><code>SELECT TOP 1 * FROM dbo.BuildVersion
+SELECT
+    AddressID,
+    AddressLine1,
+    AddressLine2, City,
+    StateProvince,
+    CountryRegion,
+    PostalCode,
+    rowguid,
+    ModifiedDate
+FROM SalesLT.Address</code></pre>
+
+<img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig11.png" alt="Step 1 of Query Execution">
+
+<p>I downloaded tSQLt (Version: 1.0.5873.27393) from <a href="https://tsqlt.org/downloads/" target="_blank">tsqlt.org</a>.</p>
+
+<p>Next, I needed to install tSQLt to my development database (AdventureWorks) by executing the tSQLt.class.sql script, which was included in the zip file. I opened the tSQLt.class.sql file in Azure Data Studio and ran the script to install it.</p>
+
+<img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig12.png" alt="tSQLt Installation">
+
+<p>I created procedures in the object explorer under the SalesLT schema using the following script:</p>
+
+<pre><code>CREATE OR ALTER PROCEDURE [SalesLT].GetCustomerOrderDetails (@customerid SMALLINT, @minitems SMALLINT = 10)
+AS
+BEGIN
+    SELECT OrderQty,Name,ListPrice
+      FROM [SalesLT].SalesOrderHeader JOIN [SalesLT].SalesOrderDetail
+              ON SalesOrderDetail.SalesOrderID = SalesOrderHeader.SalesOrderID
+                            JOIN [SalesLT].Product
+              ON SalesOrderDetail.ProductID=Product.ProductID
+    WHERE CustomerID=@customerid
+    AND OrderQty > @minitems
+    ORDER BY ListPrice DESC
+END;
+GO</code></pre>
+
+<h3>Displaying Images:</h3>
+
+<img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig13.png" alt="Step 2 of Procedure">
+<img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig14.png" alt="Step 3 of Procedure">
+
+<p>I created a test case and a temporary table named <code>expected</code> to hold the anticipated data. I dropped the existing table if it existed, then created a new table with columns for OrderQty, Name, and ListPrice.</p>
+
+<pre><code>-- Drop the existing table if it exists
+DROP TABLE IF EXISTS #expected;
+
+-- Create a temporary table to hold expected data
+CREATE TABLE #expected (
+    OrderQty INT,
+    Name NVARCHAR(50),
+    ListPrice DECIMAL(19,4)
+);
+
+-- Insert expected data into the table
+INSERT INTO #expected (OrderQty, Name, ListPrice)
+    SELECT OrderQty, Name, ListPrice
+    FROM SalesLT.SalesOrderHeader JOIN SalesLT.SalesOrderDetail
+        ON SalesOrderDetail.SalesOrderID = SalesOrderHeader.SalesOrderID
+        JOIN SalesLT.Product
+        ON SalesOrderDetail.ProductID=Product.ProductID
+    WHERE SalesOrderHeader.CustomerID=30010
+    AND OrderQty > 10
+    ORDER BY ListPrice DESC;
+GO</code></pre>
+
+<p>Finally, I ran the test to validate the stored procedure's behavior by comparing the output with the data in the <code>#expected</code> table.</p>
+
+</body>
+</html>
