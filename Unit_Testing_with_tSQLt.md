@@ -1,26 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introduction to tSQLt and the Adventure Works Database</title>
-</head>
-<body>
+##Introduction to tSQLt and the Adventure Works Database
 
-    <h1>Introduction to tSQLt and the Adventure Works Database</h1>
+In this project, I explored tSQLt, a package designed for unit testing. For this project, I used the Adventure Works database as a sample. This database was based on Adventure Works Cycles, a fictional multinational company created by Microsoft in 2010. It manufactured and sold bicycles across North America, Europe, and Asia.</p>
 
-    <p>In this project, I explored tSQLt, a package designed for unit testing. For this project, I used the Adventure Works database as a sample. This database was based on Adventure Works Cycles, a fictional multinational company created by Microsoft in 2010. It manufactured and sold bicycles across North America, Europe, and Asia.</p>
+Creating and Configuring an Azure SQL Database</h2>
 
-    <h2>Creating and Configuring an Azure SQL Database</h2>
+To set up the environment for this project, I used Azure Data Studio with the Adventure Works database available on Microsoft Azure. To begin, I signed up for a free trial of Azure by visiting <a href="https://azure.microsoft.com" target="_blank">azure.microsoft.com</a> and clicking on the "Try Azure for free" button. I chose the "Start Free" option and provided the required details, including my first name, last name, address, and credit card information for verification (there were no charges for the free account). After signing up, I clicked "Go to Azure Portal" to proceed.</p>
 
-    <p>To set up the environment for this project, I used Azure Data Studio with the Adventure Works database available on Microsoft Azure. To begin, I signed up for a free trial of Azure by visiting <a href="https://azure.microsoft.com" target="_blank">azure.microsoft.com</a> and clicking on the "Try Azure for free" button. I chose the "Start Free" option and provided the required details, including my first name, last name, address, and credit card information for verification (there were no charges for the free account). After signing up, I clicked "Go to Azure Portal" to proceed.</p>
+Once in the portal, I clicked on "Microsoft Azure" at the top and navigated to "SQL Databases." I then clicked "Create SQL Database" and selected "Apply offer" to take advantage of the free database offer. I needed to create a new resource group and provide a name for the database. Since there was no server yet, I clicked "Create new" to set up a server, entering a unique server name, choosing a location, and setting the authentication method, including a server admin login and password. After confirming, I clicked "OK" and proceeded to the networking settings by clicking "Next." I selected the "General Purpose" serverless option with 2 V cores, applied the settings, and chose "Public endpoint" as the default connectivity method. I allowed services and resources to access the server by selecting "Yes" and added my current IP address to enable the database connection from my device. I kept the default connection policy and TLS version 1.2, then continued to the next section.</p>
 
-    <p>Once in the portal, I clicked on "Microsoft Azure" at the top and navigated to "SQL Databases." I then clicked "Create SQL Database" and selected "Apply offer" to take advantage of the free database offer. I needed to create a new resource group and provide a name for the database. Since there was no server yet, I clicked "Create new" to set up a server, entering a unique server name, choosing a location, and setting the authentication method, including a server admin login and password. After confirming, I clicked "OK" and proceeded to the networking settings by clicking "Next." I selected the "General Purpose" serverless option with 2 V cores, applied the settings, and chose "Public endpoint" as the default connectivity method. I allowed services and resources to access the server by selecting "Yes" and added my current IP address to enable the database connection from my device. I kept the default connection policy and TLS version 1.2, then continued to the next section.</p>
-
-    <h2>Image Display</h2>
-    <p>Below is an image related to the setup:</p>
-    <br>
-    <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig1.png" alt="Azure SQL Database Configuration" width="800">
+Below is an image related to the setup:</p>
+<img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig1.png" alt="Azure SQL Database Configuration" width="800">
 
 <!DOCTYPE html>
 <html lang="en">
@@ -332,7 +321,7 @@ EXEC tSQLt.Run testSalesLT;
 
     <h2>Image of Test Results</h2>
     <br>
-    img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/fig19.png?raw=true" alt="Test Results" width="800">
+    <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig19.png?raw=true" alt="Test Results" width="800">
 
 </body>
 </html>
