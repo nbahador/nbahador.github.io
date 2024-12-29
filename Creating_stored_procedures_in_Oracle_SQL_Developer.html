@@ -1,0 +1,15 @@
+<h1 id="creating-stored-procedures-in-oracle-sql-developer">Creating stored procedures in Oracle SQL Developer</h1>
+<hr>
+<p>In this simple demo, I tried to answer the question: &quot;How can we transform a given string into uppercase?&quot; The goal was to ensure standardization and consistency in user input, especially when dealing with data that requires a uniform format for processing or display.</p>
+<p>To answer this question, I needed information on how to perform string manipulation using SQL procedures, particularly in Oracle SQL. Specifically, I needed to understand how to create a stored procedure that accepts an input string, converts it to uppercase, and outputs the result.</p>
+<p>The query that helped me retrieve the necessary information was the following:</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> REPLACE <span class="hljs-function"><span class="hljs-keyword">PROCEDURE</span> <span class="hljs-title">P_TO_UPPER</span> <span class="hljs-params">(P_STR VARCHAR2)</span>
+<span class="hljs-title">IS</span>
+    <span class="hljs-title">L_STR</span> <span class="hljs-title">VARCHAR2</span><span class="hljs-params">(50)</span>;</span>
+<span class="hljs-keyword">BEGIN</span>
+    L_STR := UPPER(P_STR); -- Convert input string <span class="hljs-keyword">to</span> uppercase
+    DBMS_OUTPUT.PUT_LINE(<span class="hljs-string">'Input string in Upper case: '</span> || L_STR); -- Display the <span class="hljs-keyword">result</span>
+<span class="hljs-keyword">END</span> P_TO_UPPER;
+</code></pre>
+<p>I used this query to create the stored procedure P_TO_UPPER, which accepts a string input, converts it to uppercase using the UPPER() function, and outputs the result via DBMS_OUTPUT.PUT_LINE. After creating the procedure, I executed it with an input string (e.g., &#39;hello world&#39;), which returned the desired uppercase version (&#39;HELLO WORLD&#39;).</p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P3_fig1.png" alt="Query Execution Result 1" width="800"></p>
