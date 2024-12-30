@@ -1,0 +1,99 @@
+<h1 id="handling-millions-of-records">Handling Millions of Records</h1>
+<hr>
+<p>When I worked with millions of records in Oracle SQL Developer, I encountered performance issues, especially when dealing with large datasets in queries. The primary challenge was that running complex aggregation queries, like the one I was working on, could take a long time to execute due to the sheer volume of data being processed. The system would become slow, and sometimes even run out of memory or crash during execution</p>
+<p>To handle this, I took several steps:
+Optimized the Query: I ensured that the SALES_RECORDS table was properly indexed, especially on the columns being used in the GROUP BY (like REGION and ITEMTYPE). This helped speed up the grouping and sorting operations.</p>
+<p>Used Partitioning: If the data was partitioned (e.g., by REGION or ITEMTYPE), I could improve query performance by limiting the scan to relevant partitions. This way, the system only processed a subset of the data at a time, instead of the entire table.</p>
+<p>Filtered Data: In some cases, I filtered out unnecessary records before performing aggregations. For example, I could add a WHERE clause to only include sales records within a specific time range or region, reducing the size of the dataset being processed.</p>
+<p>Utilized Temporary Tables: In certain cases, I created temporary tables to store intermediate results or perform calculations in stages. This allowed me to work with smaller, more manageable datasets at each step, rather than trying to process everything in one go.</p>
+<hr>
+<p>As a sample, I worked on importing a large CSV file into an Oracle database. The file contained 5 million records and was 111.96 MB in size. I downloaded it from <a href="https://excelbianalytics.com/wp/downloads-18-sample-csv-files-data-sets-for-testing-sales/">Excelbianalytics Portal</a>.
+After downloading the file, I used Oracle SQL Developer to import the data into the database. The process involved several steps, which I followed to ensure that the data was correctly loaded into Oracle. Below are the screenshots that illustrate how I performed the import process step by step.</p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P1_fig1.png" alt="Query Execution Result 1" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P1_fig2.png" alt="Query Execution Result 1" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P1_fig3.png" alt="Query Execution Result 1" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P1_fig4.png" alt="Query Execution Result 1" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P1_fig5.png" alt="Query Execution Result 1" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P1_fig6.png" alt="Query Execution Result 1" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P1_fig7.png" alt="Query Execution Result 1" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P1_fig8.png" alt="Query Execution Result 1" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P1_fig9.png" alt="Query Execution Result 1" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P1_fig10.png" alt="Query Execution Result 1" width="800"></p>
+<p>First, I tried to answer the question of how total revenue, total cost, total profit, and the number of orders varied by region and item type.
+To do this, I wrote a SQL query. The query pulled data from the SALES_RECORDS table, selecting REGION, ITEMTYPE, and aggregated values like SUM(TOTALREVENUE), SUM(TOTALCOST), SUM(TOTALPROFIT), and COUNT(ORDERID). I grouped the results by REGION and ITEMTYPE to get the totals for each combination, and then I sorted the results by REGION and ITEMTYPE to organize the data for easier analysis.</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">SELECT</span> 
+    REGION, 
+    ITEMTYPE, 
+    <span class="hljs-keyword">SUM</span>(TOTALREVENUE) <span class="hljs-keyword">AS</span> Total_Revenue,
+    <span class="hljs-keyword">SUM</span>(TOTALCOST) <span class="hljs-keyword">AS</span> Total_Cost,
+    <span class="hljs-keyword">SUM</span>(TOTALPROFIT) <span class="hljs-keyword">AS</span> Total_Profit,
+    <span class="hljs-keyword">COUNT</span>(ORDERID) <span class="hljs-keyword">AS</span> Total_Orders
+<span class="hljs-keyword">FROM</span> 
+    SALES_RECORDS
+<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> 
+    REGION, 
+    ITEMTYPE
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> 
+    REGION, 
+    ITEMTYPE;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P1_fig11.png" alt="Query Execution Result 1" width="800"></p>
+<p>Then, I tried to answer the business question of how many sales records had more than 100 units sold.
+To do this, I wrote a SQL query that counted the total number of records in the SALES_RECORDS table where the UNITSSOLD was greater than 100. The query returned the total number of such sales transactions.</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">COUNT</span>(*)
+<span class="hljs-keyword">FROM</span> SALES_RECORDS
+<span class="hljs-keyword">WHERE</span> UNITSSOLD &gt; <span class="hljs-number">100</span>;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P1_fig12.png" alt="Query Execution Result 1" width="800"></p>
+<p>Which are the top 5 highest-revenue product types in each region?
+To do this, I first analyzed sales data by selecting the region, item type, and total revenue from the SALES_RECORDS table. I used the SUM(TOTALREVENUE) to calculate the total revenue for each combination of region and item type.
+Then, I applied the ROW_NUMBER() function to rank these combinations within each region based on their total revenue, with the highest revenue getting the top rank.
+After ranking, I filtered the results to only include the top 5 ranked items per region (Revenue Rank &lt;= 5). Finally, I ordered the data by region and rank to make it easier to identify the highest revenue products for each region.</p>
+<pre><code class="lang-sql">WITH Ranked_Products AS (
+    <span class="hljs-keyword">SELECT</span> 
+        REGION,
+        ITEMTYPE,
+        <span class="hljs-keyword">SUM</span>(TOTALREVENUE) <span class="hljs-keyword">AS</span> Total_Revenue,
+        ROW_NUMBER() <span class="hljs-keyword">OVER</span> (<span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> REGION <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">SUM</span>(TOTALREVENUE) <span class="hljs-keyword">DESC</span>) <span class="hljs-keyword">AS</span> Revenue_Rank
+    <span class="hljs-keyword">FROM</span> 
+        SALES_RECORDS
+    <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> 
+        REGION, ITEMTYPE
+)
+<span class="hljs-keyword">SELECT</span> 
+    REGION,
+    ITEMTYPE,
+    Total_Revenue
+<span class="hljs-keyword">FROM</span> 
+    Ranked_Products
+<span class="hljs-keyword">WHERE</span> 
+    Revenue_Rank &lt;= <span class="hljs-number">5</span>
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> 
+    REGION, Revenue_Rank;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P1_fig14.png" alt="Query Execution Result 1" width="800"></p>
+<p>What is the Year-over-Year (YoY) growth percentage in total revenue for each product type and region between 2015 and 2016?
+To do this, I first selected the region, item type, and total revenue from the SALES_RECORDS table. Then, I used conditional SUM statements to calculate the total revenue for 2015 and 2016 separately for each region and item type.
+Next, I calculated the YoY growth percentage by comparing the revenue in 2016 with the revenue in 2015. I divided the difference by the 2015 revenue and multiplied by 100 to get the percentage. I also used ROUND() to limit the result to two decimal places.
+Finally, I filtered the data to only include records from 2015 and 2016, grouped the results by region and item type, and ordered them by region and item type for better clarity.</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">SELECT</span> 
+    REGION,
+    ITEMTYPE,
+    <span class="hljs-keyword">SUM</span>(<span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">EXTRACT</span>(<span class="hljs-keyword">YEAR</span> <span class="hljs-keyword">FROM</span> ORDERDATE) = <span class="hljs-number">2015</span> <span class="hljs-keyword">THEN</span> TOTALREVENUE <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>) <span class="hljs-keyword">AS</span> Revenue_2015,
+    <span class="hljs-keyword">SUM</span>(<span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">EXTRACT</span>(<span class="hljs-keyword">YEAR</span> <span class="hljs-keyword">FROM</span> ORDERDATE) = <span class="hljs-number">2016</span> <span class="hljs-keyword">THEN</span> TOTALREVENUE <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>) <span class="hljs-keyword">AS</span> Revenue_2016,
+    <span class="hljs-keyword">ROUND</span>(
+        (<span class="hljs-keyword">SUM</span>(<span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">EXTRACT</span>(<span class="hljs-keyword">YEAR</span> <span class="hljs-keyword">FROM</span> ORDERDATE) = <span class="hljs-number">2016</span> <span class="hljs-keyword">THEN</span> TOTALREVENUE <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>) 
+        - <span class="hljs-keyword">SUM</span>(<span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">EXTRACT</span>(<span class="hljs-keyword">YEAR</span> <span class="hljs-keyword">FROM</span> ORDERDATE) = <span class="hljs-number">2015</span> <span class="hljs-keyword">THEN</span> TOTALREVENUE <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>))
+        / <span class="hljs-keyword">NULLIF</span>(<span class="hljs-keyword">SUM</span>(<span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">EXTRACT</span>(<span class="hljs-keyword">YEAR</span> <span class="hljs-keyword">FROM</span> ORDERDATE) = <span class="hljs-number">2015</span> <span class="hljs-keyword">THEN</span> TOTALREVENUE <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>), <span class="hljs-number">0</span>) * <span class="hljs-number">100</span>, 
+        <span class="hljs-number">2</span>
+    ) <span class="hljs-keyword">AS</span> YoY_Growth_Percentage
+<span class="hljs-keyword">FROM</span> 
+    SALES_RECORDS
+<span class="hljs-keyword">WHERE</span> 
+    <span class="hljs-keyword">EXTRACT</span>(<span class="hljs-keyword">YEAR</span> <span class="hljs-keyword">FROM</span> ORDERDATE) <span class="hljs-keyword">IN</span> (<span class="hljs-number">2015</span>, <span class="hljs-number">2016</span>)
+<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> 
+    REGION, ITEMTYPE
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> 
+    REGION, ITEMTYPE;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P1_fig15.png" alt="Query Execution Result 1" width="800"></p>
