@@ -1,5 +1,5 @@
 <h1 id="oracle-trigger">Oracle Trigger</h1>
-<p>I tried to answer the business question of how to prevent the deletion of specific records in a database.</p>
+<p>I tried to answer the question of how to prevent the deletion of specific records in a database.</p>
 <p>This is needed to ensure that critical records could not be accidentally or intentionally deleted, which might have business or operational implications.</p>
 <p>As a sample scenario, I wanted to prevent the deletion of a department record in the DEPARTMENTS table under certain conditions (such as the one with DEPARTMENT_ID = 10). </p>
 <p>To implement this solution, I first created a copy of the DEPARTMENTS table and populated it with the existing data from the original table. This step ensured that I could test the functionality of the trigger without affecting the actual data in the production table.</p>
