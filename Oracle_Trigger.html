@@ -1,0 +1,32 @@
+<h1 id="oracle-trigger">Oracle Trigger</h1>
+<p>I tried to answer the business question of how to prevent the deletion of specific records in a database.</p>
+<p>This is needed to ensure that critical records could not be accidentally or intentionally deleted, which might have business or operational implications.</p>
+<p>As a sample scenario, I wanted to prevent the deletion of a department record in the DEPARTMENTS table under certain conditions (such as the one with DEPARTMENT_ID = 10). </p>
+<p>To implement this solution, I first created a copy of the DEPARTMENTS table and populated it with the existing data from the original table. This step ensured that I could test the functionality of the trigger without affecting the actual data in the production table.</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> DEPARTMENTS_COPY <span class="hljs-keyword">AS</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> DEPARTMENTS;
+<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> DEPARTMENTS_COPY;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P5_fig1.png" alt="Query Execution Result 1" width="800"></p>
+<p>I then created an Oracle trigger called prevent_delete_department that fired before any delete operation on the DEPARTMENTS_COPY table. The trigger checked the DEPARTMENT_ID of the record being deleted. If the DEPARTMENT_ID was 10, the trigger would raise a custom error and prevent the deletion from happening.
+The trigger&#39;s logic was as follows:
+If the DEPARTMENT_ID of the record to be deleted was 10, the deletion was blocked by raising an exception with a message: &quot;Cannot delete department with ID 10&quot;.
+If the DEPARTMENT_ID was any value other than 10, the deletion was allowed to proceed.</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">REPLACE</span> <span class="hljs-keyword">TRIGGER</span> prevent_delete_department
+<span class="hljs-keyword">BEFORE</span> <span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">ON</span> DEPARTMENTS_COPY
+<span class="hljs-keyword">FOR</span> <span class="hljs-keyword">EACH</span> <span class="hljs-keyword">ROW</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-comment">-- If the department ID is 10, raise an exception to prevent deletion</span>
+    <span class="hljs-keyword">IF</span> :OLD.DEPARTMENT_ID = <span class="hljs-number">10</span> <span class="hljs-keyword">THEN</span>
+        RAISE_APPLICATION_ERROR(<span class="hljs-number">-20001</span>, <span class="hljs-string">'Cannot delete department with ID 10'</span>);
+    <span class="hljs-keyword">END</span> <span class="hljs-keyword">IF</span>;
+<span class="hljs-keyword">END</span>;
+/
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P5_fig2.png" alt="Query Execution Result 1" width="800"></p>
+<p>After implementing the trigger, I tested it by attempting to delete records from the DEPARTMENTS_COPY table. When I tried to delete the record where DEPARTMENT_ID = 10, the trigger blocked the deletion and raised the expected error. However, when I attempted to delete a record with DEPARTMENT_ID = 20, the deletion was allowed to proceed.</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> DEPARTMENTS_COPY <span class="hljs-keyword">WHERE</span> DEPARTMENT_ID = <span class="hljs-number">10</span>;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P5_fig3.png" alt="Query Execution Result 1" width="800"></p>
+<pre><code class="lang-sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> DEPARTMENTS_COPY <span class="hljs-keyword">WHERE</span> DEPARTMENT_ID = <span class="hljs-number">20</span>;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P5_fig4.png" alt="Query Execution Result 1" width="800"></p>
