@@ -79,6 +79,17 @@
             grid-column: span 3; /* Spans all 3 columns */
         }
 
+        /* Specific grid positions for Artwork 4 and Artwork 7 */
+        .artwork.art4 {
+            grid-column: 3; /* Move Artwork 4 to the 3rd column */
+            grid-row: 1; /* Keep it in the first row */
+        }
+
+        .artwork.art7 {
+            grid-column: 1 / span 3; /* Move Artwork 7 to span all columns in the third row */
+            grid-row: 3;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .artworks-container {
@@ -107,23 +118,23 @@
             <div class="artwork">
                 <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art2_enhanced.jpg?raw=true" alt="Artwork 2">
             </div>
-            <div class="artwork large">
-                <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art3_enhanced.jpg?raw=true" alt="Artwork 3">
+            <div class="artwork art4">
+                <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art4_enhanced.jpg?raw=true" alt="Artwork 4">
             </div>
 
             <!-- Second row -->
-            <div class="artwork">
-                <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art4_enhanced.jpg?raw=true" alt="Artwork 4">
-            </div>
             <div class="artwork">
                 <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art5_enhanced.jpg?raw=true" alt="Artwork 5">
             </div>
             <div class="artwork">
                 <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art6_enhanced.jpg?raw=true" alt="Artwork 6">
             </div>
+            <div class="artwork">
+                <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art3_enhanced.jpg?raw=true" alt="Artwork 3">
+            </div>
 
-            <!-- Third row -->
-            <div class="artwork full-width">
+            <!-- Third row (moved Artwork 7 here) -->
+            <div class="artwork art7">
                 <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art7_enhanced.jpg?raw=true" alt="Artwork 7">
             </div>
         </div>
