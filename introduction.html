@@ -8,7 +8,6 @@
     <style>
         body {
             background-color: black;
-            color: white;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -16,6 +15,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            flex-direction: column;
         }
 
         /* Container for centering card */
@@ -23,50 +23,52 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            width: 100%;
+            height: 80%;
         }
 
         /* Card styling */
         .card {
-            background: linear-gradient(145deg, #4b4b4b, #a0a0a0);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.5), -8px -8px 15px rgba(255, 255, 255, 0.2);
-            width: 80%;
-            max-width: 600px;
+            background: linear-gradient(145deg, #6a82fb, #fc5c7d); /* Lighter metallic blue-pink gradient */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4), -8px -8px 20px rgba(255, 255, 255, 0.4);
+            width: 90%;
+            max-width: 700px;
             text-align: center;
             font-weight: bold;
-            color: white;
+            color: black; /* Black text for better readability */
         }
 
         .card p {
-            font-size: 18px;
-            line-height: 1.5;
+            font-size: 24px;
+            line-height: 1.6;
         }
 
         .card a {
-            color: #00aaff;
+            color: #1e90ff; /* Blue color for clickable link */
             text-decoration: none;
             font-weight: bold;
             transition: color 0.3s ease;
         }
 
         .card a:hover {
-            color: #ffb700;
+            color: #ff6347; /* Change to a bright red-orange on hover */
         }
 
         /* Back to Main Page Button */
         .back-button {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             background: linear-gradient(145deg, #ff6b6b, #ff4757);
             color: white;
-            padding: 10px 15px;
+            padding: 15px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.3), -4px -4px 6px rgba(255, 255, 255, 0.3);
             transition: background 0.3s ease;
