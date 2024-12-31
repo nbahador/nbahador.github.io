@@ -11,30 +11,33 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f3f4f6;
-            color: #333;
-        }
-
-        .container {
+            background: linear-gradient(135deg, #1a2b48, #0a1724); /* Dark metallic blue gradient */
+            color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
+        }
+
+        .container {
             text-align: center;
+            z-index: 1;
         }
 
         h1 {
             font-size: 3rem;
-            color: #2c3e50;
+            color: #dfe6e9;
             margin-bottom: 20px;
             font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         p {
             font-size: 1.2rem;
-            color: #7f8c8d;
+            color: #b0bec5;
             margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .cta-button {
@@ -46,6 +49,7 @@
             text-decoration: none;
             border-radius: 30px;
             transition: all 0.3s ease;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
         }
 
         .cta-button:hover {
@@ -58,19 +62,31 @@
         }
 
         footer {
-            position: absolute;
+            position: fixed;
             bottom: 20px;
-            font-size: 0.9rem;
-            color: #7f8c8d;
+            left: 20px;
+            z-index: 2;
         }
 
-        footer a {
+        .back-button {
+            padding: 12px 25px;
+            background-color: #2d3e50;
+            color: #f0f0f0;
+            font-size: 1rem;
+            font-weight: bold;
             text-decoration: none;
-            color: #0077b5;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        .back-button:hover {
+            background-color: #4a5f73;
+            transform: translateY(-3px);
+        }
+
+        .back-button:focus {
+            outline: none;
         }
     </style>
 </head>
@@ -83,7 +99,8 @@
     </div>
 
     <footer>
-        <p>Created with ❤️ by <a href="https://www.linkedin.com/in/nooshin-b-30348950/" target="_blank">Nooshin B</a></p>
+        <!-- Back to Main Page Button -->
+        <a href="index.html" class="back-button">Back to Main Page</a>
     </footer>
 </body>
 
