@@ -12,41 +12,79 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            text-align: center;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            flex-direction: column;
         }
 
-        .intro-text {
-            font-size: 24px;
-            margin: 0 0 20px 0;
+        /* Container for centering card */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
         }
 
+        /* Card styling */
+        .card {
+            background: linear-gradient(145deg, #4b4b4b, #a0a0a0);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.5), -8px -8px 15px rgba(255, 255, 255, 0.2);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .card p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .card a {
+            color: #00aaff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .card a:hover {
+            color: #ffb700;
+        }
+
+        /* Back to Main Page Button */
         .back-button {
             position: fixed;
             top: 20px;
             right: 20px;
-            background-color: #444;
+            background: linear-gradient(145deg, #ff6b6b, #ff4757);
             color: white;
             padding: 10px 15px;
             border: none;
             border-radius: 5px;
             text-decoration: none;
             font-size: 16px;
+            font-weight: bold;
+            box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.3), -4px -4px 6px rgba(255, 255, 255, 0.3);
+            transition: background 0.3s ease;
         }
 
         .back-button:hover {
-            background-color: #888;
+            background: linear-gradient(145deg, #ff4757, #ff6b6b);
         }
     </style>
 </head>
 <body>
 
-    <div class="intro-text">
-        <p>Hello! I'm a Computer Science Engineer (PhD) currently working at the University Health Network (UHN). You can learn more about UHN at <a href="https://www.uhn.ca/" target="_blank" style="color: #00f;">www.uhn.ca</a>.</p>
+    <!-- Container for card -->
+    <div class="container">
+        <!-- Card with introduction -->
+        <div class="card">
+            <p>Hello! I'm a Computer Science Engineer (PhD) currently working at the <a href="https://www.uhn.ca/" target="_blank">University Health Network (UHN)</a>.</p>
+        </div>
     </div>
 
     <!-- Back to Main Page Button -->
