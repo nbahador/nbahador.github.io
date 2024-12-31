@@ -12,6 +12,10 @@
             color: #fff;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
         h1 {
@@ -33,14 +37,12 @@
         /* Artworks Container */
         .artworks-container {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr); /* Default: 3 equal columns */
             gap: 20px;
-            padding: 40px 20px;
-        }
-
-        /* Half-width Artwork */
-        .artwork.half-width {
-            grid-column: span 2; /* Makes it span two columns */
+            padding: 40px;
+            max-width: 1200px; /* Max width for the gallery */
+            width: 100%;
+            margin: 0 auto;
         }
 
         .artwork {
@@ -55,7 +57,7 @@
         .artwork img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Ensures the image fills its container without distortion */
             border-radius: 10px;
             transition: opacity 0.3s ease;
         }
@@ -68,51 +70,62 @@
             opacity: 0.9;
         }
 
+        /* Adjusting grid layout for different image sizes */
+        .artwork.large {
+            grid-column: span 2; /* Spans 2 columns */
+        }
+
+        .artwork.full-width {
+            grid-column: span 3; /* Spans all 3 columns */
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .artworks-container {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screens */
             }
         }
 
         @media (max-width: 480px) {
             .artworks-container {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* 1 column for small screens */
             }
         }
     </style>
 </head>
 <body>
 
-    <h1>Welcome to My Creative Space</h1>
-    <p>In my free time, I absolutely love doing artwork. Below are some of my favorite pieces that showcase my creative journey.</p>
+    <div>
+        <h1>Welcome to My Creative Space</h1>
+        <p>In my free time, I absolutely love doing artwork. Below are some of my favorite pieces that showcase my creative journey.</p>
 
-    <div class="artworks-container">
-        <!-- First row -->
-        <div class="artwork">
-            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art1_enhanced.jpg?raw=true" alt="Artwork 1">
-        </div>
-        <div class="artwork">
-            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art2_enhanced.jpg?raw=true" alt="Artwork 2">
-        </div>
-        <div class="artwork half-width">
-            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art3_enhanced.jpg?raw=true" alt="Artwork 3">
-        </div>
+        <div class="artworks-container">
+            <!-- First row -->
+            <div class="artwork">
+                <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art1_enhanced.jpg?raw=true" alt="Artwork 1">
+            </div>
+            <div class="artwork">
+                <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art2_enhanced.jpg?raw=true" alt="Artwork 2">
+            </div>
+            <div class="artwork large">
+                <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art3_enhanced.jpg?raw=true" alt="Artwork 3">
+            </div>
 
-        <!-- Second row -->
-        <div class="artwork">
-            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art4_enhanced.jpg?raw=true" alt="Artwork 4">
-        </div>
-        <div class="artwork">
-            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art5_enhanced.jpg?raw=true" alt="Artwork 5">
-        </div>
-        <div class="artwork">
-            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art6_enhanced.jpg?raw=true" alt="Artwork 6">
-        </div>
+            <!-- Second row -->
+            <div class="artwork">
+                <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art4_enhanced.jpg?raw=true" alt="Artwork 4">
+            </div>
+            <div class="artwork">
+                <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art5_enhanced.jpg?raw=true" alt="Artwork 5">
+            </div>
+            <div class="artwork">
+                <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art6_enhanced.jpg?raw=true" alt="Artwork 6">
+            </div>
 
-        <!-- Third row -->
-        <div class="artwork">
-            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art7_enhanced.jpg?raw=true" alt="Artwork 7">
+            <!-- Third row -->
+            <div class="artwork full-width">
+                <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art7_enhanced.jpg?raw=true" alt="Artwork 7">
+            </div>
         </div>
     </div>
 
