@@ -43,12 +43,13 @@
         /* Slider container styling */
         .slider-container {
             position: relative;
-            max-width: 100%;
+            width: 100%;
             overflow: hidden;
             margin: 0 auto;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 10px; /* Added padding to ensure margins */
         }
 
         .slider {
@@ -58,10 +59,12 @@
 
         .slider img {
             width: 100%;
-            max-width: 800px;
+            height: auto;
+            max-width: 100%;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            object-fit: cover;
+            object-fit: contain; /* Ensures no image cropping, fits within its container */
+            margin: 0 10px; /* Adds spacing between images */
         }
 
         .slider img:hover {
