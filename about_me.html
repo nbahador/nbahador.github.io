@@ -16,6 +16,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            position: relative; /* To position the back button */
         }
 
         h1 {
@@ -107,6 +108,25 @@
                 grid-template-columns: 1fr; /* 1 column for small screens */
             }
         }
+
+        /* Back Button Styling */
+        .back-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #444;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #666;
+        }
     </style>
 </head>
 <body>
@@ -144,6 +164,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Back to Main Page Button -->
+    <a href="index.html" class="back-button">Back to Main Page</a>
 
 </body>
 </html>
