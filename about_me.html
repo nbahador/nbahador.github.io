@@ -33,9 +33,14 @@
         /* Artworks Container */
         .artworks-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 20px;
             padding: 40px 20px;
+        }
+
+        /* Full Width Artwork */
+        .artwork.full-width {
+            grid-column: span 3; /* Makes it span the full row */
         }
 
         .artwork {
@@ -44,7 +49,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
             transition: transform 0.3s ease-in-out;
-            cursor: pointer;
+            cursor: default;
         }
 
         .artwork img {
@@ -63,31 +68,10 @@
             opacity: 0.9;
         }
 
-        /* Metallic Button Styles */
-        .button {
-            display: inline-block;
-            background: linear-gradient(145deg, #c1c1c1, #6e6e6e);
-            color: #fff;
-            padding: 12px 25px;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-decoration: none;
-            border-radius: 25px;
-            margin: 20px auto;
-            display: block;
-            width: max-content;
-            transition: background 0.3s ease-in-out;
-        }
-
-        .button:hover {
-            background: linear-gradient(145deg, #a3a3a3, #474747);
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             .artworks-container {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr 1fr;
             }
         }
 
@@ -104,30 +88,33 @@
     <p>In my free time, I absolutely love doing artwork. Below are some of my favorite pieces that showcase my creative journey.</p>
 
     <div class="artworks-container">
-        <div class="artwork" onclick="window.open('https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art1_enhanced.jpg?raw=true', '_blank')">
-            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art1_enhanced.jpg?raw=true" alt="Artwork 1">
-        </div>
-        <div class="artwork" onclick="window.open('https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art2_enhanced.jpg?raw=true', '_blank')">
-            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art2_enhanced.jpg?raw=true" alt="Artwork 2">
-        </div>
-        <div class="artwork" onclick="window.open('https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art3_enhanced.jpg?raw=true', '_blank')">
+        <!-- Full width artwork -->
+        <div class="artwork full-width">
             <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art3_enhanced.jpg?raw=true" alt="Artwork 3">
         </div>
-        <div class="artwork" onclick="window.open('https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art4_enhanced.jpg?raw=true', '_blank')">
+
+        <!-- Second row artworks -->
+        <div class="artwork">
+            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art1_enhanced.jpg?raw=true" alt="Artwork 1">
+        </div>
+        <div class="artwork">
+            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art2_enhanced.jpg?raw=true" alt="Artwork 2">
+        </div>
+        <div class="artwork">
             <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art4_enhanced.jpg?raw=true" alt="Artwork 4">
         </div>
-        <div class="artwork" onclick="window.open('https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art5_enhanced.jpg?raw=true', '_blank')">
+
+        <!-- Third row artworks -->
+        <div class="artwork">
             <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art5_enhanced.jpg?raw=true" alt="Artwork 5">
         </div>
-        <div class="artwork" onclick="window.open('https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art6_enhanced.jpg?raw=true', '_blank')">
+        <div class="artwork">
             <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art6_enhanced.jpg?raw=true" alt="Artwork 6">
         </div>
-        <div class="artwork" onclick="window.open('https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art7_enhanced.jpg?raw=true', '_blank')">
+        <div class="artwork">
             <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art7_enhanced.jpg?raw=true" alt="Artwork 7">
         </div>
     </div>
-
-    <a href="#" class="button">See More Artwork</a>
 
 </body>
 </html>
