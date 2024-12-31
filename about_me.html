@@ -90,6 +90,11 @@
             grid-row: 3;
         }
 
+        /* Adjustments for the last row to make it smaller */
+        .artworks-container .artwork:nth-child(7) {
+            grid-column: span 2; /* Make the last row artwork smaller */
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .artworks-container {
