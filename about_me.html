@@ -1,91 +1,122 @@
-import {
-  json,
-  type HeadersFunction,
-  type LinksFunction,
-  type LoaderFunctionArgs,
-  type MetaFunction,
-} from '@remix-run/node'
-import { useLoaderData, useSearchParams } from '@remix-run/react'
-import { ArrowLink } from '#app/components/arrow-button.tsx'
-import { Grid } from '#app/components/grid.tsx'
-import { H2, H3, H6, Paragraph } from '#app/components/typography.tsx'
-import { images, getImgProps } from '#app/images.tsx'
-import { type RootLoaderType } from '#app/root.tsx'
+<!DOCTYPE html>
+<html lang="en">
 
-export async function loader({ request }: LoaderFunctionArgs) {
-  return json({}, {
-    headers: {
-      'Cache-Control': 'private, max-age=3600',
-      Vary: 'Cookie',
-    },
-  })
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>About Me</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
 
-export const headers: HeadersFunction = () => {
-  return {}
-}
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
 
-export const meta: MetaFunction<typeof loader, { root: RootLoaderType }> = ({
-  matches,
-}) => {
-  const requestInfo = matches.find((m) => m.id === 'root')?.data.requestInfo
-  return {
-    title: 'About Me - My Artwork',
-    description: 'Learn about my passion for creating artwork in my free time.',
-    keywords: 'artwork, hobby, painting, artwork portfolio',
-    url: window.location.href,
-  }
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
 
-function AboutMePage() {
-  return (
-    <>
-      <Grid as="main" className="mb-24 mt-16 lg:mb-48">
-        <div className="col-span-full">
-          <H2 className="mb-8">A Little About My Hobby</H2>
-          <Paragraph className="mb-12">
-            In my free time, I absolutely love doing artwork. Whether it’s sketching, painting, or creating digital designs, it’s a great way for me to relax and express my creativity. I find that the process of bringing an idea to life through art is incredibly fulfilling. Below are some of my favorite pieces that I've worked on recently. Enjoy!
-          </Paragraph>
+        h1, h2 {
+            color: #333;
+        }
+
+        .intro {
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .gallery img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>About Me</h1>
+    </header>
+
+    <div class="container">
+        <section class="intro">
+            <h2>Welcome to My Creative Space</h2>
+            <p>In my free time, I absolutely love doing artwork. Below are some of my favorite pieces that showcase my creative journey.</p>
+        </section>
+
+        <section class="gallery">
+            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art1_enhanced.jpg?raw=true" alt="Artwork 1">
+            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art2_enhanced.jpg?raw=true" alt="Artwork 2">
+            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art3_enhanced.jpg?raw=true" alt="Artwork 3">
+            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art4_enhanced.jpg?raw=true" alt="Artwork 4">
+            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art5_enhanced.jpg?raw=true" alt="Artwork 5">
+            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art6_enhanced.jpg?raw=true" alt="Artwork 6">
+            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art7_enhanced.jpg?raw=true" alt="Artwork 7">
+        </section>
+
+        <div class="button-container">
+            <a href="https://nbahador.github.io/index.html" class="btn">Back to Main Page</a>
         </div>
-      </Grid>
+    </div>
 
-      <Grid className="mb-24 lg:mb-64">
-        <div className="col-span-full">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array.from({ length: 7 }).map((_, index) => (
-              <div key={index} className="relative">
-                <img
-                  {...getImgProps(
-                    {
-                      src: `https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/art${index + 1}_enhanced.jpg?raw=true`,
-                      alt: `Artwork ${index + 1}`,
-                    },
-                    {
-                      className: 'rounded-lg object-cover w-full h-full',
-                      widths: [280, 560, 840, 1100, 1300, 2600],
-                      sizes: ['(min-width:1620px) 1280px', '80vw'],
-                    }
-                  )}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </Grid>
+    <footer>
+        <p>&copy; 2024 Your Name. All rights reserved.</p>
+    </footer>
+</body>
 
-      <Grid className="mb-24 lg:mb-64">
-        <div className="col-span-full">
-          <H2 className="mb-10">I hope you enjoyed seeing my artwork!</H2>
-          <Paragraph className="mb-12">
-            Art has always been an essential part of who I am, and I am always eager to improve and learn new techniques. I hope to continue creating and sharing my work with others. Thanks for taking the time to check it out!
-          </Paragraph>
-          <ArrowLink to="/portfolio" className="mb-12">
-            See more of my artwork
-          </ArrowLink>
-        </div>
-      </Grid>
-    </>
-  )
-}
-
-export default AboutMePage
+</html>
