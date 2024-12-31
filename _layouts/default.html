@@ -224,6 +224,12 @@
       height: 1px;
       background-color: #fff; /* White lines */
     }
+
+    /* Custom style to remove underline for 'About Me' */
+    .sidebar a.about-me-link {
+      text-decoration: none;
+      color: #fff;
+    }
   </style>
   {% include head-custom.html %}
 </head>
@@ -240,7 +246,9 @@
         <!-- Removed the dropdown for Portfolio -->
         <a href="{{ site.baseurl }}/portfolio">Portfolio</a>
 
-        <a href="#about">About Me</a>
+        <!-- Updated the 'About Me' link with no underline and pointing to GitHub link -->
+        <a href="https://github.com/nbahador/nbahador.github.io/blob/main/about.tsx" class="about-me-link">About Me</a>
+        
         <a href="#contact">Contact</a>
       </nav>      
     </div>
