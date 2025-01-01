@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,6 +20,7 @@
             flex-direction: column;
             align-items: center; /* Center horizontally */
             padding-left: 0.5cm; /* Start page content 0.5cm from the left edge */
+            padding-right: 0.5cm; /* Add 0.5cm padding on the right for symmetry */
             height: 100vh;
             position: relative; /* Allow positioning of bottom elements */
         }
@@ -59,7 +60,7 @@
 
         /* Shiny, Metallic Blue-Pink Gradient Line Below the Title */
         .wave {
-            width: calc(100% - 0.5cm); /* Width of the line with 0.5 cm space from both left and right edges */
+            width: calc(100% - 1cm); /* Width of the line with 0.5 cm space from both left and right edges */
             height: 15px; /* Line height set to 15px */
             background: linear-gradient(135deg, rgba(0, 174, 255, 0.7), rgba(255, 0, 204, 0.7)); /* Metallic blue-pink gradient */
             box-shadow: 
@@ -102,22 +103,24 @@
             display: flex; /* Use flexbox to align buttons horizontally */
             gap: 20px; /* Add space between buttons */
             margin-top: 1cm; /* Space from the wave to the buttons */
+            justify-content: center; /* Center the buttons horizontally */
         }
 
         .project-button {
             background-color: #111; /* Dark background for the button */
             color: #fff; /* White text */
-            font-size: 2rem; /* Larger font size */
+            font-size: 1.8rem; /* Slightly smaller font size */
             font-weight: bold; /* Bold text */
             border: 2px solid #fff; /* White border for visibility */
-            padding: 20px 30px;
+            padding: 15px 25px; /* Smaller padding */
             border-radius: 10px;
             cursor: pointer;
             display: flex;
             align-items: center; /* Align icon and text horizontally */
-            gap: 20px; /* Space between icon and text */
+            gap: 15px; /* Space between icon and text */
             transition: all 0.3s ease-in-out;
             position: relative;
+            max-width: 280px; /* Limit the maximum width of the button */
         }
 
         /* Hover Effects for the Button */
@@ -128,8 +131,8 @@
 
         /* Icon Styling */
         .project-button img {
-            width: 100px; /* Larger icon size */
-            height: 100px;
+            width: 80px; /* Smaller icon size */
+            height: 80px;
             border-radius: 50%; /* Circular shape */
             border: 3px solid #fff; /* White border around the icon */
             transition: transform 0.5s ease-in-out;
