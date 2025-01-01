@@ -1,15 +1,99 @@
-<h1 id="creating-stored-procedures-in-oracle-sql-developer">Creating stored procedures in Oracle SQL Developer</h1>
-<hr>
-<p>In this simple demo, I tried to answer the question: &quot;How can we transform a given string into uppercase?&quot; The goal was to ensure standardization and consistency in user input, especially when dealing with data that requires a uniform format for processing or display.</p>
-<p>To answer this question, I needed information on how to perform string manipulation using SQL procedures, particularly in Oracle SQL. Specifically, I needed to understand how to create a stored procedure that accepts an input string, converts it to uppercase, and outputs the result.</p>
-<p>The query that helped me retrieve the necessary information was the following:</p>
-<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> REPLACE <span class="hljs-function"><span class="hljs-keyword">PROCEDURE</span> <span class="hljs-title">P_TO_UPPER</span> <span class="hljs-params">(P_STR VARCHAR2)</span>
-<span class="hljs-title">IS</span>
-    <span class="hljs-title">L_STR</span> <span class="hljs-title">VARCHAR2</span><span class="hljs-params">(50)</span>;</span>
-<span class="hljs-keyword">BEGIN</span>
-    L_STR := UPPER(P_STR); -- Convert input string <span class="hljs-keyword">to</span> uppercase
-    DBMS_OUTPUT.PUT_LINE(<span class="hljs-string">'Input string in Upper case: '</span> || L_STR); -- Display the <span class="hljs-keyword">result</span>
-<span class="hljs-keyword">END</span> P_TO_UPPER;
-</code></pre>
-<p>I used this query to create the stored procedure P_TO_UPPER, which accepts a string input, converts it to uppercase using the UPPER() function, and outputs the result via DBMS_OUTPUT.PUT_LINE. After creating the procedure, I executed it with an input string (e.g., &#39;hello world&#39;), which returned the desired uppercase version (&#39;HELLO WORLD&#39;).</p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P3_fig1.png" alt="Query Execution Result 1" width="800"></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creating Stored Procedures in Oracle SQL Developer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #004d99;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: "Courier New", Courier, monospace;
+        }
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+            margin: 20px auto;
+        }
+        .highlight {
+            color: #ff6347;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Creating Stored Procedures in Oracle SQL Developer</h1>
+    </header>
+
+    <section>
+        <h2>Introduction</h2>
+        <p>In this simple demo, I tried to answer the question: <strong>"How can we transform a given string into uppercase?"</strong> The goal was to ensure standardization and consistency in user input, especially when dealing with data that requires a uniform format for processing or display.</p>
+        <p>The aim was to create a stored procedure in Oracle SQL that accepts an input string, converts it to uppercase, and outputs the result. This task is common in data processing and helps maintain data integrity.</p>
+    </section>
+
+    <section>
+        <h2>The Solution</h2>
+        <p>To achieve this, I created a stored procedure in Oracle SQL Developer. The procedure takes an input string, converts it to uppercase using Oracle's built-in <strong>UPPER()</strong> function, and outputs the result using <strong>DBMS_OUTPUT.PUT_LINE</strong>.</p>
+
+        <h3>SQL Code</h3>
+        <pre class="code-block">
+<code>
+CREATE OR REPLACE PROCEDURE P_TO_UPPER (P_STR VARCHAR2)
+IS
+    L_STR VARCHAR2(50);
+BEGIN
+    L_STR := UPPER(P_STR); -- Convert input string to uppercase
+    DBMS_OUTPUT.PUT_LINE('Input string in Upper case: ' || L_STR); -- Display the result
+END P_TO_UPPER;
+</code>
+        </pre>
+    </section>
+
+    <section>
+        <h2>Execution and Result</h2>
+        <p>After creating the stored procedure, I executed it with an input string (e.g., <strong>'hello world'</strong>). The result returned the desired uppercase version of the input string, i.e., <strong>'HELLO WORLD'</strong>.</p>
+
+        <h3>Query Execution Result</h3>
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P3_fig1.png" alt="Query Execution Result 1" width="800">
+    </section>
+</body>
+</html>
