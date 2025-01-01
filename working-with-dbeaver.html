@@ -1,52 +1,184 @@
-<h1 id="working-with-dbeaver-a-multi-platform-database-management-tool">Working with DBeaver: A Multi-Platform Database Management Tool</h1>
-<hr>
-<h2 id="installing-dbeaver-">Installing DBeaver:</h2>
-<p>To get started, I went to the DBeaver website at 
-<a href="https://dbeaver.io/download/">Dbeaver Portal</a> and clicked on the download link for the latest version of DBeaver, <a href="https://dbeaver.io/files/dbeaver-ce-latest-x86_64-setup.exe">dbeaver-ce-latest-x86_64-setup.exe</a>. I followed the installation instructions, which guided me through the process step-by-step.</p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_1.png" alt="Query Execution Result 1" width="800">
-<img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_2.png" alt="Query Execution Result 1" width="800">
-<img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_3.png" alt="Query Execution Result 1" width="800">
-<img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_4.png" alt="Query Execution Result 1" width="800"></p>
-<h2 id="installing-postgresql-">Installing PostgreSQL:</h2>
-<p>Next, I downloaded PostgreSQL by visiting  <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads">PostgreSQL  Portal</a>. following the instructions to install it on my system.</p>
-<h2 id="creating-a-database-connection-">Creating a Database Connection:</h2>
-<p>I then created a connection to my PostgreSQL database. I opened DBeaver and set up the connection, ensuring that all the necessary credentials were entered correctly. Once the connection was established, a small green tick appeared next to the database in the Database Navigator, confirming that the connection was successful.</p>
-<img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_6.png" alt="Query Execution Result 1" width="800">
-<img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_7.png" alt="Query Execution Result 1" width="800">
-<img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_8.png" alt="Query Execution Result 1" width="800"></p>
-<h2 id="writing-sql-queries-">Writing SQL Queries:</h2>
-<p>To write and execute SQL queries, I opened a new SQL Editor tab in DBeaver. In this editor, I could write queries to interact with the database.
-<img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_9.png" alt="Query Execution Result 1" width="800">
-<img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_10.png" alt="Query Execution Result 1" width="800"></p>
-<h2 id="importing-data-">Importing Data:</h2>
-<p>I imported data into the database by following the steps in DBeaver. I was able to upload the required datasets.
-<img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_11.png" alt="Query Execution Result 1" width="800">
-<img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_12.png" alt="Query Execution Result 1" width="800">
-<img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_13.png" alt="Query Execution Result 1" width="800">
-<img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_14.png" alt="Query Execution Result 1" width="800"></p>
-<h2 id="writing-a-sql-query-">Writing a SQL Query:</h2>
-<p>Finally, I wrote a SQL query to retrieve specific data from the database. The query was designed to select sales records for Europe between January 1, 2009, and January 1, 2011, and it included various columns related to sales details. Here&#39;s the SQL query I wrote:</p>
-<pre><code class="lang-sql"><span class="hljs-keyword">SELECT</span>
-   <span class="hljs-string">"Region"</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">"Region"</span>,
-   <span class="hljs-string">"Country"</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">"Country"</span>,
-   <span class="hljs-string">"Item Type"</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">"Item_Type"</span>,
-   <span class="hljs-string">"Sales Channel"</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">"Sales_Channel"</span>,
-   <span class="hljs-string">"Order Priority"</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">"Order_Priority"</span>,
-   <span class="hljs-string">"Order Date"</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">"Order_Date"</span>,
-   <span class="hljs-string">"Order ID"</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">"Order_ID"</span>,
-   <span class="hljs-string">"Ship Date"</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">"Ship_Date"</span>,
-   <span class="hljs-string">"Units Sold"</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">"Units_Sold"</span>,
-   <span class="hljs-string">"Unit Price"</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">"Unit_Price"</span>,
-   <span class="hljs-string">"Unit Cost"</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">"Unit_Cost"</span>,
-   <span class="hljs-string">"Total Revenue"</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">"Total_Revenue"</span>,
-   <span class="hljs-string">"Total Cost"</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">"Total_Cost"</span>,
-   <span class="hljs-string">"Total Profit"</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">"Total_Profit"</span>
-<span class="hljs-keyword">FROM</span>
-   <span class="hljs-string">"5m_Sales_Records"</span>
-<span class="hljs-keyword">WHERE</span>
-   <span class="hljs-string">"Region"</span> = <span class="hljs-string">'Europe'</span>
-   <span class="hljs-keyword">AND</span> <span class="hljs-string">"Order Date"</span> <span class="hljs-keyword">BETWEEN</span> <span class="hljs-string">'1/1/2009'</span> <span class="hljs-keyword">AND</span> <span class="hljs-string">'1/1/2011'</span>
-<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span>
-   <span class="hljs-string">"Order Date"</span>;
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_15.png" alt="Query Execution Result 1" width="800"></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Working with DBeaver: A Multi-Platform Database Management Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        h2 {
+            margin-top: 40px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .image-container img {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .code-block {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+        }
+
+        .code-block code {
+            display: block;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .links {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .links:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #888;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Working with DBeaver: A Multi-Platform Database Management Tool</h1>
+</header>
+
+<div class="content">
+    <h2 id="installing-dbeaver-">Installing DBeaver:</h2>
+    <p>To get started, I went to the DBeaver website at 
+        <a href="https://dbeaver.io/download/" class="links" target="_blank">Dbeaver Portal</a> and clicked on the download link for the latest version of DBeaver, 
+        <a href="https://dbeaver.io/files/dbeaver-ce-latest-x86_64-setup.exe" class="links" target="_blank">dbeaver-ce-latest-x86_64-setup.exe</a>. I followed the installation instructions, which guided me through the process step-by-step.</p>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_1.png" alt="DBeaver Setup 1">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_2.png" alt="DBeaver Setup 2">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_3.png" alt="DBeaver Setup 3">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_4.png" alt="DBeaver Setup 4">
+    </div>
+
+    <h2 id="installing-postgresql-">Installing PostgreSQL:</h2>
+    <p>Next, I downloaded PostgreSQL by visiting 
+        <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads" class="links" target="_blank">PostgreSQL Portal</a> and followed the instructions to install it on my system.</p>
+
+    <h2 id="creating-a-database-connection-">Creating a Database Connection:</h2>
+    <p>I then created a connection to my PostgreSQL database. I opened DBeaver and set up the connection, ensuring that all the necessary credentials were entered correctly. Once the connection was established, a small green tick appeared next to the database in the Database Navigator, confirming that the connection was successful.</p>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_6.png" alt="Creating Database Connection 1">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_7.png" alt="Creating Database Connection 2">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_8.png" alt="Creating Database Connection 3">
+    </div>
+
+    <h2 id="writing-sql-queries-">Writing SQL Queries:</h2>
+    <p>To write and execute SQL queries, I opened a new SQL Editor tab in DBeaver. In this editor, I could write queries to interact with the database.</p>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_9.png" alt="Writing SQL Query 1">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_10.png" alt="Writing SQL Query 2">
+    </div>
+
+    <h2 id="importing-data-">Importing Data:</h2>
+    <p>I imported data into the database by following the steps in DBeaver. I was able to upload the required datasets.</p>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_11.png" alt="Importing Data 1">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_12.png" alt="Importing Data 2">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_13.png" alt="Importing Data 3">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_14.png" alt="Importing Data 4">
+    </div>
+
+    <h2 id="writing-a-sql-query-">Writing a SQL Query:</h2>
+    <p>Finally, I wrote a SQL query to retrieve specific data from the database. The query was designed to select sales records for Europe between January 1, 2009, and January 1, 2011, and it included various columns related to sales details. Here's the SQL query I wrote:</p>
+
+    <div class="code-block">
+        <code class="lang-sql">
+            SELECT
+                "Region" AS "Region",
+                "Country" AS "Country",
+                "Item Type" AS "Item_Type",
+                "Sales Channel" AS "Sales_Channel",
+                "Order Priority" AS "Order_Priority",
+                "Order Date" AS "Order_Date",
+                "Order ID" AS "Order_ID",
+                "Ship Date" AS "Ship_Date",
+                "Units Sold" AS "Units_Sold",
+                "Unit Price" AS "Unit_Price",
+                "Unit Cost" AS "Unit_Cost",
+                "Total Revenue" AS "Total_Revenue",
+                "Total Cost" AS "Total_Cost",
+                "Total Profit" AS "Total_Profit"
+            FROM
+                "5m_Sales_Records"
+            WHERE
+                "Region" = 'Europe'
+                AND "Order Date" BETWEEN '1/1/2009' AND '1/1/2011'
+            ORDER BY
+                "Order Date";
+        </code>
+    </div>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P00_15.png" alt="Query Execution Result">
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 DBeaver Tutorial | Created by You</p>
+</footer>
+
+</body>
+</html>
