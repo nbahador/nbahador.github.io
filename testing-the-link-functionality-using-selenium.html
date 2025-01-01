@@ -1,0 +1,39 @@
+<h1 id="testing-the-link-functionality-using-selenium">Testing the link functionality using Selenium</h1>
+<hr>
+<p>To test the link functionality using Selenium, I followed a series of steps:</p>
+<p>First, I installed the necessary packages in my environment by running the following commands to ensure that Selenium and Google Colab&#39;s Selenium integration were available:</p>
+<h2 id="python-code">Python code</h2>
+<p>%pip install -q google-colab-selenium</p>
+<p>%pip install -q google-colab-selenium</p>
+<p>%pip install -q google-colab-selenium[undetected]</p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/sel_01.png" alt="Query Execution Result 1" width="800"></p>
+<p>Then, I imported the required libraries to work with Selenium and Google Colab&#39;s Selenium support. I imported the By module from selenium.webdriver.common.by and the google_colab_selenium library as gs for handling the driver setup:</p>
+<h2 id="python-code">Python code</h2>
+<p>from selenium.webdriver.common.by import By</p>
+<p>import google_colab_selenium as gs</p>
+<p>I initialized an undetected Chrome browser instance using gs.UndetectedChrome(), which would allow me to avoid detection by the website. I then used this browser instance to load the BBC website:</p>
+<h2 id="python-code">Python code</h2>
+<p>driver = gs.UndetectedChrome()</p>
+<p>driver.get(&quot;<a href="https://www.bbc.com/">https://www.bbc.com/</a>&quot;)</p>
+<p>Next, I tested the link functionality by finding the &quot;News&quot; link on the BBC homepage. I located the link using its link text (&quot;News&quot;) and clicked on it:</p>
+<h2 id="python-code">Python code</h2>
+<p>news_link = driver.find_element(By.LINK_TEXT, &quot;News&quot;)</p>
+<p>news_link.click()</p>
+<p>Afterward, I printed the URL of the page I was redirected to after clicking the link:</p>
+<h2 id="python-code">Python code</h2>
+<p>print(driver.current_url)</p>
+<p>Once I finished testing, I closed the browser using the quit() method:</p>
+<h2 id="python-code">Python code</h2>
+<p>driver.quit()</p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/sel_02.png" alt="Query Execution Result 1" width="800">
+In a second part of the test, I repeated similar steps but clicked on a different link—this time, using the PARTIAL_LINK_TEXT method to locate a part of the text (&quot;How to be happier&quot;). I followed the same steps to load the page, click the link, and print the URL:</p>
+<h2 id="python-code">Python code</h2>
+<p>news_link = driver.find_element(By.PARTIAL_LINK_TEXT, &quot;How to be happier&quot;)</p>
+<p>news_link.click()</p>
+<p>print(driver.current_url)</p>
+<p>driver.quit()</p>
+<p>This sequence of actions allowed me to successfully test the link functionality on the BBC website using Selenium.
+<img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/sel_03.png" alt="Query Execution Result 1" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/sel_04.png" alt="Query Execution Result 1" width="800"></p>
+<hr>
+<p>Here is the link to the <a href="https://colab.research.google.com/drive/1XqCdyKZfTZ-GaW647J6SkTvdgk5CleUt#scrollTo=Zql1JhSIr1R6">Google Colab Selenium implementation</a> .</p>
