@@ -1,38 +1,196 @@
-<h1 id="data-profiling-using-intelligent-cloud-services">Data Profiling using Intelligent Cloud Services</h1>
-<hr>
-<p>I began by logging into Informatica Intelligent Cloud Services. </p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_1.png" alt="Query Execution Result 1" width="800"></p>
-<p>After accessing the platform, I selected the Data Profiling option. </p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_2.png" alt="Query Execution Result 1" width="800"></p>
-<p>To facilitate the process, I used SQL Developer to connect to the Oracle database, which I downloaded and installed from <a href="https://www.oracle.com/ca-en/database/sqldeveloper/technologies/download/"> Oracle&#39;s official site</a>.</p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_3.png" alt="Query Execution Result 1" width="800"></p>
-<p>I obtained the necessary credentials and connection details from Oracle SQL Developer.</p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_4.png" alt="Query Execution Result 1" width="800"></p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_5.png" alt="Query Execution Result 1" width="800"></p>
-<p>then proceeded to install and run the Informatica Cloud Secure Agent.</p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_6.png" alt="Query Execution Result 1" width="800"></p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_7.png" alt="Query Execution Result 1" width="800"></p>
-<p>This allowed me to establish a connection to the Oracle Database.</p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_8.png" alt="Query Execution Result 1" width="800"></p>
-<p>Once the connection was set up, I ran a profile using the Data Profiling tool.</p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_9.png" alt="Query Execution Result 1" width="800"></p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_10.png" alt="Query Execution Result 1" width="800"></p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_11.png" alt="Query Execution Result 1" width="800"></p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_12.png" alt="Query Execution Result 1" width="800"></p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_13.png" alt="Query Execution Result 1" width="800"></p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_14.png" alt="Query Execution Result 1" width="800"></p>
-<p>which provided insights into the quality and structure of the data.</p>
-<p>The Results were displayed clearly, offering details about the data.</p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_15.png" alt="Query Execution Result 1" width="800"></p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_16.png" alt="Query Execution Result 1" width="800"></p>
-<p>I was able to gain several Insights from this analysis.</p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_17.png" alt="Query Execution Result 1" width="800"></p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_18.png" alt="Query Execution Result 1" width="800"></p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_19.png" alt="Query Execution Result 1" width="800"></p>
-<p>I compared the columns&#39; qualities.</p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_20.png" alt="Query Execution Result 1" width="800"></p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_21.png" alt="Query Execution Result 1" width="800"></p>
-<p>Additionally, I compared profiles in terms of their quality.</p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_22.png" alt="Query Execution Result 1" width="800"></p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_23.png" alt="Query Execution Result 1" width="800"></p>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_24.png" alt="Query Execution Result 1" width="800"></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Profiling using Intelligent Cloud Services</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .content {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        hr {
+            border: 1px solid #e0e0e0;
+            margin: 30px 0;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .section-title {
+            background-color: #e9f7e5;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+        .step {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-left: 5px solid #4CAF50;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+        .step img {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        footer {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 14px;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Data Profiling using Intelligent Cloud Services</h1>
+</header>
+
+<div class="content">
+    <p>I began by logging into Informatica Intelligent Cloud Services.</p>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_1.png" alt="Login to Informatica">
+    </div>
+
+    <p>After accessing the platform, I selected the Data Profiling option.</p>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_2.png" alt="Select Data Profiling">
+    </div>
+
+    <div class="step">
+        <div class="section-title">Step 1: Connect to Oracle Database</div>
+        <p>To facilitate the process, I used SQL Developer to connect to the Oracle database, which I downloaded and installed from <a href="https://www.oracle.com/ca-en/database/sqldeveloper/technologies/download/" target="_blank">Oracle's official site</a>.</p>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_3.png" alt="SQL Developer Setup">
+        </div>
+
+        <p>I obtained the necessary credentials and connection details from Oracle SQL Developer.</p>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_4.png" alt="Connection Details">
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="section-title">Step 2: Install Informatica Cloud Secure Agent</div>
+        <p>Next, I installed and ran the Informatica Cloud Secure Agent, which enabled me to establish a connection to the Oracle Database.</p>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_6.png" alt="Install Informatica Cloud Secure Agent">
+        </div>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_7.png" alt="Informatica Secure Agent Running">
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="section-title">Step 3: Data Profiling</div>
+        <p>Once the connection was set up, I ran a profile using the Data Profiling tool to gather insights into the quality and structure of the data.</p>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_9.png" alt="Running Data Profiling">
+        </div>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_10.png" alt="Data Profiling Insights">
+        </div>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_11.png" alt="Data Profiling Results">
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="section-title">Step 4: Reviewing the Results</div>
+        <p>The results were displayed clearly, offering details about the data.</p>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_15.png" alt="Profiling Results">
+        </div>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_16.png" alt="Data Insights">
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="section-title">Step 5: Comparing Data Quality</div>
+        <p>I was able to gain several insights from this analysis by comparing the columns' qualities.</p>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_20.png" alt="Comparing Columns Quality">
+        </div>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_21.png" alt="Quality Comparison">
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="section-title">Step 6: Profile Comparison</div>
+        <p>Additionally, I compared profiles in terms of their quality.</p>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_22.png" alt="Profile Comparison">
+        </div>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_23.png" alt="Profile Quality Comparison">
+        </div>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P01_24.png" alt="Final Data Profiling Results">
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2025 Data Profiling with Informatica | Created by You</p>
+</footer>
+
+</body>
+</html>
