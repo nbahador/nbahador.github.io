@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Web Elements Interaction with Selenium</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .content {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        footer {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 14px;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Testing Web Elements Interaction with Selenium</h1>
+</header>
+
+<div class="content">
+    <p>I used the console to look at the HTML code and find elements I wanted to interact with, such as the search bar.</p>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/sel_11.png" alt="Query Execution Result 1" width="800">
+    </div>
+
+    <p>I started by setting up a simple Selenium test environment. First, I imported the necessary libraries for the test, including unittest, By, Keys, and a custom library <code>google_colab_selenium</code>.</p>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/sel_12.png" alt="Query Execution Result 1" width="800">
+    </div>
+
+    <p>I then created a test class called <code>GoogleSearchTest</code> and defined a setup method where I initialized the Chrome driver using <code>gs.UndetectedChrome()</code>.</p>
+
+    <p>Next, I created the <code>test_search_selenium</code> method to automate the process of searching for the term "Selenium" on Google. I opened Google's homepage by calling <code>self.driver.get("https://www.google.com/")</code>. Then, I accessed the search bar element by its name attribute using <code>self.driver.find_element(By.NAME, "q")</code>.</p>
+
+    <p>Once I had access to the search bar, I sent the search term "Selenium" followed by pressing the Enter key, using <code>send_keys("Selenium" + Keys.ENTER)</code>. After that, I added a brief pause using <code>time.sleep(2)</code> to give the search results time to load.</p>
+
+    <p>To verify that the search results were correct, I accessed the first result using a CSS selector, <code>self.driver.find_element(By.CSS_SELECTOR, "h3")</code>. I printed the text of the first result to the console and checked if it contained the word "Selenium" with an assertion: <code>self.assertIn("Selenium", first_result.text, "Selenium not found in the first result")</code>.</p>
+
+    <p>Finally, I included a <code>tearDown</code> method to close the browser after the test with <code>self.driver.quit()</code>. To run the tests, I created a <code>run_tests</code> function and used <code>unittest.TextTestRunner()</code> to execute the test case.</p>
+
+    <pre><code>
+import unittest
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import google_colab_selenium as gs
+import time
+
+class GoogleSearchTest(unittest.TestCase):
+
+    def setUp(self):
+        """Set up the test environment."""
+        # Initialize the driver
+        self.driver = gs.UndetectedChrome()
+
+    def test_search_selenium(self):
+        """Test that searching for 'Selenium' on Google works."""
+        # Open the website
+        self.driver.get("https://www.google.com/")
+
+        # Find the search bar element
+        search_bar = self.driver.find_element(By.NAME, "q")
+
+        # Perform the search by entering "Selenium"
+        search_bar.send_keys("Selenium" + Keys.ENTER)
+
+        # Wait for the results to load (can be adjusted based on the network speed)
+        time.sleep(2)
+
+        # Verify that results are returned by checking if the first result contains the word 'Selenium'
+        first_result = self.driver.find_element(By.CSS_SELECTOR, "h3")
+        print(f"First search result text: {first_result.text}")
+        self.assertIn("Selenium", first_result.text, "Selenium not found in the first result")
+
+    def tearDown(self):
+        """Clean up after the test."""
+        self.driver.quit()
+
+# Run the tests
+def run_tests():
+    # This prevents the error that occurs in Jupyter environments
+    unittest.TextTestRunner().run(unittest.TestLoader().loadTestsFromTestCase(GoogleSearchTest))
+
+run_tests()
+    </code></pre>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/sel_13.png" alt="Query Execution Result 1" width="800">
+    </div>
+
+    <p>Here is the link to the Colab Notebook:</p>
+    <p><a href="https://colab.research.google.com/drive/17V-v_a1mQUPwxlZKIkZPAAMHdYo1rs01#scrollTo=0QulUhzIxmqy" target="_blank">Google Colab Notebook</a></p>
+</div>
+
+<footer>
+    <p>&copy; 2025 Testing with Selenium | Created by You</p>
+</footer>
+
+</body>
+</html>
