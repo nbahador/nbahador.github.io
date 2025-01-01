@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>    
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -35,35 +35,35 @@
             text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); /* Stronger text shadow for contrast */
         }
 
-        /* Projects Container Section */
+        /* Project container styles */
         .projects-container {
             width: 90%; /* Makes the container width responsive */
             max-width: 1200px; /* Maximum width for larger screens */
-            margin-top: 2rem; /* Increased margin to separate from header */
+            margin-top: 0.5rem; /* Reduced top margin to half the original value */
             padding: 1rem;
             text-align: left;
             background-color: #1e1e1e; /* Dark background for cards */
-            border-radius: 8px;
+            border-radius: 6px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
             display: flex;
-            flex-direction: column; /* Stack the projects vertically */
-            gap: 2rem; /* Space between the project cards */
-            padding-bottom: 2rem; /* Added bottom padding */
+            flex-wrap: wrap; /* Allows multiple cards to wrap */
+            justify-content: center; /* Centers the cards horizontally */
+            max-height: calc(100vh - 200px); /* Ensures that the projects container doesn't overflow the viewport */
+            overflow-y: auto; /* Enables scrolling within the container if necessary */
         }
 
         /* Project Card */
         .project {
             display: flex;
-            flex-direction: column;
-            align-items: center; /* Center content */
+            align-items: flex-start; /* Align to the top */
             justify-content: flex-start;
             background: linear-gradient(145deg, #2a2a2a, #333);
-            padding: 1.5rem;
+            padding: 1rem;
             width: 100%; /* Takes full width of container */
-            max-width: 500px; /* Prevents card from being too wide on large screens */
-            border-radius: 8px;
+            max-width: 1100px; /* Prevents card from being too wide on large screens */
+            margin-bottom: 1.5rem; /* Increased margin for better spacing */
+            border-radius: 6px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: center; /* Center text inside project cards */
         }
 
         .project:hover {
@@ -74,10 +74,10 @@
         .project h2 {
             font-size: 1.6rem;
             color: #ff4081; /* Bold pink */
+            margin-left: 1rem; /* Spacing between icon and text */
             font-weight: 400; /* Normal weight (unbolded text) */
-            margin-top: 1rem; /* Added space above title */
-            line-height: 1.3; /* Adjust line height for better readability */
             text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+            line-height: 1.3; /* Adjust line height for better readability */
         }
 
         /* Icon styles */
@@ -89,7 +89,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             border-radius: 8px; /* Slightly rounded corners for effect */
             transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation effect */
-            margin-bottom: 1rem; /* Space between icon and title */
+            margin-top: 0.5rem; /* Align with the text */
         }
 
         .project-icon:hover {
@@ -169,23 +169,23 @@
     <!-- Projects Section -->
     <div class="projects-container">
 
-        <!-- Project 1 -->
+        <!-- Project 1 (New) -->
         <div class="project">
             <!-- Icon for Project 1 -->
             <div class="project-icon" style="background-image: url('https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/selenium.jpg');"></div>
             <!-- Link for Project 1 -->
             <a href="/testing-the-link-functionality-using-selenium.html">
-                <h2>Mini Project 1: <br> Testing the link functionality using Selenium</h2>
+                <h2> Mini Project 1: <br> Testing the link functionality using Selenium </h2>
             </a>
         </div>
 
-        <!-- Project 2 -->
+        <!-- Mini Project 2 -->
         <div class="project">
             <!-- Icon for Project 2 -->
-            <div class="project-icon" style="background-image: url('selenium2.jpg');"></div>
+            <div class="project-icon" style="background-image: url('https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/selenium2.jpg');"></div>
             <!-- Link for Project 2 -->
             <a href="/Testing_Web_Elements_Interaction_with_Selenium.html">
-                <h2>Mini Project 2: <br> Testing Web Elements Interaction with Selenium</h2>
+                <h2> Mini Project 2: <br> Testing Web Elements Interaction with Selenium </h2>
             </a>
         </div>
 
