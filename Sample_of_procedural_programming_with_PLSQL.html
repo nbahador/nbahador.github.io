@@ -1,38 +1,136 @@
-<h1 id="sample-of-procedural-programming-with-pl-sql">Sample of procedural programming with PL/SQL</h1>
-<hr>
-<p>In this code, I aimed to calculate and display the bonus of an employee based on their salary and commission percentage.</p>
-<h2 id="how-much-bonus-does-an-employee-earn-">How much bonus does an employee earn?</h2>
-<p>I wanted to calculate the bonus for a specific employee by using two key factors: their salary and their commission percentage.</p>
-<h2 id="what-are-the-components-of-the-bonus-calculation-">What are the components of the bonus calculation?</h2>
-<p>I needed to break down the bonus calculation into two parts:
-10% of the salary
-15% of the commission percentage</p>
-<h2 id="how-i-did-that-">How I Did That:</h2>
-<p>Declaring Variables: I started by declaring variables to store the data I would be working with: the employee&#39;s name (EMP_NAME), their salary (SAL), their commission percentage (COMM), and the calculated bonus (BONUS).</p>
-<p>Retrieving Data: I used a SELECT INTO statement to fetch the necessary data (employee name, salary, and commission percentage) for a specific employee (with EMPLOYEE_ID = 157). This data was retrieved from the EMPLOYEES table and stored in the declared variables.</p>
-<p>Calculating the Bonus: After fetching the data, I used simple arithmetic to calculate the bonus:
-10% of the salary (SAL <em> 0.10)
-15% of the commission percentage (COMM </em> 0.15). These two values were added together to compute the total bonus.</p>
-<p>Displaying the Result: Finally, I used the DBMS_OUTPUT.PUT_LINE procedure to display the result in the output window. I concatenated the employee’s name (EMP_NAME) and the calculated bonus (BONUS) into a readable string.</p>
-<p>To ensure the output was displayed correctly, I enabled the DBMS Output panel in SQL Developer and made sure to click the green &quot;+&quot; icon to enable output for the session. After running the PL/SQL block, I was able to view the output in the DBMS Output tab at the bottom of the window.</p>
-<pre><code class="lang-sql"><span class="hljs-keyword">DECLARE</span>
-  <span class="hljs-comment">-- Declare variables</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample of Procedural Programming with PL/SQL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #004d99;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        h2 {
+            margin-top: 30px;
+            font-size: 1.5em;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: "Courier New", Courier, monospace;
+        }
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+            margin: 20px auto;
+        }
+        .highlight {
+            color: #ff6347;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sample of Procedural Programming with PL/SQL</h1>
+    </header>
+
+    <section>
+        <p>In this code, I aimed to calculate and display the bonus of an employee based on their salary and commission percentage.</p>
+    </section>
+
+    <section>
+        <h2 id="how-much-bonus-does-an-employee-earn-">How much bonus does an employee earn?</h2>
+        <p>I wanted to calculate the bonus for a specific employee by using two key factors: their salary and their commission percentage.</p>
+    </section>
+
+    <section>
+        <h2 id="what-are-the-components-of-the-bonus-calculation-">What are the components of the bonus calculation?</h2>
+        <p>I needed to break down the bonus calculation into two parts:</p>
+        <ul>
+            <li>10% of the salary</li>
+            <li>15% of the commission percentage</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2 id="how-i-did-that-">How I Did That:</h2>
+        <p>Declaring Variables: I started by declaring variables to store the data I would be working with: the employee's name (<strong>EMP_NAME</strong>), their salary (<strong>SAL</strong>), their commission percentage (<strong>COMM</strong>), and the calculated bonus (<strong>BONUS</strong>).</p>
+        <p>Retrieving Data: I used a <strong>SELECT INTO</strong> statement to fetch the necessary data (employee name, salary, and commission percentage) for a specific employee (with <strong>EMPLOYEE_ID = 157</strong>). This data was retrieved from the <strong>EMPLOYEES</strong> table and stored in the declared variables.</p>
+        <p>Calculating the Bonus: After fetching the data, I used simple arithmetic to calculate the bonus:</p>
+        <ul>
+            <li>10% of the salary (<strong>SAL * 0.10</strong>)</li>
+            <li>15% of the commission percentage (<strong>COMM * 0.15</strong>)</li>
+        </ul>
+        <p>These two values were added together to compute the total bonus.</p>
+        <p>Displaying the Result: Finally, I used the <strong>DBMS_OUTPUT.PUT_LINE</strong> procedure to display the result in the output window. I concatenated the employee’s name (<strong>EMP_NAME</strong>) and the calculated bonus (<strong>BONUS</strong>) into a readable string.</p>
+        <p>To ensure the output was displayed correctly, I enabled the DBMS Output panel in SQL Developer and made sure to click the green "+" icon to enable output for the session. After running the PL/SQL block, I was able to view the output in the DBMS Output tab at the bottom of the window.</p>
+    </section>
+
+    <section>
+        <h3>PL/SQL Code</h3>
+        <pre class="code-block">
+<code>
+DECLARE
+  -- Declare variables
   BONUS NUMBER;
   SAL NUMBER;
   COMM NUMBER;
-  EMP_NAME VARCHAR2(<span class="hljs-number">20</span>);
-<span class="hljs-keyword">BEGIN</span>
-  <span class="hljs-comment">-- Retrieve employee data from the database</span>
-  <span class="hljs-keyword">SELECT</span> LAST_NAME, SALARY, COMMISSION_PCT
+  EMP_NAME VARCHAR2(20);
+
+BEGIN
+  -- Retrieve employee data from the database
+  SELECT LAST_NAME, SALARY, COMMISSION_PCT
   INTO EMP_NAME, SAL, COMM
   FROM EMPLOYEES
-  WHERE EMPLOYEE_ID = <span class="hljs-number">157</span>;
+  WHERE EMPLOYEE_ID = 157;
 
-  <span class="hljs-comment">-- Calculate the bonus</span>
-  BONUS := (SAL * <span class="hljs-number">0.10</span>) + (COMM * <span class="hljs-number">0.15</span>);
+  -- Calculate the bonus
+  BONUS := (SAL * 0.10) + (COMM * 0.15);
 
-  <span class="hljs-comment">-- Output the result</span>
-  DBMS_OUTPUT.PUT_LINE(<span class="hljs-symbol">'EMPLOYEE</span> ' || EMP_NAME || ' EARNS A <span class="hljs-keyword">NEW</span> BONUS <span class="hljs-keyword">OF</span> ' || BONUS);
-<span class="hljs-keyword">END</span>;
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P4_fig1.png" alt="Query Execution Result 1" width="800"></p>
+  -- Output the result
+  DBMS_OUTPUT.PUT_LINE('EMPLOYEE ' || EMP_NAME || ' EARNS A NEW BONUS OF ' || BONUS);
+END;
+</code>
+        </pre>
+    </section>
+
+    <section>
+        <h3>Query Execution Result</h3>
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P4_fig1.png" alt="Query Execution Result 1" width="800">
+    </section>
+</body>
+</html>
