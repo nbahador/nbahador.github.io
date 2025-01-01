@@ -1,111 +1,208 @@
-<h1 id="sql-solutions-for-business-problems">SQL Solutions for Business Problems</h1>
-<hr>
-<p>I was working with data from the SalesLT schema in a database, and my goal was to answer specific business questions using SQL queries. Each query helped me answer a specific business question, whether it was about customer addresses, best-selling products, or the value distribution of orders.</p>
-<hr>
-<h2 id="listing-tables-in-the-saleslt-schema-">Listing Tables in the SalesLT Schema:</h2>
-<p>First, I needed to understand what tables were available in the SalesLT schema. To do this, I wrote a query to list all the tables in that schema. This gave me an overview of the data structure I could work with.</p>
-<h2 id="query-">Query:</h2>
-<p>I used SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = &#39;SalesLT&#39;;, which provided me with a list of all tables in the schema.</p>
-<pre><code class="lang-sql"><span class="hljs-keyword">SELECT</span> *
-<span class="hljs-keyword">FROM</span> INFORMATION_SCHEMA.TABLES
-<span class="hljs-keyword">WHERE</span> TABLE_SCHEMA = <span class="hljs-string">'SalesLT'</span>;
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P2_fig1.png" alt="Query Execution Result 1" width="800"></p>
-<hr>
-<h2 id="exploring-the-customeraddress-table-">Exploring the CustomerAddress Table:</h2>
-<p>Next, I needed to explore how customers were linked to their addresses and whether the addresses included labels like &quot;Main Office&quot; or &quot;Shipping.&quot; For that, I looked at the CustomerAddress table.</p>
-<h2 id="query-">Query:</h2>
-<p>I ran the query SELECT TOP 10 * FROM SalesLT.CustomerAddress; to retrieve the first 10 rows from the CustomerAddress table. This helped me see how the data was structured and how addresses were assigned to customers.</p>
-<pre><code class="lang-sql"><span class="hljs-keyword">SELECT</span> TOP <span class="hljs-number">10</span> *
-<span class="hljs-keyword">FROM</span> SalesLT.CustomerAddress;
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P2_fig2.png" alt="Query Execution Result 1" width="800"></p>
-<hr>
-<h2 id="showing-customers-in-dallas-with-main-office-and-shipping-addresses-">Showing Customers in Dallas with &quot;Main Office&quot; and &quot;Shipping&quot; Addresses:</h2>
-<p>I wanted to find customers who had a &quot;Main Office&quot; address in Dallas and see if they also had a &quot;Shipping&quot; address. I needed to join several tables to pull this data together.</p>
-<h2 id="query-">Query:</h2>
-<p>I wrote a query that joined the Customer, CustomerAddress, and Address tables. This allowed me to display each customer with their &quot;Main Office&quot; address (if in Dallas) and their &quot;Shipping&quot; address (if available).</p>
-<pre><code class="lang-sql"><span class="hljs-keyword">SELECT</span> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Solutions for Business Problems</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: 2rem auto;
+            background-color: #fff;
+            padding: 2rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        hr {
+            border: 0;
+            border-top: 2px solid #ccc;
+            margin: 2rem 0;
+        }
+        p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+        pre {
+            background-color: #2e2e2e;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-top: 2rem;
+        }
+        .query-title {
+            font-size: 1.2rem;
+            color: #333;
+            margin-top: 1.5rem;
+        }
+        .query-block {
+            background-color: #f0f0f0;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="sql-solutions-for-business-problems">SQL Solutions for Business Problems</h1>
+        <p>I was working with data from the SalesLT schema in a database, and my goal was to answer specific business questions using SQL queries. Each query helped me answer a specific business question, whether it was about customer addresses, best-selling products, or the value distribution of orders.</p>
+
+        <hr>
+
+        <div class="section-title" id="listing-tables-in-the-saleslt-schema-">Listing Tables in the SalesLT Schema:</div>
+        <p>First, I needed to understand what tables were available in the SalesLT schema. To do this, I wrote a query to list all the tables in that schema. This gave me an overview of the data structure I could work with.</p>
+
+        <div class="query-title">Query:</div>
+        <div class="query-block">
+            <pre><code class="lang-sql">SELECT *
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = 'SalesLT';</code></pre>
+        </div>
+        <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P2_fig1.png" alt="Query Execution Result 1"></p>
+
+        <hr>
+
+        <div class="section-title" id="exploring-the-customeraddress-table-">Exploring the CustomerAddress Table:</div>
+        <p>Next, I needed to explore how customers were linked to their addresses and whether the addresses included labels like "Main Office" or "Shipping." For that, I looked at the CustomerAddress table.</p>
+
+        <div class="query-title">Query:</div>
+        <div class="query-block">
+            <pre><code class="lang-sql">SELECT TOP 10 *
+FROM SalesLT.CustomerAddress;</code></pre>
+        </div>
+        <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P2_fig2.png" alt="Query Execution Result 1"></p>
+
+        <hr>
+
+        <div class="section-title" id="showing-customers-in-dallas-with-main-office-and-shipping-addresses-">Showing Customers in Dallas with "Main Office" and "Shipping" Addresses:</div>
+        <p>I wanted to find customers who had a "Main Office" address in Dallas and see if they also had a "Shipping" address. I needed to join several tables to pull this data together.</p>
+
+        <div class="query-title">Query:</div>
+        <div class="query-block">
+            <pre><code class="lang-sql">SELECT 
     c.CustomerID,
-    <span class="hljs-comment">-- Main Office Address</span>
-    ma.AddressLine1 <span class="hljs-keyword">AS</span> MainOfficeAddressLine1,
-    <span class="hljs-comment">-- Shipping Address (if exists)</span>
-    sa.AddressLine1 <span class="hljs-keyword">AS</span> ShippingAddressLine1
-<span class="hljs-keyword">FROM</span> 
+    -- Main Office Address
+    ma.AddressLine1 AS MainOfficeAddressLine1,
+    -- Shipping Address (if exists)
+    sa.AddressLine1 AS ShippingAddressLine1
+FROM 
     SalesLT.Customer c
-<span class="hljs-comment">-- Join the CustomerAddress table to get the Main Office address</span>
-<span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> 
-    SalesLT.CustomerAddress ca_ma <span class="hljs-keyword">ON</span> c.CustomerID = ca_ma.CustomerID 
-    <span class="hljs-keyword">AND</span> ca_ma.AddressType = <span class="hljs-string">'Main Office'</span>
-<span class="hljs-comment">-- Join the Address table to get the Main Office address details</span>
-<span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> 
-    SalesLT.Address ma <span class="hljs-keyword">ON</span> ca_ma.AddressID = ma.AddressID
-<span class="hljs-comment">-- Join the CustomerAddress table again to get the Shipping address</span>
-<span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> 
-    SalesLT.CustomerAddress ca_sa <span class="hljs-keyword">ON</span> c.CustomerID = ca_sa.CustomerID 
-    <span class="hljs-keyword">AND</span> ca_sa.AddressType = <span class="hljs-string">'Shipping'</span>
-<span class="hljs-comment">-- Join the Address table to get the Shipping address details</span>
-<span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> 
-    SalesLT.Address sa <span class="hljs-keyword">ON</span> ca_sa.AddressID = sa.AddressID
-<span class="hljs-comment">-- Filter to only include customers whose Main Office is in Dallas</span>
-<span class="hljs-keyword">WHERE</span> 
-    ma.City = <span class="hljs-string">'Dallas'</span>
-<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> 
-    c.CustomerID;
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P2_fig3.png" alt="Query Execution Result 1" width="800"></p>
-<hr>
-<h2 id="identifying-the-best-selling-product-by-total-sales-value-">Identifying the Best-Selling Product by Total Sales Value:</h2>
-<p>To find the best-selling product by total sales value, I needed to sum the sales for each product and sort the results. This would show me which product brought in the most revenue.</p>
-<h2 id="query-">Query:</h2>
-<p>I ran a query to calculate the total sales for each product by multiplying the quantity ordered by the unit price, then sorted the results by total sales in descending order. This gave me the product with the highest sales value.</p>
-<pre><code class="lang-sql"><span class="hljs-keyword">SELECT</span> TOP <span class="hljs-number">1</span>
+-- Join the CustomerAddress table to get the Main Office address
+LEFT JOIN 
+    SalesLT.CustomerAddress ca_ma ON c.CustomerID = ca_ma.CustomerID 
+    AND ca_ma.AddressType = 'Main Office'
+-- Join the Address table to get the Main Office address details
+LEFT JOIN 
+    SalesLT.Address ma ON ca_ma.AddressID = ma.AddressID
+-- Join the CustomerAddress table again to get the Shipping address
+LEFT JOIN 
+    SalesLT.CustomerAddress ca_sa ON c.CustomerID = ca_sa.CustomerID 
+    AND ca_sa.AddressType = 'Shipping'
+-- Join the Address table to get the Shipping address details
+LEFT JOIN 
+    SalesLT.Address sa ON ca_sa.AddressID = sa.AddressID
+-- Filter to only include customers whose Main Office is in Dallas
+WHERE 
+    ma.City = 'Dallas'
+ORDER BY 
+    c.CustomerID;</code></pre>
+        </div>
+        <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P2_fig3.png" alt="Query Execution Result 1"></p>
+
+        <hr>
+
+        <div class="section-title" id="identifying-the-best-selling-product-by-total-sales-value-">Identifying the Best-Selling Product by Total Sales Value:</div>
+        <p>To find the best-selling product by total sales value, I needed to sum the sales for each product and sort the results. This would show me which product brought in the most revenue.</p>
+
+        <div class="query-title">Query:</div>
+        <div class="query-block">
+            <pre><code class="lang-sql">SELECT TOP 1
     p.ProductID,
-    p.Name <span class="hljs-keyword">AS</span> ProductName,
-    <span class="hljs-keyword">SUM</span>(soi.OrderQty * soi.UnitPrice) <span class="hljs-keyword">AS</span> TotalSalesValue
-<span class="hljs-keyword">FROM</span> 
+    p.Name AS ProductName,
+    SUM(soi.OrderQty * soi.UnitPrice) AS TotalSalesValue
+FROM 
     SalesLT.SalesOrderDetail soi
-<span class="hljs-keyword">JOIN</span> 
-    SalesLT.Product p <span class="hljs-keyword">ON</span> soi.ProductID = p.ProductID
-<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> 
+JOIN 
+    SalesLT.Product p ON soi.ProductID = p.ProductID
+GROUP BY 
     p.ProductID, p.Name
-<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> 
-    TotalSalesValue <span class="hljs-keyword">DESC</span>;
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P2_fig4.png" alt="Query Execution Result 1" width="800"></p>
-<hr>
-<h2 id="analyzing-orders-by-total-value-ranges-">Analyzing Orders by Total Value Ranges:</h2>
-<p>Finally, I wanted to group orders into different total value ranges: $0-99, $100-999, $1000-9999, and $10000+. This helped me understand the distribution of order sizes.</p>
-<h2 id="query-">Query:</h2>
-<p>I used a subquery to calculate the total value of each order, then grouped those orders into the specified value ranges. The result showed me how many orders fell into each range and the total value of orders within each range.</p>
-<pre><code class="lang-sql"><span class="hljs-keyword">SELECT</span>
+ORDER BY 
+    TotalSalesValue DESC;</code></pre>
+        </div>
+        <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P2_fig4.png" alt="Query Execution Result 1"></p>
+
+        <hr>
+
+        <div class="section-title" id="analyzing-orders-by-total-value-ranges-">Analyzing Orders by Total Value Ranges:</div>
+        <p>Finally, I wanted to group orders into different total value ranges: $0-99, $100-999, $1000-9999, and $10000+. This helped me understand the distribution of order sizes.</p>
+
+        <div class="query-title">Query:</div>
+        <div class="query-block">
+            <pre><code class="lang-sql">SELECT
     OrderRange,
-    <span class="hljs-keyword">COUNT</span>(*) <span class="hljs-keyword">AS</span> NumOrders,
-    <span class="hljs-keyword">SUM</span>(TotalValue) <span class="hljs-keyword">AS</span> TotalValue
-<span class="hljs-keyword">FROM</span> (
-    <span class="hljs-keyword">SELECT</span>
+    COUNT(*) AS NumOrders,
+    SUM(TotalValue) AS TotalValue
+FROM (
+    SELECT
         soi.SalesOrderID,
-        <span class="hljs-keyword">SUM</span>(soi.OrderQty * soi.UnitPrice) <span class="hljs-keyword">AS</span> TotalValue,
-        <span class="hljs-keyword">CASE</span>
-            <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">SUM</span>(soi.OrderQty * soi.UnitPrice) <span class="hljs-keyword">BETWEEN</span> <span class="hljs-number">0</span> <span class="hljs-keyword">AND</span> <span class="hljs-number">99</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'0 - 99'</span>
-            <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">SUM</span>(soi.OrderQty * soi.UnitPrice) <span class="hljs-keyword">BETWEEN</span> <span class="hljs-number">100</span> <span class="hljs-keyword">AND</span> <span class="hljs-number">999</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'100 - 999'</span>
-            <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">SUM</span>(soi.OrderQty * soi.UnitPrice) <span class="hljs-keyword">BETWEEN</span> <span class="hljs-number">1000</span> <span class="hljs-keyword">AND</span> <span class="hljs-number">9999</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'1000 - 9999'</span>
-            <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">SUM</span>(soi.OrderQty * soi.UnitPrice) &gt;= <span class="hljs-number">10000</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'10000+'</span>
-        <span class="hljs-keyword">END</span> <span class="hljs-keyword">AS</span> OrderRange
-    <span class="hljs-keyword">FROM</span> 
+        SUM(soi.OrderQty * soi.UnitPrice) AS TotalValue,
+        CASE
+            WHEN SUM(soi.OrderQty * soi.UnitPrice) BETWEEN 0 AND 99 THEN '0 - 99'
+            WHEN SUM(soi.OrderQty * soi.UnitPrice) BETWEEN 100 AND 999 THEN '100 - 999'
+            WHEN SUM(soi.OrderQty * soi.UnitPrice) BETWEEN 1000 AND 9999 THEN '1000 - 9999'
+            WHEN SUM(soi.OrderQty * soi.UnitPrice) >= 10000 THEN '10000+'
+        END AS OrderRange
+    FROM 
         SalesLT.SalesOrderDetail soi
-    <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> 
+    GROUP BY 
         soi.SalesOrderID
-) <span class="hljs-keyword">AS</span> Subquery
-<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> 
+) AS Subquery
+GROUP BY 
     OrderRange
-<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> 
-    <span class="hljs-keyword">CASE</span> 
-        <span class="hljs-keyword">WHEN</span> OrderRange = <span class="hljs-string">'0 - 99'</span> <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span>
-        <span class="hljs-keyword">WHEN</span> OrderRange = <span class="hljs-string">'100 - 999'</span> <span class="hljs-keyword">THEN</span> <span class="hljs-number">2</span>
-        <span class="hljs-keyword">WHEN</span> OrderRange = <span class="hljs-string">'1000 - 9999'</span> <span class="hljs-keyword">THEN</span> <span class="hljs-number">3</span>
-        <span class="hljs-keyword">WHEN</span> OrderRange = <span class="hljs-string">'10000+'</span> <span class="hljs-keyword">THEN</span> <span class="hljs-number">4</span>
-    <span class="hljs-keyword">END</span>;
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P2_fig5.png" alt="Query Execution Result 1" width="800"></p>
-<hr>
+ORDER BY 
+    CASE 
+        WHEN OrderRange = '0 - 99' THEN 1
+        WHEN OrderRange = '100 - 999' THEN 2
+        WHEN OrderRange = '1000 - 9999' THEN 3
+        WHEN OrderRange = '10000+' THEN 4
+    END;</code></pre>
+        </div>
+        <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P2_fig5.png" alt="Query Execution Result 1"></p>
+
+        <hr>
+    </div>
+</body>
+</html>
