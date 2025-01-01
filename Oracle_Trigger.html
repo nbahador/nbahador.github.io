@@ -1,32 +1,151 @@
-<h1 id="oracle-trigger">Oracle Trigger</h1>
-<p>I tried to answer the question of how to prevent the deletion of specific records in a database.</p>
-<p>This is needed to ensure that critical records could not be accidentally or intentionally deleted, which might have business or operational implications.</p>
-<p>As a sample scenario, I wanted to prevent the deletion of a department record in the DEPARTMENTS table under certain conditions (such as the one with DEPARTMENT_ID = 10). </p>
-<p>To implement this solution, I first created a copy of the DEPARTMENTS table and populated it with the existing data from the original table. This step ensured that I could test the functionality of the trigger without affecting the actual data in the production table.</p>
-<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> DEPARTMENTS_COPY <span class="hljs-keyword">AS</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> DEPARTMENTS;
-<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> DEPARTMENTS_COPY;
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P5_fig1.png" alt="Query Execution Result 1" width="800"></p>
-<p>I then created an Oracle trigger called prevent_delete_department that fired before any delete operation on the DEPARTMENTS_COPY table. The trigger checked the DEPARTMENT_ID of the record being deleted. If the DEPARTMENT_ID was 10, the trigger would raise a custom error and prevent the deletion from happening.
-The trigger&#39;s logic was as follows:
-If the DEPARTMENT_ID of the record to be deleted was 10, the deletion was blocked by raising an exception with a message: &quot;Cannot delete department with ID 10&quot;.
-If the DEPARTMENT_ID was any value other than 10, the deletion was allowed to proceed.</p>
-<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">REPLACE</span> <span class="hljs-keyword">TRIGGER</span> prevent_delete_department
-<span class="hljs-keyword">BEFORE</span> <span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">ON</span> DEPARTMENTS_COPY
-<span class="hljs-keyword">FOR</span> <span class="hljs-keyword">EACH</span> <span class="hljs-keyword">ROW</span>
-<span class="hljs-keyword">BEGIN</span>
-    <span class="hljs-comment">-- If the department ID is 10, raise an exception to prevent deletion</span>
-    <span class="hljs-keyword">IF</span> :OLD.DEPARTMENT_ID = <span class="hljs-number">10</span> <span class="hljs-keyword">THEN</span>
-        RAISE_APPLICATION_ERROR(<span class="hljs-number">-20001</span>, <span class="hljs-string">'Cannot delete department with ID 10'</span>);
-    <span class="hljs-keyword">END</span> <span class="hljs-keyword">IF</span>;
-<span class="hljs-keyword">END</span>;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oracle Trigger</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #004d99;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        h2 {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: "Courier New", Courier, monospace;
+        }
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+            margin: 20px auto;
+        }
+        .highlight {
+            color: #ff6347;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Oracle Trigger</h1>
+    </header>
+
+    <section>
+        <p>I tried to answer the question of how to prevent the deletion of specific records in a database.</p>
+        <p>This is needed to ensure that critical records could not be accidentally or intentionally deleted, which might have business or operational implications.</p>
+        <p>As a sample scenario, I wanted to prevent the deletion of a department record in the DEPARTMENTS table under certain conditions (such as the one with <strong>DEPARTMENT_ID = 10</strong>).</p>
+    </section>
+
+    <section>
+        <h2>Creating a Copy of the DEPARTMENTS Table</h2>
+        <p>To implement this solution, I first created a copy of the <strong>DEPARTMENTS</strong> table and populated it with the existing data from the original table. This step ensured that I could test the functionality of the trigger without affecting the actual data in the production table.</p>
+        
+        <pre class="code-block">
+<code>
+CREATE TABLE DEPARTMENTS_COPY AS SELECT * FROM DEPARTMENTS;
+SELECT * FROM DEPARTMENTS_COPY;
+</code>
+        </pre>
+
+        <h3>Query Execution Result</h3>
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P5_fig1.png" alt="Query Execution Result 1">
+    </section>
+
+    <section>
+        <h2>Creating the Trigger</h2>
+        <p>Next, I created an Oracle trigger called <strong>prevent_delete_department</strong> that fired before any delete operation on the <strong>DEPARTMENTS_COPY</strong> table. The trigger checked the <strong>DEPARTMENT_ID</strong> of the record being deleted. If the <strong>DEPARTMENT_ID</strong> was 10, the trigger would raise a custom error and prevent the deletion from happening.</p>
+        
+        <h3>Trigger Logic</h3>
+        <p>The trigger’s logic was as follows:</p>
+        <ul>
+            <li>If the <strong>DEPARTMENT_ID</strong> of the record to be deleted was 10, the deletion was blocked by raising an exception with the message: <em>"Cannot delete department with ID 10"</em>.</li>
+            <li>If the <strong>DEPARTMENT_ID</strong> was any value other than 10, the deletion was allowed to proceed.</li>
+        </ul>
+
+        <pre class="code-block">
+<code>
+CREATE OR REPLACE TRIGGER prevent_delete_department
+BEFORE DELETE ON DEPARTMENTS_COPY
+FOR EACH ROW
+BEGIN
+    -- If the department ID is 10, raise an exception to prevent deletion
+    IF :OLD.DEPARTMENT_ID = 10 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Cannot delete department with ID 10');
+    END IF;
+END;
 /
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P5_fig2.png" alt="Query Execution Result 1" width="800"></p>
-<p>After implementing the trigger, I tested it by attempting to delete records from the DEPARTMENTS_COPY table. When I tried to delete the record where DEPARTMENT_ID = 10, the trigger blocked the deletion and raised the expected error. However, when I attempted to delete a record with DEPARTMENT_ID = 20, the deletion was allowed to proceed.</p>
-<pre><code class="lang-sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> DEPARTMENTS_COPY <span class="hljs-keyword">WHERE</span> DEPARTMENT_ID = <span class="hljs-number">10</span>;
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P5_fig3.png" alt="Query Execution Result 1" width="800"></p>
-<pre><code class="lang-sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> DEPARTMENTS_COPY <span class="hljs-keyword">WHERE</span> DEPARTMENT_ID = <span class="hljs-number">20</span>;
-</code></pre>
-<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P5_fig4.png" alt="Query Execution Result 1" width="800"></p>
+</code>
+        </pre>
+
+        <h3>Query Execution Result</h3>
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P5_fig2.png" alt="Query Execution Result 2">
+    </section>
+
+    <section>
+        <h2>Testing the Trigger</h2>
+        <p>After implementing the trigger, I tested it by attempting to delete records from the <strong>DEPARTMENTS_COPY</strong> table. The following outcomes were observed:</p>
+
+        <h3>Test 1: Attempting to Delete Department with ID = 10</h3>
+        <pre class="code-block">
+<code>
+DELETE FROM DEPARTMENTS_COPY WHERE DEPARTMENT_ID = 10;
+</code>
+        </pre>
+
+        <h3>Query Execution Result</h3>
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P5_fig3.png" alt="Query Execution Result 3">
+
+        <h3>Test 2: Attempting to Delete Department with ID = 20</h3>
+        <pre class="code-block">
+<code>
+DELETE FROM DEPARTMENTS_COPY WHERE DEPARTMENT_ID = 20;
+</code>
+        </pre>
+
+        <h3>Query Execution Result</h3>
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/P5_fig4.png" alt="Query Execution Result 4">
+    </section>
+</body>
+</html>
