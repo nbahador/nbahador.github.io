@@ -18,15 +18,15 @@
             color: #fff; /* White text for the page */
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centering everything horizontally */
-            justify-content: center; /* Centering everything vertically */
+            align-items: center; /* Center horizontally */
             padding-left: 0.5cm; /* Start page content 0.5cm from the left edge */
             height: 100vh;
             position: relative; /* Allow positioning of bottom elements */
         }
 
-        /* Center the Welcome Text */
+        /* Animated Gradient for "Welcome to My Portfolio" */
         h1 {
+            margin-top: 2cm; /* 2cm from the top edge */
             font-size: 3rem;
             font-weight: bold;
             margin-bottom: 1cm; /* 1cm gap before the wavy line */
@@ -35,10 +35,8 @@
             background-clip: text;
             color: transparent;
             animation: gradientAnimation 5s ease-in-out infinite;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); /* Perfectly center the h1 */
+            margin-left: auto; /* Center horizontally */
+            margin-right: auto; /* Center horizontally */
         }
 
         @keyframes gradientAnimation {
