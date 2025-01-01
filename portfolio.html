@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -98,22 +98,25 @@
         /* Button Styling */
         .project-buttons-container {
             display: flex; /* Use flexbox to align buttons horizontally */
-            gap: 30px; /* Add space between buttons */
+            gap: 20px; /* Reduced space between buttons */
             margin-top: 1cm; /* Space from the wave to the buttons */
+            width: 100%; /* Full width to allow margin adjustments */
+            justify-content: space-between; /* Ensures buttons fit well */
+            padding: 0 1cm; /* 1cm margin on left and right sides */
         }
 
         .project-button {
             background-color: #111; /* Dark background for the button */
             color: #fff; /* White text */
-            font-size: 2rem; /* Larger font size */
+            font-size: 1.8rem; /* Reduced font size */
             font-weight: bold; /* Bold text */
             border: 2px solid #fff; /* White border for visibility */
-            padding: 20px 30px;
+            padding: 15px 20px; /* Reduced padding */
             border-radius: 10px;
             cursor: pointer;
             display: flex;
             align-items: center; /* Align icon and text horizontally */
-            gap: 20px; /* Space between icon and text */
+            gap: 15px; /* Reduced gap between icon and text */
             transition: all 0.3s ease-in-out;
             position: relative;
         }
@@ -126,8 +129,8 @@
 
         /* Icon Styling */
         .project-button img {
-            width: 100px; /* Larger icon size */
-            height: 100px;
+            width: 80px; /* Reduced icon size */
+            height: 80px;
             border-radius: 50%; /* Circular shape */
             border: 3px solid #fff; /* White border around the icon */
             transition: transform 0.5s ease-in-out;
