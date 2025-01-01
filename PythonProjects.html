@@ -35,7 +35,7 @@
             text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); /* Stronger text shadow for contrast */
         }
 
-        /* Project container styles */
+        /* Projects Container Section */
         .projects-container {
             width: 90%; /* Makes the container width responsive */
             max-width: 1200px; /* Maximum width for larger screens */
@@ -46,9 +46,9 @@
             border-radius: 8px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
             display: flex;
-            flex-wrap: wrap; /* Allows multiple cards to wrap */
-            justify-content: center; /* Centers the cards horizontally */
-            gap: 1.5rem; /* Space between cards */
+            flex-direction: column; /* Stack the projects vertically */
+            gap: 2rem; /* Space between the project cards */
+            padding-bottom: 2rem; /* Added bottom padding */
         }
 
         /* Project Card */
@@ -182,7 +182,7 @@
         <!-- Project 2 -->
         <div class="project">
             <!-- Icon for Project 2 -->
-            <div class="project-icon" style="background-image: url('https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/selenium2.jpg');"></div>
+            <div class="project-icon" style="background-image: url('selenium2.jpg');"></div>
             <!-- Link for Project 2 -->
             <a href="/Testing_Web_Elements_Interaction_with_Selenium.html">
                 <h2>Mini Project 2: <br> Testing Web Elements Interaction with Selenium</h2>
