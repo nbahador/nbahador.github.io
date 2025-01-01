@@ -96,6 +96,12 @@
         }
 
         /* Button Styling */
+        .project-buttons-container {
+            display: flex; /* Use flexbox to align buttons horizontally */
+            gap: 30px; /* Add space between buttons */
+            margin-top: 2cm; /* Space from the wave to the buttons */
+        }
+
         .project-button {
             background-color: #111; /* Dark background for the button */
             color: #fff; /* White text */
@@ -183,21 +189,24 @@
     <!-- Shiny, Metallic Blue-Pink Gradient Wave Below the Title -->
     <div class="wave"></div>
 
-    <!-- SQL Projects Button -->
-    <a href="sqlprojects.html">
-        <button class="project-button">
-            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/sql.png?raw=true" alt="SQL Icon">
-            SQL Projects
-        </button>
-    </a>
+    <!-- Buttons for Projects -->
+    <div class="project-buttons-container">
+        <!-- SQL Projects Button -->
+        <a href="sqlprojects.html">
+            <button class="project-button">
+                <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/sql.png?raw=true" alt="SQL Icon">
+                SQL Projects
+            </button>
+        </a>
 
-    <!-- Informatica Projects Button -->
-    <a href="Informaticaprojects.html">
-        <button class="project-button">
-            <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/Informatica.jpg?raw=true" alt="Informatica Icon">
-            Informatica Projects
-        </button>
-    </a>
+        <!-- Informatica Projects Button -->
+        <a href="Informaticaprojects.html">
+            <button class="project-button">
+                <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/Informatica.jpg?raw=true" alt="Informatica Icon">
+                Informatica Projects
+            </button>
+        </a>
+    </div>
 
     <!-- Back to Main Page Button -->
     <a href="index.html" class="back-button">Back to Main Page</a>
