@@ -1,474 +1,212 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SQL Database Unit Testing with tSQLt in Azure Data Studio</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <!-- Main Content -->
-  <header>
-    <h1 id="sql-database-unit-testing-with-tsqlt-in-azure-data-studio">SQL Database Unit Testing with tSQLt in Azure Data Studio</h1>
-  </header>
-
-  <!-- Introduction Section -->
-  <section>
-    <h2 id="introduction-to-tsqlt-and-the-adventure-works-database">Introduction to tSQLt and the Adventure Works Database</h2>
-    <p>In this project, I explored tSQLt, a package designed for unit testing. For this project, I used the Adventure Works database as a sample. This database was based on Adventure Works Cycles, a fictional multinational company created by Microsoft in 2010. It manufactured and sold bicycles across North America, Europe, and Asia.</p>
-  </section>
-
-  <hr>
-
-  <!-- Creating and Configuring an Azure SQL Database -->
-  <section>
-    <h2 id="creating-and-configuring-an-azure-sql-database">Creating and Configuring an Azure SQL Database</h2>
-    <p>To set up the environment for this project, I used Azure Data Studio with the Adventure Works database available on Microsoft Azure. To begin, I signed up for a free trial of Azure by visiting <a href="https://azure.microsoft.com">Azure Portal</a> and clicking on the "Try Azure for free" button. I chose the "Start Free" option and provided the required details, including my first name, last name, address, and credit card information for verification (there were no charges for the free account). After signing up, I clicked "Go to Azure Portal" to proceed.</p>
-    <p>Once in the portal, I clicked on "Microsoft Azure" at the top and navigated to "SQL Databases." I then clicked "Create SQL Database" and selected "Apply offer" to take advantage of the free database offer. I needed to create a new resource group and provide a name for the database. Since there was no server yet, I clicked "Create new" to set up a server, entering a unique server name, choosing a location, and setting the authentication method, including a server admin login and password. After confirming, I clicked "OK" and proceeded to the networking settings by clicking "Next." I selected the "General Purpose" serverless option with 2 V cores, applied the settings, and chose "Public endpoint" as the default connectivity method. I allowed services and resources to access the server by selecting "Yes" and added my current IP address to enable the database connection from my device. I kept the default connection policy and TLS version 1.2, then continued to the next section.</p>
-    
-    <!-- Image 1: Azure SQL Database Configuration -->
-    <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig1.png" alt="Azure SQL Database Configuration" width="800"></p>
-  </section>
-
-  <hr>
-
-  <!-- Database Deployment Section -->
-  <section>
-    <p>Next, I reviewed the settings and selected "AdventureWorks LT" as the sample database for querying and learning. After confirming details like the subscription, resource group, region, database name, server, admin login, and configuration, I clicked "Create" to deploy the database.</p>
-    <div class="images-container">
-      <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig2.png" alt="Database Deployment 1" width="800"></p>
-      <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig3.png" alt="Database Deployment 2" width="800"></p>
-      <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig4.png" alt="Database Deployment 3" width="800"></p>
-      <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig5.png" alt="Database Deployment 4" width="800"></p>
-    </div>
-  </section>
-
-  <hr>
-
-  <!-- Installing and Configuring Azure Data Studio Section -->
-  <section>
-    <h2 id="installing-and-configuring-azure-data-studio">Installing and Configuring Azure Data Studio</h2>
-    <p>Afterward, I downloaded and installed Azure Data Studio. Once installed, I opened the application and maximized the window. In Azure Data Studio, I went to "Connections" and clicked "Add New Connection." I selected "Microsoft SQL Server" as the connection type and chose "Parameters" as the input method. Then, I copied the server name from the Azure portal and pasted it into the connection window in Azure Data Studio. For authentication, I chose "Azure Active Directory," added my Azure Active Directory account, and provided my password to authenticate. Once authenticated, I closed the browser window, and my account was listed in Azure Data Studio. I then chose the database, which included a default "master" database.</p>
-    
-    <!-- Image 2: Azure Data Studio Configuration -->
-    <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig6.png" alt="Azure Data Studio Configuration" width="800"></p>
-  </section>
-
-  <hr>
-
-  <!-- Error Troubleshooting Section -->
-  <section>
-    <p>I encountered an error during authentication when entering my username and password, specifically "not found in MSAL cache." To resolve this, I decided to try using the latest Insider build of Azure Data Studio, which I downloaded from a GitHub link.</p>
-    <p>After installing the Insider build, I went to the command palette (by pressing Ctrl / Cmd + Shift + P) and ran the command "Clear Azure Account Token Cache." This helped clear any cached tokens that might have been causing the authentication issue, allowing me to proceed without further errors.</p>
-    
-    <!-- Image 3: Azure Data Studio Error 1 -->
-    <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig7.png" alt="Azure Data Studio Error 1" width="800"></p>
-
-    <!-- Image 4: Azure Data Studio Error 2 -->
-    <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig8.png" alt="Azure Data Studio Error 2" width="800"></p>
-  </section>
-
-  <hr>
-
-  <!-- Query Setup Section -->
-  <section>
-    <p>I ensured "Encrypt mandatory" was set to true and clicked "Connect." Once connected, I was able to see the database and its objects (tables, views, stored procedures, etc.). To run a query, I right-clicked the server name and selected "New Query."</p>
-    
-    <!-- Image 5: Query Setup 1 -->
-    <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig9.png" alt="Query Setup 1" width="800"></p>
-    
-    <!-- Image 6: Query Setup 2 -->
-    <p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig10.png" alt="Query Setup 2" width="800"></p>
-  </section>
-
-  <hr>
-
-  <!-- Validating Customer Order Retrieval Section -->
-  <section>
-    <h2 id="validating-customer-order-retrieval-with-tsqlt-unit-testing">Validating Customer Order Retrieval with tSQLt Unit Testing</h2>
-    <p>I attempted to answer a business question related to validating the accuracy of stored procedures used to retrieve customer order details from a database. Specifically, I was testing whether the stored procedure "GetCustomerOrderDetails" correctly returned the expected customer order data for a specific customer, based on a predefined set of conditions.</p>
-    <p>To test this, I executed several queries and scripts:</p>
-    <p>I first retrieved data from the "BuildVersion" table in the "dbo" schema and from the "Address" table in the "SalesLT" schema to ensure I could access the necessary data from the database.</p>
-    <p>I then installed the tSQLt framework to my development database (AdventureWorks) by executing the "tSQLt.class.sql" script, which is a tool for unit testing SQL Server stored procedures.</p>
-    <p>I created multiple stored procedures, such as "GetCustomerOrderDetails", "GetCompanyAddress", and "GetLargestFreightsbyCustomer", each designed to retrieve specific business information, like order details, company addresses, and top customers based on freight charges.</p>
-  </section>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SQL Database Unit Testing with tSQLt in Azure Data Studio</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 20px;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-
-    h1, h2 {
-      color: #2C3E50;
-    }
-
-    pre {
-      background-color: #2C3E50;
-      color: #fff;
-      padding: 15px;
-      border-radius: 5px;
-      overflow-x: auto;
-    }
-
-    code {
-      font-size: 1.2em;
-    }
-
-    hr {
-      border: 0;
-      border-top: 1px solid #ccc;
-      margin: 20px 0;
-    }
-
-    .image-container {
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    .image-container img {
-      max-width: 100%;
-      height: auto;
-      margin: 10px 0;
-    }
-
-    .code-section {
-      margin-bottom: 30px;
-    }
-
-    .section-title {
-      font-size: 1.5em;
-      color: #34495E;
-      margin-bottom: 10px;
-    }
-
-    .description {
-      margin: 10px 0;
-    }
-  </style>
-</head>
-<body>
-
-<h1>SQL Database Unit Testing with tSQLt in Azure Data Studio</h1>
-
+<h1 id="sql-database-unit-testing-with-tsqlt-in-azure-data-studio">SQL Database Unit Testing with tSQLt in Azure Data Studio</h1>
+<h2 id="introduction-to-tsqlt-and-the-adventure-works-database">Introduction to tSQLt and the Adventure Works Database</h2>
+<p>In this project, I explored tSQLt, a package designed for unit testing. For this project, I used the Adventure Works database as a sample. This database was based on Adventure Works Cycles, a fictional multinational company created by Microsoft in 2010. It manufactured and sold bicycles across North America, Europe, and Asia.</p>
 <hr>
-
-<h2 id="creating-procedures">Creating Stored Procedures</h2>
-
-<p class="description">
-  Below are the procedures that were created to retrieve specific data for customer orders and company addresses. These procedures were essential for unit testing with tSQLt.
-</p>
-
-<div class="code-section">
-  <h3 class="section-title">Stored Procedure 1: GetCompanyAddress</h3>
-  <pre><code class="lang-sql">
-    CREATE OR ALTER PROCEDURE [SalesLT].[GetCompanyAddress] (@company NVARCHAR(100))
-    AS
-    BEGIN
-        SELECT CompanyName, AddressType, AddressLine1
-        FROM [SalesLT].Customer 
-        JOIN [SalesLT].CustomerAddress
-            ON Customer.CustomerID = CustomerAddress.CustomerID
-        JOIN [SalesLT].Address
-            ON CustomerAddress.AddressID = Address.AddressID
-        WHERE CompanyName = @company
-    END;
-  </code></pre>
-</div>
-
-<div class="code-section">
-  <h3 class="section-title">Stored Procedure 2: GetLargestFreightsByCustomer</h3>
-  <pre><code class="lang-sql">
-    CREATE OR ALTER FUNCTION [SalesLT].GetLargestFreightsbyCustomer (@orderyear AS INT)
-    RETURNS @freight table (customerid SMALLINT, totalfreight INT)
-    BEGIN
-        INSERT INTO @freight
-        SELECT TOP 5 customerid, SUM(freight) AS totalfreight
-        FROM SalesLT.SalesOrderHeader
-        WHERE YEAR(orderdate) = @orderyear
-        GROUP BY customerid
-        ORDER BY totalfreight DESC;
-        RETURN;
-    END;
-  </code></pre>
-</div>
-
-<p class="image-container">
-  <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig13.png" alt="Procedure Setup 1" width="800">
-  <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig14.png" alt="Procedure Setup 2" width="800">
-</p>
-
+<h2 id="creating-and-configuring-an-azure-sql-database">Creating and Configuring an Azure SQL Database</h2>
+<p>To set up the environment for this project, I used Azure Data Studio with the Adventure Works database available on Microsoft Azure. To begin, I signed up for a free trial of Azure by visiting <a href="https://azure.microsoft.com">Azure Portal</a> and clicking on the &quot;Try Azure for free&quot; button. I chose the &quot;Start Free&quot; option and provided the required details, including my first name, last name, address, and credit card information for verification (there were no charges for the free account). After signing up, I clicked &quot;Go to Azure Portal&quot; to proceed.</p>
+<p>Once in the portal, I clicked on &quot;Microsoft Azure&quot; at the top and navigated to &quot;SQL Databases.&quot; I then clicked &quot;Create SQL Database&quot; and selected &quot;Apply offer&quot; to take advantage of the free database offer. I needed to create a new resource group and provide a name for the database. Since there was no server yet, I clicked &quot;Create new&quot; to set up a server, entering a unique server name, choosing a location, and setting the authentication method, including a server admin login and password. After confirming, I clicked &quot;OK&quot; and proceeded to the networking settings by clicking &quot;Next.&quot; I selected the &quot;General Purpose&quot; serverless option with 2 V cores, applied the settings, and chose &quot;Public endpoint&quot; as the default connectivity method. I allowed services and resources to access the server by selecting &quot;Yes&quot; and added my current IP address to enable the database connection from my device. I kept the default connection policy and TLS version 1.2, then continued to the next section.</p></p>
+<p>Below is an image related to the setup:</p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig1.png" alt="Azure SQL Database Configuration" width="800"></p>
 <hr>
+<p>Next, I reviewed the settings and selected &quot;AdventureWorks LT&quot; as the sample database for querying and learning. After confirming details like the subscription, resource group, region, database name, server, admin login, and configuration, I clicked &quot;Create&quot; to deploy the database.</p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig2.png" alt="Database Deployment 1" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig3.png" alt="Database Deployment 2" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig4.png" alt="Database Deployment 3" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig5.png" alt="Database Deployment 4" width="800"></p>
+<hr>
+<h2 id="installing-and-configuring-azure-data-studio">Installing and Configuring Azure Data Studio</h2>
+<p>Afterward, I downloaded and installed Azure Data Studio. Once installed, I opened the application and maximized the window. In Azure Data Studio, I went to &quot;Connections&quot; and clicked &quot;Add New Connection.&quot; I selected &quot;Microsoft SQL Server&quot; as the connection type and chose &quot;Parameters&quot; as the input method. Then, I copied the server name from the Azure portal and pasted it into the connection window in Azure Data Studio. For authentication, I chose &quot;Azure Active Directory,&quot; added my Azure Active Directory account, and provided my password to authenticate. Once authenticated, I closed the browser window, and my account was listed in Azure Data Studio. I then chose the database, which included a default &quot;master&quot; database.</p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig6.png" alt="Azure Data Studio Configuration" width="800"></p>
+<hr>
+<p>I encountered an error during authentication when entering my username and password, specifically &quot;not found in MSAL cache.&quot; To resolve this, I decided to try using the latest Insider build of Azure Data Studio, which I downloaded from a GitHub link.</p>
+<p>After installing the Insider build, I went to the command palette (by pressing Ctrl / Cmd + Shift + P) and ran the command &quot;Clear Azure Account Token Cache.&quot; This helped clear any cached tokens that might have been causing the authentication issue, allowing me to proceed without further errors.</p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig7.png" alt="Azure Data Studio Error 1" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig8.png" alt="Azure Data Studio Error 2" width="800"></p>
+<hr>
+<p>I ensured &quot;Encrypt mandatory&quot; was set to true and clicked &quot;Connect.&quot; Once connected, I was able to see the database and its objects (tables, views, stored procedures, etc.). To run a query, I right-clicked the server name and selected &quot;New Query.&quot;</p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig9.png" alt="Query Setup 1" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig10.png" alt="Query Setup 2" width="800"></p>
+<hr>
+<h2 id="validating-customer-order-retrieval-with-tsqlt-unit-testing">Validating Customer Order Retrieval with tSQLt Unit Testing</h2>
+<p>I attempted to answer a business question related to validating the accuracy of stored procedures used to retrieve customer order details from a database. Specifically, I was testing whether the stored procedure &quot;GetCustomerOrderDetails&quot; correctly returned the expected customer order data for a specific customer, based on a predefined set of conditions.</p>
+<p>To test this, I executed several queries and scripts:</p>
+<p>I first retrieved data from the &quot;BuildVersion&quot; table in the &quot;dbo&quot; schema and from the &quot;Address&quot; table in the &quot;SalesLT&quot; schema to ensure I could access the necessary data from the database.</p>
+<p>I then installed the tSQLt framework to my development database (AdventureWorks) by executing the &quot;tSQLt.class.sql&quot; script, which is a tool for unit testing SQL Server stored procedures.</p>
+<p>I created multiple stored procedures, such as &quot;GetCustomerOrderDetails&quot;, &quot;GetCompanyAddress&quot;, and &quot;GetLargestFreightsbyCustomer&quot;, each designed to retrieve specific business information, like order details, company addresses, and top customers based on freight charges.</p>
+<p>I created a test case where I set up two tables: &quot;expected&quot; (which held the anticipated results for customer orders) and &quot;actual&quot; (where the results from the stored procedure would be inserted). I used the customer ID &quot;29796&quot; and set a minimum order quantity of &quot;10&quot; to ensure that only valid orders (those meeting the criteria) were returned.</p>
+<p>I then inserted data into the expected table with hardcoded values representing the expected order details, including the product name, quantity, and price. I executed the stored procedure &quot;GetCustomerOrderDetails&quot; for the given customer and inserted the results into the actual table.</p>
+<p>To compare the two tables (&quot;expected&quot; and &quot;actual&quot;), I used the &quot;tSQLt.AssertEqualsTable&quot; function. This function validated whether the data returned by the stored procedure matched the expected results.</p>
+<p>Finally, I created a test class and ran the test case using the &quot;tSQLt.Run&quot; command. The test returned true, confirming that the stored procedure correctly retrieved the customer order details and that the results matched the expected values.</p>
+<p>Presented below are the details, including the query and accompanying screenshots.</p>
+<hr>
+<h2 id="query-execution-and-tsqlt-setup">Query Execution and tSQLt Setup</h2>
+<p>I entered the following query and executed it to retrieve data from the database. I first retrieved the first row from the &quot;BuildVersion&quot; table in the &quot;dbo&quot; schema. Then I retrieved specific columns from the &quot;Address&quot; table in the &quot;SalesLT&quot; schema.</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">SELECT </span>TOP <span class="hljs-number">1</span> * FROM dbo.<span class="hljs-keyword">BuildVersion;
+</span><span class="hljs-keyword">SELECT
+</span>    <span class="hljs-keyword">AddressID,
+</span>    <span class="hljs-keyword">AddressLine1,
+</span>    <span class="hljs-keyword">AddressLine2, </span>City,
+    StateProvince,
+    CountryRegion,
+    PostalCode,
+    rowguid,
+    ModifiedDate
+<span class="hljs-symbol">FROM</span> SalesLT.<span class="hljs-keyword">Address;</span>
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig11.png" alt="Query Execution Result 1" width="800"></p>
+<p>I downloaded tSQLt <a href="https://tsqlt.org/downloads/">Version: 1.0.5873.27393</a>. Next, I needed to install tSQLt to my development database (AdventureWorks) by executing the &quot;tSQLt.class.sql&quot; script, which was included in the zip file. I opened the &quot;tSQLt.class.sql&quot; file in Azure Data Studio and ran the script to install it.</p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig12.png" alt="tSQLt Installation" width="800"></p>
+<p>I created procedures in the object explorer under the SalesLT schema using the following script. One of these stored procedures retrieved the details of customer orders from the database. I considered the &quot;CustomerID&quot; for which the order details were to be fetched. The minimum order quantity was set to 10 by default, so only orders with a quantity greater than this value were returned. I joined the &quot;SalesOrderHeader&quot;, &quot;SalesOrderDetail&quot;, and &quot;Product&quot; tables to fetch the order details.</p>
+<p>I filtered the orders for a specific customer (&quot;CustomerID&quot;) and ensured that the order quantity was greater than the specified &quot;@minitems&quot;. The results were ordered by &quot;ListPrice&quot; in descending order.</p>
+<p>Next, I created a stored procedure to retrieve the address information of a company. I joined the &quot;Customer&quot;, &quot;CustomerAddress&quot;, and &quot;Address&quot; tables to fetch the address-related details. I filtered the results to find the specific company by its name (&quot;CompanyName&quot;).</p>
+<p>Additionally, I created a stored procedure to select the top 5 customers who spent the most on freight during a specified year. The procedure filtered orders using &quot;YEAR(orderdate) = @orderyear&quot; to consider only orders in the given year. I grouped the data by &quot;CustomerID&quot; and calculated the total freight charge using &quot;SUM(freight)&quot;. The results were ordered by total freight (&quot;totalfreight&quot;) in descending order, and the top customers were returned.</p>
+<pre><code class="lang-sql">GO
 
-<h2 id="test-case-creation-and-execution">Test Case Creation and Execution with tSQLt</h2>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">PROCEDURE</span> [SalesLT].GetCustomerOrderDetails (@customerid <span class="hljs-built_in">SMALLINT</span>, @minitems <span class="hljs-built_in">SMALLINT</span> = <span class="hljs-number">10</span>)
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-keyword">SELECT</span> OrderQty, <span class="hljs-keyword">Name</span>, ListPrice
+    <span class="hljs-keyword">FROM</span> [SalesLT].SalesOrderHeader 
+    <span class="hljs-keyword">JOIN</span> [SalesLT].SalesOrderDetail
+        <span class="hljs-keyword">ON</span> SalesOrderDetail.SalesOrderID = SalesOrderHeader.SalesOrderID
+    <span class="hljs-keyword">JOIN</span> [SalesLT].Product
+        <span class="hljs-keyword">ON</span> SalesOrderDetail.ProductID = Product.ProductID
+    <span class="hljs-keyword">WHERE</span> CustomerID = @customerid
+    <span class="hljs-keyword">AND</span> OrderQty &gt; @minitems
+    <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> ListPrice <span class="hljs-keyword">DESC</span>
+<span class="hljs-keyword">END</span>;
+GO
 
-<p class="description">
-  In this section, we created a test case using tSQLt to validate the stored procedure results. A temporary table named "expected" was used to hold the anticipated data.
-</p>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">PROCEDURE</span> [SalesLT].[GetCompanyAddress] (@company <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-number">100</span>))
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-keyword">SELECT</span> CompanyName, AddressType, AddressLine1
+    <span class="hljs-keyword">FROM</span> [SalesLT].Customer 
+    <span class="hljs-keyword">JOIN</span> [SalesLT].CustomerAddress
+        <span class="hljs-keyword">ON</span> Customer.CustomerID = CustomerAddress.CustomerID
+    <span class="hljs-keyword">JOIN</span> [SalesLT].Address
+        <span class="hljs-keyword">ON</span> CustomerAddress.AddressID = Address.AddressID
+    <span class="hljs-keyword">WHERE</span> CompanyName = @company
+<span class="hljs-keyword">END</span>;
+GO
 
-<div class="code-section">
-  <h3 class="section-title">Test Case Setup: Expected Table</h3>
-  <pre><code class="lang-sql">
-    -- Drop the existing table if it exists
-    DROP TABLE IF EXISTS expected;
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">FUNCTION</span> [SalesLT].GetLargestFreightsbyCustomer (@orderyear <span class="hljs-keyword">AS</span> <span class="hljs-built_in">INT</span>)
+<span class="hljs-keyword">RETURNS</span> @freight <span class="hljs-keyword">table</span> (customerid <span class="hljs-built_in">SMALLINT</span>, totalfreight <span class="hljs-built_in">INT</span>)
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> @freight
+    <span class="hljs-keyword">SELECT</span> TOP <span class="hljs-number">5</span> customerid, <span class="hljs-keyword">SUM</span>(freight) <span class="hljs-keyword">AS</span> totalfreight
+    <span class="hljs-keyword">FROM</span> SalesLT.SalesOrderHeader
+    <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">YEAR</span>(orderdate) = @orderyear
+    <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> customerid
+    <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> totalfreight <span class="hljs-keyword">DESC</span>;
+    RETURN;
+<span class="hljs-keyword">END</span>;
+GO
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig13.png" alt="Procedure Setup 1" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig14.png" alt="Procedure Setup 2" width="800"></p>
+<hr>
+<h2 id="test-case-creation-and-execution-with-tsqlt">Test Case Creation and Execution with tSQLt</h2>
+<p>I created a test case and a temporary table named &quot;expected&quot; to hold the anticipated data. I dropped the existing table if it existed, then created a new table with columns for &quot;OrderQty&quot;, &quot;Name&quot;, and &quot;ListPrice&quot;. Afterward, I inserted the expected rows into the table, containing product quantities, names, and prices.</p>
+<pre><code class="lang-sql"><span class="hljs-comment">-- Drop the existing table if it exists</span>
+<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">EXISTS</span> expected;
 
-    -- Create the new table
-    CREATE TABLE expected (
-        OrderQty SMALLINT,
-        Name NVARCHAR(200),
-        ListPrice NUMERIC(6, 2)
+<span class="hljs-comment">-- Create the new table</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> expected (
+    OrderQty <span class="hljs-built_in">SMALLINT</span>,
+    <span class="hljs-keyword">Name</span> <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-number">200</span>),
+    ListPrice <span class="hljs-built_in">NUMERIC</span>(<span class="hljs-number">6</span>, <span class="hljs-number">2</span>)
+);
+
+<span class="hljs-comment">-- Insert data into the table</span>
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> expected (OrderQty, <span class="hljs-keyword">Name</span>, ListPrice)
+<span class="hljs-keyword">VALUES</span>
+    (<span class="hljs-number">23</span>, <span class="hljs-string">'Classic Vest, S'</span>, <span class="hljs-number">63.50</span>),
+    (<span class="hljs-number">11</span>, <span class="hljs-string">'Water Bottle - 30 oz.'</span>, <span class="hljs-number">4.99</span>),
+    (<span class="hljs-number">12</span>, <span class="hljs-string">'Sport-100 Helmet, Black'</span>, <span class="hljs-number">34.99</span>),
+    (<span class="hljs-number">15</span>, <span class="hljs-string">'Short-Sleeve Classic Jersey, XL'</span>, <span class="hljs-number">53.99</span>),
+    (<span class="hljs-number">16</span>, <span class="hljs-string">'Short-Sleeve Classic Jersey, L'</span>, <span class="hljs-number">53.99</span>),
+    (<span class="hljs-number">17</span>, <span class="hljs-string">'Bike Wash - Dissolver'</span>, <span class="hljs-number">7.95</span>);
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig15.png" alt="Expected Table Setup" width="800"></p>
+<p>I created a temporary table called &quot;actual&quot; to store the data after executing the stored procedure. Both the &quot;actual&quot; and &quot;expected&quot; tables had the same schema. I dropped the existing &quot;actual&quot; table if it existed, then created a new one with columns for &quot;OrderQty&quot;, &quot;Name&quot;, and &quot;ListPrice&quot;. I declared a variable for the customer ID (29796) and executed the stored procedure to insert data into the &quot;actual&quot; table.</p>
+<pre><code class="lang-sql"><span class="hljs-comment">-- Drop the existing table if it exists</span>
+IF OBJECT_ID('actual', 'U') IS NOT NULL
+    <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> actual;
+
+<span class="hljs-comment">-- Now, create the new table</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> actual (
+    OrderQty <span class="hljs-built_in">SMALLINT</span>,
+    <span class="hljs-keyword">Name</span> <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-number">200</span>),
+    ListPrice <span class="hljs-built_in">NUMERIC</span>(<span class="hljs-number">6</span>, <span class="hljs-number">2</span>)
+);
+
+<span class="hljs-comment">-- Declare a variable to store the customer ID</span>
+<span class="hljs-keyword">DECLARE</span> @custid <span class="hljs-built_in">SMALLINT</span>;
+<span class="hljs-keyword">SET</span> @custid = <span class="hljs-number">29796</span>;
+
+<span class="hljs-comment">-- Insert data into the actual table by executing the stored procedure</span>
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> actual
+EXEC [SalesLT].GetCustomerOrderDetails @custid;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig16.png" alt="Actual Table Setup" width="800"></p>
+<p>I used the &quot;tSQLt.AssertEqualsTable&quot; stored procedure to compare the data in the &quot;actual&quot; table with the data in the &quot;expected&quot; table.</p>
+<pre><code class="lang-sql">EXEC tSQLt.AssertEqualsTable expected, <span class="hljs-keyword">actual</span>;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig17.png" alt="AssertEqualsTable Execution" width="800"></p>
+<p>I created a test class to contain the test case by executing the &quot;tSQLt.NewTestClass&quot; stored procedure with the name &quot;&#39;testSalesLT&#39;&quot;.</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">EXEC</span> tSQLt.NewTestClass <span class="hljs-string">'testSalesLT'</span><span class="hljs-comment">;</span>
+</code></pre>
+<p>I created a test stored procedure called &quot;testGetCustomerOrderDetails&quot; in the &quot;SalesLT&quot; schema. First, I ensured that any pre-existing tables named &quot;actual&quot; and &quot;expected&quot; were dropped using the &quot;IF OBJECT_ID&quot; check. Then, I proceeded to create the &quot;expected&quot; table with columns for &quot;OrderQty&quot;, &quot;Name&quot;, and &quot;ListPrice&quot;, and inserted a set of test data into it.</p>
+<p>Next, I created the &quot;actual&quot; table with the same structure and declared a variable &quot;@custid&quot; to hold the customer ID value, which I set to 29796. I then used the &quot;EXEC&quot; command to insert data into the &quot;actual&quot; table by executing the &quot;GetCustomerOrderDetails&quot; stored procedure, passing in the &quot;@custid&quot;.</p>
+<p>Finally, I used the &quot;tSQLt.AssertEqualsTable&quot; function to compare the data in the &quot;expected&quot; and &quot;actual&quot; tables to ensure they matched.</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">PROCEDURE</span> testSalesLT.[testGetCustomerOrderDetails]
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-keyword">IF</span> OBJECT_ID(<span class="hljs-string">'actual'</span>) <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> actual;
+    IF OBJECT_ID('expected') IS NOT NULL <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> expected;
+
+    <span class="hljs-comment">---- Create Expected Table -----</span>
+
+    <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> expected (
+    OrderQty <span class="hljs-built_in">SMALLINT</span>,
+    <span class="hljs-keyword">Name</span> <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-number">200</span>),
+    ListPrice <span class="hljs-built_in">NUMERIC</span>(<span class="hljs-number">6</span>, <span class="hljs-number">2</span>)
     );
 
-    -- Insert data into the table
-    INSERT INTO expected (OrderQty, Name, ListPrice)
-    VALUES
-        (23, 'Classic Vest, S', 63.50),
-        (11, 'Water Bottle - 30 oz.', 4.99),
-        (12, 'Sport-100 Helmet, Black', 34.99),
-        (15, 'Short-Sleeve Classic Jersey, XL', 53.99),
-        (16, 'Short-Sleeve Classic Jersey, L', 53.99),
-        (17, 'Bike Wash - Dissolver', 7.95);
-  </code></pre>
-</div>
+    <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> expected (OrderQty, <span class="hljs-keyword">Name</span>, ListPrice)
+    <span class="hljs-keyword">VALUES</span>
+            (<span class="hljs-number">23</span>,<span class="hljs-string">'Classic Vest, S'</span>, <span class="hljs-number">63.50</span>),
+            (<span class="hljs-number">11</span> ,  <span class="hljs-string">'Water Bottle - 30 oz.'</span>,<span class="hljs-number">4.99</span> ),
+            (<span class="hljs-number">12</span> ,  <span class="hljs-string">'Sport-100 Helmet, Black'</span>, <span class="hljs-number">34.99</span> ),
+            (<span class="hljs-number">15</span> , <span class="hljs-string">'Short-Sleeve Classic Jersey, XL'</span>, <span class="hljs-number">53.99</span>),
+            (<span class="hljs-number">16</span> , <span class="hljs-string">'Short-Sleeve Classic Jersey, L'</span>, <span class="hljs-number">53.99</span>),
+            (<span class="hljs-number">17</span> , <span class="hljs-string">'Bike Wash - Dissolver'</span> ,<span class="hljs-number">7.95</span> );
 
-<hr>
+    <span class="hljs-comment">------Execution------</span>
 
-<h2 id="executing-test-cases">Executing Test Cases and Validating Results</h2>
-
-<p class="description">
-  After creating the test case, we ran it using the tSQLt framework. The objective was to check if the actual results returned by the stored procedure matched the expected data.
-</p>
-
-<p class="image-container">
-  <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig15.png" alt="Test Case Execution" width="800">
-</p>
-
-<hr>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SQL Database Unit Testing with tSQLt in Azure Data Studio</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 20px;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-
-    h1, h2 {
-      color: #2C3E50;
-    }
-
-    pre {
-      background-color: #2C3E50;
-      color: #fff;
-      padding: 15px;
-      border-radius: 5px;
-      overflow-x: auto;
-    }
-
-    code {
-      font-size: 1.2em;
-    }
-
-    hr {
-      border: 0;
-      border-top: 1px solid #ccc;
-      margin: 20px 0;
-    }
-
-    .image-container {
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    .image-container img {
-      max-width: 100%;
-      height: auto;
-      margin: 10px 0;
-    }
-
-    .code-section {
-      margin-bottom: 30px;
-    }
-
-    .section-title {
-      font-size: 1.5em;
-      color: #34495E;
-      margin-bottom: 10px;
-    }
-
-    .description {
-      margin: 10px 0;
-    }
-  </style>
-</head>
-<body>
-
-<h1>SQL Database Unit Testing with tSQLt in Azure Data Studio</h1>
-
-<hr>
-
-<h2 id="test-case-setup">Test Case Setup: Creating 'Actual' Table</h2>
-
-<p class="description">
-  I created a temporary table called "actual" to store the data after executing the stored procedure. Both the "actual" and "expected" tables had the same schema. I dropped the existing "actual" table if it existed, then created a new one with columns for "OrderQty", "Name", and "ListPrice".
-</p>
-
-<div class="code-section">
-  <h3 class="section-title">Step 1: Create the 'Actual' Table</h3>
-  <pre><code class="lang-sql">
-    -- Drop the existing table if it exists
-    IF OBJECT_ID('actual', 'U') IS NOT NULL
-        DROP TABLE actual;
-
-    -- Now, create the new table
-    CREATE TABLE actual (
-        OrderQty SMALLINT,
-        Name NVARCHAR(200),
-        ListPrice NUMERIC(6, 2)
+    <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> actual (
+    OrderQty <span class="hljs-built_in">SMALLINT</span>,
+    <span class="hljs-keyword">Name</span> <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-number">200</span>),
+    ListPrice <span class="hljs-built_in">NUMERIC</span>(<span class="hljs-number">6</span>, <span class="hljs-number">2</span>)
     );
 
-    -- Declare a variable to store the customer ID
-    DECLARE @custid SMALLINT;
-    SET @custid = 29796;
+    <span class="hljs-keyword">DECLARE</span> @custid <span class="hljs-built_in">SMALLINT</span>;
+    <span class="hljs-keyword">SET</span> @custid = <span class="hljs-number">29796</span>;
 
-    -- Insert data into the actual table by executing the stored procedure
-    INSERT INTO actual
-    EXEC [SalesLT].GetCustomerOrderDetails @custid;
-  </code></pre>
-</div>
+    <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> actual
+    EXEC  [SalesLT].GetCustomerOrderDetails @custid;
 
-<p class="image-container">
-  <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig16.png" alt="Actual Table Setup" width="800">
-</p>
+    <span class="hljs-comment">------Assertion------</span>
 
-<hr>
-
-<h2 id="comparison-between-actual-and-expected">Comparing 'Actual' and 'Expected' Tables</h2>
-
-<p class="description">
-  I used the <code>tSQLt.AssertEqualsTable</code> stored procedure to compare the data in the "actual" table with the data in the "expected" table.
-</p>
-
-<div class="code-section">
-  <h3 class="section-title">Step 2: Compare Tables with AssertEqualsTable</h3>
-  <pre><code class="lang-sql">
     EXEC tSQLt.AssertEqualsTable expected, actual;
-  </code></pre>
-</div>
 
-<p class="image-container">
-  <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig17.png" alt="AssertEqualsTable Execution" width="800">
-</p>
-
-<hr>
-
-<h2 id="creating-and-running-test">Creating and Running the Test Case</h2>
-
-<p class="description">
-  I created a test class to contain the test case by executing the <code>tSQLt.NewTestClass</code> stored procedure with the name 'testSalesLT'.
-</p>
-
-<div class="code-section">
-  <h3 class="section-title">Step 3: Create Test Class</h3>
-  <pre><code class="lang-sql">
-    EXEC tSQLt.NewTestClass 'testSalesLT';
-  </code></pre>
-</div>
-
-<p class="description">
-  Then, I created a test stored procedure called <code>testGetCustomerOrderDetails</code> in the <code>SalesLT</code> schema. The procedure ensured that any pre-existing tables named "actual" and "expected" were dropped using the <code>IF OBJECT_ID</code> check. It then proceeded to create the "expected" table, inserted test data, and compared the tables using <code>tSQLt.AssertEqualsTable</code>.
-</p>
-
-<div class="code-section">
-  <h3 class="section-title">Step 4: Create Test Procedure</h3>
-  <pre><code class="lang-sql">
-    CREATE OR ALTER PROCEDURE testSalesLT.[testGetCustomerOrderDetails]
-    AS
-    BEGIN
-        IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
-        IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
-
-        ---- Create Expected Table -----
-        CREATE TABLE expected (
-            OrderQty SMALLINT,
-            Name NVARCHAR(200),
-            ListPrice NUMERIC(6, 2)
-        );
-
-        INSERT INTO expected (OrderQty, Name, ListPrice)
-        VALUES
-            (23, 'Classic Vest, S', 63.50),
-            (11, 'Water Bottle - 30 oz.', 4.99),
-            (12, 'Sport-100 Helmet, Black', 34.99),
-            (15, 'Short-Sleeve Classic Jersey, XL', 53.99),
-            (16, 'Short-Sleeve Classic Jersey, L', 53.99),
-            (17, 'Bike Wash - Dissolver', 7.95);
-
-        ------ Execution ------
-        CREATE TABLE actual (
-            OrderQty SMALLINT,
-            Name NVARCHAR(200),
-            ListPrice NUMERIC(6, 2)
-        );
-
-        DECLARE @custid SMALLINT;
-        SET @custid = 29796;
-
-        INSERT INTO actual
-        EXEC  [SalesLT].GetCustomerOrderDetails @custid;
-
-        ------ Assertion ------
-        EXEC tSQLt.AssertEqualsTable expected, actual;
-    END;
-    GO
-  </code></pre>
-</div>
-
-<p class="image-container">
-  <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig18.png" alt="Test Procedure Creation" width="800">
-</p>
-
-<hr>
-
-<h2 id="running-test-case">Running the Test Case</h2>
-
-<p class="description">
-  I ran the test case using the following command:
-</p>
-
-<div class="code-section">
-  <h3 class="section-title">Step 5: Execute Test Case</h3>
-  <pre><code class="lang-sql">
-    EXEC tSQLt.Run testSalesLT;
-  </code></pre>
-</div>
-
-<p class="description">
-  The test returned the following results, indicating that the stored procedure <code>testGetCustomerOrderDetails</code> had produced the correct output, and the test case successfully passed.
-</p>
-
-<p class="image-container">
-  <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig19.png?raw=true" alt="Test Results" width="800">
-</p>
-
-</body>
-</html>
+<span class="hljs-keyword">END</span>;
+GO
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig18.png" alt="Test Procedure Creation" width="800"></p>
+<p>Then, I ran the test case using the command &quot;EXEC tSQLt.Run testSalesLT&quot;, and it evaluated to true, meaning the expected and actual results matched.</p>
+<pre><code class="lang-sql"><span class="hljs-built_in">EXEC</span> tSQLt.<span class="hljs-keyword">Run</span> testSalesLT;
+</code></pre>
+<p>The test returned the following results. This indicated that the stored procedure &quot;testGetCustomerOrderDetails&quot; had produced the correct output, and the test case successfully passed.</p>
+<p><img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/fig19.png?raw=true" alt="Test Results" width="800"></p>
