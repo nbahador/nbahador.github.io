@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - SQL Projects</title>
-    <!-- Google Fonts for Elegant Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         /* General Reset and Styling */
         * {
@@ -15,113 +13,178 @@
         }
 
         body {
-            background-color: #f4f4f9; /* Light background color */
-            font-family: 'Poppins', sans-serif;
-            color: #333; /* Dark text for readability */
+            background-color: #000; /* Black background for the page */
+            font-family: Arial, sans-serif;
+            color: #fff; /* White text for the page */
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            align-items: center; /* Center horizontally */
+            padding-left: 0.5cm; /* Start page content 0.5cm from the left edge */
+            padding-right: 0.5cm; /* Add 0.5cm padding on the right for symmetry */
             height: 100vh;
-            padding: 0 2rem;
+            position: relative; /* Allow positioning of bottom elements */
         }
 
+        /* Animated Gradient for "Welcome to My Portfolio" */
         h1 {
+            margin-top: 2cm; /* 2cm from the top edge */
             font-size: 3rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 1cm; /* 1cm gap before the wavy line */
+            background: linear-gradient(45deg, #ff0077, #ff7700, #77ff00, #0077ff); /* Bold gradient colors */
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientAnimation 5s ease-in-out infinite;
+            margin-left: auto; /* Center horizontally */
+            margin-right: auto; /* Center horizontally */
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background: linear-gradient(45deg, #ff0077, #ff7700, #77ff00, #0077ff); /* Starting colors */
+            }
+            25% {
+                background: linear-gradient(45deg, #ff0077, #7700ff, #ff7700, #00ff77); /* Change to different vibrant colors */
+            }
+            50% {
+                background: linear-gradient(45deg, #00ff77, #ff0077, #7700ff, #00ffbb); /* More vibrant mix */
+            }
+            75% {
+                background: linear-gradient(45deg, #ff7700, #ff0077, #0077ff, #ffbb00); /* More bold gradient */
+            }
+            100% {
+                background: linear-gradient(45deg, #ff0077, #ff7700, #77ff00, #0077ff); /* Back to the original */
+            }
         }
 
         /* Shiny, Metallic Blue-Pink Gradient Line Below the Title */
         .wave {
-            width: 100%;
-            height: 6px;
-            background: linear-gradient(135deg, rgba(0, 174, 255, 0.7), rgba(255, 0, 204, 0.7));
-            box-shadow: 0 0 20px rgba(0, 174, 255, 0.8), 0 0 20px rgba(255, 0, 204, 0.8);
-            margin-bottom: 2rem;
-            border-radius: 20px;
+            width: calc(100% - 1cm); /* Width of the line with 0.5 cm space from both left and right edges */
+            height: 15px; /* Line height set to 15px */
+            background: linear-gradient(135deg, rgba(0, 174, 255, 0.7), rgba(255, 0, 204, 0.7)); /* Metallic blue-pink gradient */
+            box-shadow: 
+                0 0 150px rgba(0, 174, 255, 0.8),   /* Shiny blue glow */
+                0 0 200px rgba(255, 0, 204, 0.8),   /* Shiny pink glow */
+                0 0 250px rgba(0, 174, 255, 0.4),   /* Wider blue glow */
+                0 0 300px rgba(255, 0, 204, 0.4);   /* Wider pink glow */
+            margin-top: 0.8cm; /* 0.8cm gap before the wavy line */
+            margin-bottom: 2cm; /* 3cm gap after the wavy line */
+            border-radius: 10px; /* Slight curvature */
+            animation: glowEffect 3s ease-in-out infinite; /* Smooth glowing animation */
         }
 
-        /* Button Container */
+        @keyframes glowEffect {
+            0% {
+                box-shadow: 
+                    0 0 150px rgba(0, 174, 255, 0.8), 
+                    0 0 200px rgba(255, 0, 204, 0.8), 
+                    0 0 250px rgba(0, 174, 255, 0.4), 
+                    0 0 300px rgba(255, 0, 204, 0.4);
+            }
+            50% {
+                box-shadow: 
+                    0 0 200px rgba(0, 174, 255, 0.9), 
+                    0 0 250px rgba(255, 0, 204, 0.9), 
+                    0 0 300px rgba(0, 174, 255, 0.5), 
+                    0 0 350px rgba(255, 0, 204, 0.5);
+            }
+            100% {
+                box-shadow: 
+                    0 0 150px rgba(0, 174, 255, 0.8), 
+                    0 0 200px rgba(255, 0, 204, 0.8), 
+                    0 0 250px rgba(0, 174, 255, 0.4), 
+                    0 0 300px rgba(255, 0, 204, 0.4);
+            }
+        }
+
+        /* Button Styling */
         .project-buttons-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-            max-width: 1200px;
-            width: 100%;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
+            display: flex; /* Use flexbox to align buttons horizontally */
+            gap: 20px; /* Add space between buttons */
+            margin-top: 1cm; /* Space from the wave to the buttons */
+            justify-content: center; /* Center the buttons horizontally */
+            flex-wrap: wrap; /* Allow wrapping of buttons */
         }
 
         .project-button {
-            background-color: #fff;
-            color: #333;
-            font-size: 1.5rem;
-            font-weight: 600;
-            padding: 20px;
+            background-color: #111; /* Dark background for the button */
+            color: #fff; /* White text */
+            font-size: 1.8rem; /* Slightly smaller font size */
+            font-weight: bold; /* Bold text */
+            border: 2px solid #fff; /* White border for visibility */
+            padding: 15px 25px; /* Smaller padding */
             border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease-in-out;
             cursor: pointer;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            align-items: center; /* Align icon and text horizontally */
+            gap: 15px; /* Space between icon and text */
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            max-width: 350px; /* Limit the maximum width of the button */
         }
 
-        .project-button img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            transition: transform 0.3s ease-in-out;
-        }
-
+        /* Hover Effects for the Button */
         .project-button:hover {
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-            transform: translateY(-10px);
+            background-color: #333; /* Slightly lighter background on hover */
+            transform: scale(1.05); /* Slightly increase size on hover */
+        }
+
+        /* Icon Styling */
+        .project-button img {
+            width: 80px; /* Smaller icon size */
+            height: 80px;
+            border-radius: 50%; /* Circular shape */
+            border: 3px solid #fff; /* White border around the icon */
+            transition: transform 0.5s ease-in-out;
         }
 
         .project-button:hover img {
-            transform: rotate(360deg);
+            transform: rotate(360deg); /* Rotate icon on hover */
         }
 
-        /* Button Text */
-        .project-button span {
-            font-size: 1.1rem;
-            font-weight: 500;
-            text-transform: capitalize;
-            letter-spacing: 1px;
-            color: #333;
+        /* Animated Gradient on Image */
+        .project-button img {
+            animation: gradientAnimation 5s linear infinite;
         }
 
-        /* Remove Underline from Links */
+        @keyframes gradientAnimation {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            50% {
+                filter: hue-rotate(180deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        /* Focus effect for button */
+        .project-button:focus {
+            outline: none;
+        }
+
+        /* Remove Underline from Link */
         a {
-            text-decoration: none;
+            text-decoration: none; /* Remove underline */
         }
 
-        /* Back to Main Page Button */
+        /* Back to Main Page Button Styling */
         .back-button {
-            background-color: #333;
+            position: absolute;
+            bottom: 1.5cm; /* 1.5 cm from the bottom */
+            left: 0.5cm; /* 0.5 cm from the left */
+            background-color: #111;
             color: #fff;
-            padding: 15px 30px;
-            font-size: 1.3rem;
-            border-radius: 50px;
-            text-decoration: none;
-            margin-top: 2rem;
-            transition: background-color 0.3s ease;
-            letter-spacing: 1px;
-            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            text-decoration: none; /* Remove underline from link */
         }
 
         .back-button:hover {
-            background-color: #555;
+            background-color: #333;
         }
     </style>
 </head>
@@ -129,49 +192,51 @@
 
     <h1>Welcome to My Portfolio</h1>
 
-    <!-- Shiny, Metallic Blue-Pink Gradient Line Below the Title -->
+    <!-- Shiny, Metallic Blue-Pink Gradient Wave Below the Title -->
     <div class="wave"></div>
 
     <!-- Buttons for Projects -->
     <div class="project-buttons-container">
         <!-- SQL Projects Button -->
         <a href="sqlprojects.html">
-            <div class="project-button">
+            <button class="project-button">
                 <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/sql.png?raw=true" alt="SQL Icon">
-                <span>SQL Projects</span>
-            </div>
+                SQL Projects
+            </button>
         </a>
 
         <!-- Informatica Projects Button -->
         <a href="InformaticaProjects.html">
-            <div class="project-button">
+            <button class="project-button">
                 <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/Informatica2.jpg?raw=true" alt="Informatica Icon">
-                <span>Informatica Projects</span>
-            </div>
+                Informatica Projects
+            </button>
         </a>
 
         <!-- Huggingface Projects Button -->
         <a href="HuggingfaceProjects.html">
-            <div class="project-button">
+            <button class="project-button">
                 <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/hugging_face_0.png?raw=true" alt="Huggingface Icon">
-                <span>Huggingface Projects</span>
-            </div>
+                Huggingface Projects
+            </button>
         </a>
 
-        <!-- Python Projects Button -->
+        <!-- Python Projects Button (New) -->
         <a href="PythonProjects.html">
-            <div class="project-button">
+            <button class="project-button">
                 <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/python.jpg?raw=true" alt="Python Icon">
-                <span>Python Projects</span>
-            </div>
+                Python Projects
+            </button>
         </a>
+    </div>
 
-        <!-- New Apache Spark Button -->
+    <!-- New Button for Apache Spark -->
+    <div class="project-buttons-container">
         <a href="Setting_Up_Apache_Spark_on_NixOS.html">
-            <div class="project-button">
+            <button class="project-button">
                 <img src="https://github.com/nbahador/nbahador.github.io/blob/main/assets/img/spark.jpg" alt="Apache Spark Icon">
-                <span>Setting Up Apache Spark on NixOS</span>
-            </div>
+                Setting Up Apache Spark on NixOS
+            </button>
         </a>
     </div>
 
