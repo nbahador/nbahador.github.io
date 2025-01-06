@@ -142,7 +142,7 @@
         <p>In this code, I was addressing the question: <strong>"How can I run SQL queries in parallel in Spark using Scala?"</strong> I utilized <code>Future</code> to enable asynchronous execution. With <code>Future</code>, I could initiate both SQL queries without waiting for one to finish before starting the other, making the process more efficient.</p>
 
         <h2>Approach and Code Explanation</h2>
-        <p>Here’s a simplified explanation of the steps I took in the code:</p>
+        <p>Here’s the steps I took in the code:</p>
         <ul>
             <li><strong>Spark Session Setup:</strong> I initialized a <code>SparkSession</code> to interact with Spark.</li>
             <li><strong>Creating DataFrames:</strong> I created two DataFrames, <code>df1</code> and <code>df2</code>, representing data about people and subjects.</li>
@@ -158,35 +158,34 @@
             <li><strong>Spark Cleanup:</strong> After completing the queries, I stopped the Spark session to release the resources.</li>
         </ul>
 
-        <div class="code-section">
-            <pre><code>
-// Scala code example
-
-val spark = SparkSession.builder.appName("Future Example").getOrCreate()
-
-// DataFrames
-val df1 = spark.read.option("header", "true").csv("people.csv")
-val df2 = spark.read.option("header", "true").csv("subjects.csv")
-
-// Register Temp Views
-df1.createOrReplaceTempView("people")
-df2.createOrReplaceTempView("subjects")
-
-// Future for Query 1
-val query1Future = Future {
-    spark.sql("SELECT name, age FROM people WHERE age > 30").show()
-}
-
-// Future for Query 2
-val query2Future = Future {
-    spark.sql("SELECT p.name, s.subject FROM people p JOIN subjects s ON p.id = s.person_id").show()
-}
-
-// Wait for both queries to complete
-Await.result(query1Future, Duration.Inf)
-Await.result(query2Future, Duration.Inf)
-
-spark.stop()
+       <pre><code>
+            <span class="comment">// Scala code example</span>
+            
+            <span class="keyword">val</span> <span class="variable">spark</span> = <span class="keyword">SparkSession</span>.builder.appName(<span class="string">"Future Example"</span>).getOrCreate()
+            
+            <span class="comment">// DataFrames</span>
+            <span class="keyword">val</span> <span class="variable">df1</span> = <span class="variable">spark</span>.read.option(<span class="string">"header"</span>, <span class="string">"true"</span>).csv(<span class="string">"people.csv"</span>)
+            <span class="keyword">val</span> <span class="variable">df2</span> = <span class="variable">spark</span>.read.option(<span class="string">"header"</span>, <span class="string">"true"</span>).csv(<span class="string">"subjects.csv"</span>)
+            
+            <span class="comment">// Register Temp Views</span>
+            <span class="variable">df1</span>.createOrReplaceTempView(<span class="string">"people"</span>)
+            <span class="variable">df2</span>.createOrReplaceTempView(<span class="string">"subjects"</span>)
+            
+            <span class="comment">// Future for Query 1</span>
+            <span class="keyword">val</span> <span class="variable">query1Future</span> = <span class="keyword">Future</span> {
+                <span class="variable">spark</span>.sql(<span class="string">"SELECT name, age FROM people WHERE age > 30"</span>).show()
+            }
+            
+            <span class="comment">// Future for Query 2</span>
+            <span class="keyword">val</span> <span class="variable">query2Future</span> = <span class="keyword">Future</span> {
+                <span class="variable">spark</span>.sql(<span class="string">"SELECT p.name, s.subject FROM people p JOIN subjects s ON p.id = s.person_id"</span>).show()
+            }
+            
+            <span class="comment">// Wait for both queries to complete</span>
+            <span class="variable">Await</span>.result(<span class="variable">query1Future</span>, <span class="keyword">Duration</span>.Inf)
+            <span class="variable">Await</span>.result(<span class="variable">query2Future</span>, <span class="keyword">Duration</span>.Inf)
+            
+            <span class="variable">spark</span>.stop()
             </code></pre>
         </div>
 
