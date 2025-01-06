@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Analyzing CSV Data from a URL with Apache Spark SQL Queries</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .code-container {
+            background-color: #f5f5f5;
+            border-left: 4px solid #007bff;
+            padding: 20px;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+            border-radius: 8px;
+        }
+        code {
+            font-size: 1.1em;
+        }
+        .results {
+            background-color: #e9f7ef;
+            border: 1px solid #d4eedd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        img {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Analyzing CSV Data from a URL with Apache Spark SQL Queries</h1>
+        <p>In this example, I aimed to load a CSV file from a URL, clean and process the data using Apache Spark, and run a few SQL queries to analyze it. Here's what I did step by step:</p>
+
+        <h2>Step 1: Set Up SparkSession</h2>
+        <p>I started by setting up a SparkSession. This is a required step for using Spark's DataFrame and SQL functionalities.</p>
+        <div class="code-container">
+            <code>
+                val spark = SparkSession.builder()
+                    .appName("CSV from URL to DataFrame")
+                    .master("local[*]")  // Running locally; for a cluster, adjust this line
+                    .getOrCreate()
+            </code>
+        </div>
+
+        <h2>Step 2: Define the URL for the CSV File</h2>
+        <p>Next, I defined the URL pointing to the CSV file I wanted to load. In this case, I used a sample CSV file about air travel data.</p>
+        <div class="code-container">
+            <code>
+                val urlfile = new URL("https://people.sc.fsu.edu/~jburkardt/data/csv/airtravel.csv")
+            </code>
+        </div>
+
+        <h2>Step 3: Fetch the CSV Content from the URL</h2>
+        <p>To fetch the CSV file's content, I used the IOUtils class from Apache Commons IO. This class allows me to convert the content of the file at the given URL into a string.</p>
+        <div class="code-container">
+            <code>
+                val csvContent = IOUtils.toString(urlfile, "UTF-8")
+            </code>
+        </div>
+
+        <h2>Step 4: Save the CSV Content to a Temporary File</h2>
+        <p>Once I had the CSV content, I saved it to a temporary file on the local filesystem. I used java.nio.file.Files to write the content to a file.</p>
+        <div class="code-container">
+            <code>
+                val tempFilePath = "/tmp/airtravel.csv"
+                Files.write(Paths.get(tempFilePath), csvContent.getBytes("UTF-8"))
+            </code>
+        </div>
+
+        <h2>Step 5: Load the CSV into a DataFrame</h2>
+        <p>With the CSV file saved locally, I read it into a Spark DataFrame. I specified options like header (since the CSV has headers) and inferSchema (to automatically detect the data types of columns).</p>
+        <div class="code-container">
+            <code>
+                val testcsv = spark
+                    .read
+                    .option("header", "true") 
+                    .option("inferSchema", "true") 
+                    .csv(tempFilePath)
+            </code>
+        </div>
+
+        <h2>Step 6: Clean the Data</h2>
+        <p>I noticed that the column names might have unwanted spaces or quotes, so I cleaned them by trimming spaces and removing any quotes.</p>
+        <div class="code-container">
+            <code>
+                val cleanedData = testcsv
+                    .toDF(testcsv.columns.map(c => c.trim.replace("\"", "")): _*)
+            </code>
+        </div>
+
+        <h2>Step 7: Show the DataFrame and Schema</h2>
+        <p>To verify that the data looked correct, I displayed the first few rows and printed the schema.</p>
+        <div class="code-container">
+            <code>
+                cleanedData.show()
+                cleanedData.printSchema()
+            </code>
+        </div>
+
+        <h2>Step 8: Convert Columns to Numeric Types</h2>
+        <p>Since the columns for the years 1958, 1959, and 1960 contained numeric data but were stored as strings, I cast these columns to double for numerical analysis.</p>
+        <div class="code-container">
+            <code>
+                val cleanedDataWithColumns = cleanedData
+                    .withColumn("1958", cleanedData("1958").cast("double"))
+                    .withColumn("1959", cleanedData("1959").cast("double"))
+                    .withColumn("1960", cleanedData("1960").cast("double"))
+            </code>
+        </div>
+
+        <h2>Step 9: Create a Temporary SQL View</h2>
+        <p>I created a temporary view of the cleaned data so that I could run SQL queries on it.</p>
+        <div class="code-container">
+            <code>
+                cleanedDataWithColumns.createOrReplaceTempView("airtravel_data")
+            </code>
+        </div>
+
+        <h2>Step 10: Run SQL Queries</h2>
+        <p>I wrote several SQL queries to analyze the data. First, I queried for the month with the highest travel in 1958.</p>
+        <div class="code-container">
+            <code>
+                val maxTravels1958 = spark.sql("""
+                  SELECT Month, `1958`
+                  FROM airtravel_data
+                  ORDER BY `1958` DESC
+                  LIMIT 1
+                """)
+                maxTravels1958.show()
+            </code>
+        </div>
+
+        <p>Then, I ran another query to compute the average travel for each year (1958, 1959, 1960).</p>
+        <div class="code-container">
+            <code>
+                val averageTravelPerYear = spark.sql("""
+                  SELECT
+                    AVG(`1958`) AS avg_1958,
+                    AVG(`1959`) AS avg_1959,
+                    AVG(`1960`) AS avg_1960
+                  FROM airtravel_data
+                """)
+                averageTravelPerYear.show()
+            </code>
+        </div>
+
+        <p>Finally, I filtered records where the travel in 1958 was greater than 400.</p>
+        <div class="code-container">
+            <code>
+                val travelsAbove400 = spark.sql("""
+                  SELECT Month, `1958`
+                  FROM airtravel_data
+                  WHERE `1958` > 400
+                """)
+                travelsAbove400.show()
+            </code>
+        </div>
+
+        <h2>Step 11: Stopping the SparkSession</h2>
+        <p>After finishing the analysis, I stopped the SparkSession to free up resources.</p>
+        <div class="code-container">
+            <code>
+                spark.stop()
+            </code>
+        </div>
+
+        <h2>Results</h2>
+        <div class="results">
+            <ul>
+                <li><strong>Cleaned Data:</strong> The data was successfully loaded and cleaned.</li>
+                <li><strong>Month with Maximum Travel in 1958:</strong> August had the highest travel in 1958.</li>
+                <li><strong>Average Travel per Year:</strong> The average travel for 1958 was 381, for 1959 was 428.33, and for 1960 was 476.17.</li>
+                <li><strong>Months with Travels Above 400 in 1958:</strong> June, July, August, and September had more than 400 travels in 1958.</li>
+            </ul>
+        </div>
+
+        <h2>Images</h2>
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark17.png" alt="Spark 17">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark18.png" alt="Spark 18">
+    </div>
+
+</body>
+</html>
