@@ -1,133 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Fetching a CSV File from a URL and Loading it into a Spark DataFrame</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-        }
-        main {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-        p {
-            color: #555;
-            margin-bottom: 20px;
-        }
-        code {
-            background-color: #f4f4f4;
-            border-radius: 5px;
-            padding: 5px 10px;
-            font-family: 'Courier New', monospace;
-            color: #333;
-        }
-        pre {
-            background-color: #2e2e2e;
-            color: #f8f8f2;
-            padding: 20px;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin-bottom: 30px;
-            font-size: 14px;
-            line-height: 1.6;
-            word-wrap: break-word;
-        }
-        pre code {
-            display: block;
-            color: #f8f8f2;
-            white-space: pre-wrap;
-        }
-        .screenshot-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-        .screenshot-container img {
-            max-width: 48%;
-            border-radius: 8px;
-        }
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetching a CSV File from a URL and Loading it into a Spark DataFrame</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #007acc;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      width: 80%;
+      margin: 20px auto;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    pre {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 20px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    code {
+      color: #ff79c6;
+    }
+    .section {
+      margin-bottom: 40px;
+    }
+    .img-container {
+      text-align: center;
+    }
+    .img-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    footer {
+      background-color: #2d2d2d;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
 
-<header>
+  <header>
     <h1>Fetching a CSV File from a URL and Loading it into a Spark DataFrame</h1>
-</header>
+  </header>
 
-<main>
-    <section>
-        <h2>Overview</h2>
-        <p>
-            I wanted to fetch a CSV file from a URL, process it, and load it into a Spark DataFrame for data analysis. 
-            To achieve this, I used Apache Spark and Scala.
-        </p>
+  <div class="container">
+
+    <section class="section">
+      <h2>Overview</h2>
+      <p>I wanted to fetch a CSV file from a URL, process it, and load it into a Spark DataFrame for data analysis. To achieve this, I used Apache Spark and Scala.</p>
+      <p>First, I imported the necessary libraries:</p>
+      <ul>
+        <li><strong>IOUtils</strong> from Apache Commons IO to read the content from the URL.</li>
+        <li><strong>URL</strong> from Java to represent the CSV file’s URL.</li>
+        <li><strong>SparkSession</strong> from Apache Spark to initialize a Spark session and work with the DataFrame.</li>
+        <li><strong>Files and Paths</strong> from Java to handle file operations.</li>
+      </ul>
+      <p>Then, I created an object called <code>CSVFromURLToDataFrame</code> and defined the main method. Inside the main method:</p>
+      <ul>
+        <li>Initialized a Spark session using <code>SparkSession.builder()</code>.</li>
+        <li>Defined the URL pointing to the CSV file hosted online.</li>
+        <li>Used <code>IOUtils.toString()</code> to fetch the CSV content from the URL as a string.</li>
+        <li>Saved this CSV content to a temporary local file using <code>Files.write()</code>.</li>
+        <li>Read the CSV file into a DataFrame using Spark’s <code>.csv()</code> method, applying options like <code>header=true</code> (to treat the first row as column names) and <code>inferSchema=true</code> (to let Spark automatically infer the column data types).</li>
+        <li>Displayed the DataFrame using <code>.show()</code> to see its contents.</li>
+        <li>Finally, stopped the Spark session with <code>spark.stop()</code> to clean up resources.</li>
+      </ul>
+      <p>This process allowed me to easily fetch, process, and analyze the CSV data using Apache Spark and Scala.</p>
     </section>
 
-    <section>
-        <h2>Required Libraries</h2>
-        <p>First, I imported the necessary libraries:</p>
-        <ul>
-            <li><strong>IOUtils</strong> from Apache Commons IO to read the content from the URL.</li>
-            <li><strong>URL</strong> from Java to represent the CSV file’s URL.</li>
-            <li><strong>SparkSession</strong> from Apache Spark to initialize a Spark session and work with the DataFrame.</li>
-            <li><strong>Files and Paths</strong> from Java to handle file operations.</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>Code Explanation</h2>
-        <p>
-            Then, I created an object called <strong>CSVFromURLToDataFrame</strong> and defined the main method. Inside the main method:
-        </p>
-        <ul>
-            <li>I initialized a Spark session using <code>SparkSession.builder()</code>.</li>
-            <li>I defined the URL pointing to the CSV file hosted online.</li>
-            <li>I used <code>IOUtils.toString()</code> to fetch the CSV content from the URL as a string.</li>
-            <li>I saved this CSV content to a temporary local file using <code>Files.write()</code>.</li>
-            <li>I read the CSV file into a DataFrame using Spark’s <code>.csv()</code> method, applying options like <code>header=true</code> (to treat the first row as column names) and <code>inferSchema=true</code> (to let Spark automatically infer the column data types).</li>
-            <li>I displayed the DataFrame using <code>.show()</code> to see its contents.</li>
-            <li>Finally, I stopped the Spark session with <code>spark.stop()</code> to clean up resources.</li>
-        </ul>
-        <p>This process allowed me to easily fetch, process, and analyze the CSV data using Apache Spark and Scala.</p>
-    </section>
-
-    <section>
-        <h2>Code</h2>
-        <pre><code>
+    <section class="section">
+      <h2>Code Example</h2>
+      <pre><code>
 import org.apache.commons.io.IOUtils
 import java.net.URL
 import org.apache.spark.sql.{SparkSession}
@@ -165,21 +129,23 @@ object CSVFromURLToDataFrame {
     spark.stop()
   }
 }
-        </code></pre>
+      </code></pre>
     </section>
 
-    <section>
-        <h2>Screenshots</h2>
-        <div class="screenshot-container">
-            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark15.png" alt="Code execution screenshot 1">
-            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark16.png" alt="Code execution screenshot 2">
-        </div>
+    <section class="section">
+      <h2>Screenshots</h2>
+      <p>Below are screenshots showing the code execution in the terminal:</p>
+      <div class="img-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark15.png" alt="Spark Execution 1">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark16.png" alt="Spark Execution 2">
+      </div>
     </section>
-</main>
 
-<footer>
-    <p>&copy; 2025 Your Name. All rights reserved.</p>
-</footer>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Data Analysis with Apache Spark and Scala</p>
+  </footer>
 
 </body>
 </html>
