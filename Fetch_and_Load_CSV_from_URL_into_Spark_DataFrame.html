@@ -1,102 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fetching a CSV File from a URL and Loading it into a Spark DataFrame</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #007acc;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-    .container {
-      width: 80%;
-      margin: 20px auto;
-    }
-    h1, h2 {
-      color: #333;
-    }
-    pre {
-      background-color: #2d2d2d;
-      color: #f8f8f2;
-      padding: 20px;
-      border-radius: 5px;
-      overflow-x: auto;
-    }
-    code {
-      color: #ff79c6;
-    }
-    .section {
-      margin-bottom: 40px;
-    }
-    .img-container {
-      text-align: center;
-    }
-    .img-container img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-    footer {
-      background-color: #2d2d2d;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fetching a CSV File from a URL and Loading it into a Spark DataFrame</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <header>
+        <h1>Fetching a CSV File from a URL and Loading it into a Spark DataFrame</h1>
+    </header>
 
-  <header>
-    <h1>Fetching a CSV File from a URL and Loading it into a Spark DataFrame</h1>
-  </header>
+    <section>
+        <p>
+            I wanted to download a CSV file from a URL, process it in Spark, and perform some data analysis to identify trends. 
+            Specifically, I aimed to analyze air travel data from the years 1958, 1959, and 1960, and find the month with the highest travel numbers in 1958. 
+            I executed this task on my local machine using Apache Spark's <code>spark-shell</code>, which provides a Scala-based interactive shell for working with Spark.
+        </p>
 
-  <div class="container">
-
-    <section class="section">
-      <h2>Overview</h2>
-      <p>I wanted to fetch a CSV file from a URL, process it, and load it into a Spark DataFrame for data analysis. To achieve this, I used Apache Spark and Scala.</p>
-      <p>First, I imported the necessary libraries:</p>
-      <ul>
-        <li><strong>IOUtils</strong> from Apache Commons IO to read the content from the URL.</li>
-        <li><strong>URL</strong> from Java to represent the CSV file’s URL.</li>
-        <li><strong>SparkSession</strong> from Apache Spark to initialize a Spark session and work with the DataFrame.</li>
-        <li><strong>Files and Paths</strong> from Java to handle file operations.</li>
-      </ul>
-      <p>Then, I created an object called <code>CSVFromURLToDataFrame</code> and defined the main method. Inside the main method:</p>
-      <ul>
-        <li>Initialized a Spark session using <code>SparkSession.builder()</code>.</li>
-        <li>Defined the URL pointing to the CSV file hosted online.</li>
-        <li>Used <code>IOUtils.toString()</code> to fetch the CSV content from the URL as a string.</li>
-        <li>Saved this CSV content to a temporary local file using <code>Files.write()</code>.</li>
-        <li>Read the CSV file into a DataFrame using Spark’s <code>.csv()</code> method, applying options like <code>header=true</code> (to treat the first row as column names) and <code>inferSchema=true</code> (to let Spark automatically infer the column data types).</li>
-        <li>Displayed the DataFrame using <code>.show()</code> to see its contents.</li>
-        <li>Finally, stopped the Spark session with <code>spark.stop()</code> to clean up resources.</li>
-      </ul>
-      <p>This process allowed me to easily fetch, process, and analyze the CSV data using Apache Spark and Scala.</p>
+        <p>
+            To begin, I initialized a Spark session and imported necessary libraries like <code>org.apache.commons.io.IOUtils</code>, 
+            <code>java.net.URL</code>, and <code>org.apache.spark.sql</code>. I then defined a URL to fetch the CSV file, 
+            used IOUtils to read the content into a string, and saved this content to a temporary file. 
+            I loaded the CSV file into a Spark DataFrame, cleaned the column names by removing extra spaces and quotes, 
+            and cast the travel data columns to numeric types for proper analysis. 
+            After that, I performed a query to filter the data for the year 1958 and sorted it by the number of travels to find the month with the highest travel volume. 
+            Finally, I displayed the cleaned DataFrame and the result using <code>show()</code> before stopping the Spark session. 
+            The process ran, and I was able to identify that August 1958 had the highest travel numbers with 505,000 passengers.
+        </p>
     </section>
 
-    <section class="section">
-      <h2>Code Example</h2>
-      <pre><code>
+    <section>
+        <h2>Here is the code:</h2>
+        <pre>
+<code>
+// Import necessary libraries
 import org.apache.commons.io.IOUtils
 import java.net.URL
-import org.apache.spark.sql.{SparkSession}
+import org.apache.spark.sql.{SparkSession, functions}
 import java.nio.file.{Files, Paths}
 
+// Define the object containing the main method
 object CSVFromURLToDataFrame {
   def main(args: Array[String]): Unit = {
     // Initialize SparkSession
@@ -122,30 +67,50 @@ object CSVFromURLToDataFrame {
       .option("inferSchema", "true") // Auto infer column data types
       .csv(tempFilePath)
 
-    // Show the DataFrame (first 20 rows by default)
-    testcsv.show()
+    // Rename columns by trimming spaces (if any) and removing quotes
+    val cleanedData = testcsv
+      .toDF(testcsv.columns.map(c => c.trim.replace("\"", "")): _*)  // Remove quotes and extra spaces
+
+    // Show the cleaned DataFrame (first 20 rows by default)
+    cleanedData.show()
+
+    // Convert the data to have numeric columns for 1958, 1959, and 1960
+    val cleanedDataWithColumns = cleanedData
+      .withColumn("1958", cleanedData("1958").cast("double"))
+      .withColumn("1959", cleanedData("1959").cast("double"))
+      .withColumn("1960", cleanedData("1960").cast("double"))
+
+    // Filter the data for year 1958 and get the month with maximum travels
+    val maxTravels1958 = cleanedDataWithColumns
+      .select("Month", "1958")  // Now using cleaned column names
+      .orderBy(functions.desc("1958"))
+      .limit(1) // Get the month with the maximum travels for 1958
+
+    // Show the month with the maximum travels in 1958
+    maxTravels1958.show()
 
     // Stop SparkSession
     spark.stop()
   }
 }
-      </code></pre>
+
+// Call the main function
+CSVFromURLToDataFrame.main(Array())
+</code>
+        </pre>
     </section>
 
-    <section class="section">
-      <h2>Screenshots</h2>
-      <p>Below are screenshots showing the code execution in the terminal:</p>
-      <div class="img-container">
-        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark15.png" alt="Spark Execution 1">
-        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark16.png" alt="Spark Execution 2">
-      </div>
+    <section>
+        <h2>Screenshots</h2>
+        <p>Below are screenshots showing the code execution in the terminal:</p>
+        <div>
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark15.png" alt="Screenshot 1">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark16.png" alt="Screenshot 2">
+        </div>
     </section>
 
-  </div>
-
-  <footer>
-    <p>&copy; 2025 Data Analysis with Apache Spark and Scala</p>
-  </footer>
-
+    <footer>
+        <p>&copy; 2025 Your Name. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
