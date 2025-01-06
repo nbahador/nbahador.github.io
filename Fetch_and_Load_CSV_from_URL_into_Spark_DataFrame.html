@@ -93,21 +93,16 @@
 
     <div class="section-title" id="step-1">Step 1: Setting up the Spark Session and Fetching the CSV File</div>
     <p>I initialized a Spark session, imported the necessary libraries, and fetched the CSV file from the provided URL.</p>
-    
-    <div class="image-container">
-        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark15.png" alt="Spark Setup Image">
-    </div>
 
     <div class="section-title" id="step-2">Step 2: Reading the CSV File into a DataFrame</div>
     <p>Next, I loaded the CSV file into a Spark DataFrame using Spark's <code>read</code> method, ensuring the header was considered and the schema was inferred automatically.</p>
-    
-    <div class="image-container">
-        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark16.png" alt="DataFrame Image">
-    </div>
 
     <div class="section-title" id="step-3">Step 3: Data Cleaning and Analysis</div>
     <p>After loading the data, I cleaned the column names by trimming spaces and removing quotes. I then cast the travel data columns to numeric types for easier analysis. Finally, I filtered the data for the year 1958 and found the month with the highest travel numbers.</p>
     
+    <div class="section-title" id="step-4">Step 4: Running the Test</div>
+    <p>Finally, I executed the process, fetched the results, and displayed the month with the highest travel numbers in 1958.</p>
+
     <div class="step-title">Code for fetching and processing the CSV:</div>
     <pre><code>
 // Import necessary libraries
@@ -172,9 +167,6 @@ object CSVFromURLToDataFrame {
 // Call the main function
 CSVFromURLToDataFrame.main(Array())
     </code></pre>
-
-    <div class="section-title" id="step-4">Step 4: Running the Test</div>
-    <p>Finally, I executed the process, fetched the results, and displayed the month with the highest travel numbers in 1958.</p>
 
     <p>Below are screenshots showing the code execution in the terminal:</p>
     <div class="image-container">
