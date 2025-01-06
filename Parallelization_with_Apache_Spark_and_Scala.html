@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Leveraging Parallelization with Apache Spark and Scala for Data Processing</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #1f1f2e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        section {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .content h2 {
+            color: #1f1f2e;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        .content p {
+            line-height: 1.6;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        .code-block {
+            background-color: #2d2d2d;
+            color: #e4e4e4;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+        }
+        .code-block span {
+            color: #8bc34a;
+        }
+        .highlight {
+            color: #ff5722;
+            font-weight: bold;
+        }
+        .image-gallery {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .image-gallery img {
+            max-width: 48%;
+            border-radius: 10px;
+        }
+        footer {
+            background-color: #1f1f2e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        footer p {
+            margin: 0;
+        }
+        footer a {
+            color: #8bc34a;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Leveraging Parallelization with Apache Spark and Scala for Data Processing</h1>
+</header>
+
+<section class="content">
+    <h2>Introduction</h2>
+    <p>In distributed computing, data is processed across multiple machines. A key concept is distributing the data, and Apache Spark is a tool that helps do this efficiently. Spark can handle large datasets by processing them in parallel across many machines. To use Spark, you need to represent your data as a <span class="highlight">Resilient Distributed Dataset (RDD)</span>.</p>
+
+    <h2>Word Count Program Implementation</h2>
+    <p>One common way to create an RDD in Spark is by using the <span class="highlight">parallelize</span> function, which is part of SparkContext. In this example, we'll explore how we can implement a basic word count program using Apache Spark and Scala. The goal is to process a list of input strings to count the occurrences of each word.</p>
+
+    <h3>Steps Taken</h3>
+    <ul>
+        <li><strong>Created a SparkSession:</strong> First, I initialized a SparkSession, the main entry point to use Spark and its features, including SparkContext.</li>
+        <li><strong>Prepared the Input Data:</strong> I passed a list of sentences (as arguments in the main method) that I wanted to analyze and count words from.</li>
+        <li><strong>Created an RDD:</strong> I used <code>spark.sparkContext.parallelize(input)</code> to convert the list into an RDD. This allows Spark to handle the data in a distributed manner, splitting it into smaller parts to be processed in parallel.</li>
+        <li><strong>Transformed the RDD:</strong> Applied transformations like <code>flatMap</code>, <code>map</code>, and <code>reduceByKey</code> to analyze the data.</li>
+        <li><strong>Collected and Printed the Results:</strong> The final results were collected using <code>collect()</code> and printed using <code>foreach(println)</code>.</li>
+        <li><strong>Stopped the SparkSession:</strong> Stopped the SparkSession to free up resources after processing the data.</li>
+    </ul>
+
+    <h2>Code Implementation</h2>
+    <div class="code-block">
+        <pre><span>// Import SparkSession class</span>
+import org.apache.spark.sql.SparkSession
+
+object WordCount {
+  def main(args: Array[String]): Unit = {
+    // Initialize SparkSession (which includes SparkContext)
+    val spark = SparkSession.builder()
+      .appName("WordCountExample")
+      .master("local[*]")
+      .getOrCreate()
+
+    // Input is now passed through args
+    val input = args
+
+    // Create an RDD from the input list
+    val wordCounts = spark.sparkContext.parallelize(input)
+      .flatMap(line => line.split(" "))   // Split each line into words
+      .map(word => (word, 1))             // Create a tuple (word, 1)
+      .reduceByKey((a, b) => a + b)      // Sum the occurrences of each word
+
+    // Collect and print the result
+    wordCounts.collect().foreach(println)
+
+    // Stop SparkSession (which stops SparkContext)
+    spark.stop()
+  }
+}
+
+// To run WordCount.main() explicitly with input:
+WordCount.main(Array(
+  "Apache Spark is great", 
+  "Scala is powerful", 
+  "Apache Spark With Scala"
+))</pre>
+    </div>
+
+    <h2>Visuals</h2>
+    <div class="image-gallery">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark11_enhanced.png" alt="Apache Spark Visualization 1">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark12_enhanced.png" alt="Apache Spark Visualization 2">
+    </div>
+</section>
+
+<footer>
+    <p>For more tutorials and insights, visit <a href="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark11_enhanced.png" target="_blank">my website</a>.</p>
+</footer>
+
+</body>
+</html>
