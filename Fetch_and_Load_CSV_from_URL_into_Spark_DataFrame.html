@@ -3,38 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fetching a CSV File from a URL and Loading it into a Spark DataFrame</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .content {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        pre {
+            background-color: #2e2e2e;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 16px;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 14px;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 30px;
+            color: #333;
+        }
+        .step-title {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Fetching a CSV File from a URL and Loading it into a Spark DataFrame</h1>
-    </header>
 
-    <section>
-        <p>
-            I wanted to download a CSV file from a URL, process it in Spark, and perform some data analysis to identify trends. 
-            Specifically, I aimed to analyze air travel data from the years 1958, 1959, and 1960, and find the month with the highest travel numbers in 1958. 
-            I executed this task on my local machine using Apache Spark's <code>spark-shell</code>, which provides a Scala-based interactive shell for working with Spark.
-        </p>
+<header>
+    <h1>Fetching a CSV File from a URL and Loading it into a Spark DataFrame</h1>
+</header>
 
-        <p>
-            To begin, I initialized a Spark session and imported necessary libraries like <code>org.apache.commons.io.IOUtils</code>, 
-            <code>java.net.URL</code>, and <code>org.apache.spark.sql</code>. I then defined a URL to fetch the CSV file, 
-            used IOUtils to read the content into a string, and saved this content to a temporary file. 
-            I loaded the CSV file into a Spark DataFrame, cleaned the column names by removing extra spaces and quotes, 
-            and cast the travel data columns to numeric types for proper analysis. 
-            After that, I performed a query to filter the data for the year 1958 and sorted it by the number of travels to find the month with the highest travel volume. 
-            Finally, I displayed the cleaned DataFrame and the result using <code>show()</code> before stopping the Spark session. 
-            The process ran, and I was able to identify that August 1958 had the highest travel numbers with 505,000 passengers.
-        </p>
-    </section>
+<div class="content">
+    <p>I wanted to download a CSV file from a URL, process it in Spark, and perform some data analysis to identify trends. Specifically, I aimed to analyze air travel data from the years 1958, 1959, and 1960, and find the month with the highest travel numbers in 1958. I executed this task on my local machine using Apache Spark's spark-shell, which provides a Scala-based interactive shell for working with Spark.</p>
 
-    <section>
-        <h2>Here is the code:</h2>
-        <pre>
-<code>
+    <p>To begin, I initialized a Spark session and imported necessary libraries like <code>org.apache.commons.io.IOUtils</code>, <code>java.net.URL</code>, and <code>org.apache.spark.sql</code>. I then defined a URL to fetch the CSV file, used IOUtils to read the content into a string, and saved this content to a temporary file. I loaded the CSV file into a Spark DataFrame, cleaned the column names by removing extra spaces and quotes, and cast the travel data columns to numeric types for proper analysis. After that, I performed a query to filter the data for the year 1958 and sorted it by the number of travels to find the month with the highest travel volume. Finally, I displayed the cleaned DataFrame and the result using <code>show()</code> before stopping the Spark session. The process ran smoothly, and I was able to identify that August 1958 had the highest travel numbers with 505,000 passengers.</p>
+
+    <div class="section-title" id="step-1">Step 1: Setting up the Spark Session and Fetching the CSV File</div>
+    <p>I initialized a Spark session, imported the necessary libraries, and fetched the CSV file from the provided URL.</p>
+    
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark15.png" alt="Spark Setup Image">
+    </div>
+
+    <div class="section-title" id="step-2">Step 2: Reading the CSV File into a DataFrame</div>
+    <p>Next, I loaded the CSV file into a Spark DataFrame using Spark's <code>read</code> method, ensuring the header was considered and the schema was inferred automatically.</p>
+    
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark16.png" alt="DataFrame Image">
+    </div>
+
+    <div class="section-title" id="step-3">Step 3: Data Cleaning and Analysis</div>
+    <p>After loading the data, I cleaned the column names by trimming spaces and removing quotes. I then cast the travel data columns to numeric types for easier analysis. Finally, I filtered the data for the year 1958 and found the month with the highest travel numbers.</p>
+    
+    <div class="step-title">Code for fetching and processing the CSV:</div>
+    <pre><code>
 // Import necessary libraries
 import org.apache.commons.io.IOUtils
 import java.net.URL
@@ -96,21 +171,23 @@ object CSVFromURLToDataFrame {
 
 // Call the main function
 CSVFromURLToDataFrame.main(Array())
-</code>
-        </pre>
-    </section>
+    </code></pre>
 
-    <section>
-        <h2>Screenshots</h2>
-        <p>Below are screenshots showing the code execution in the terminal:</p>
-        <div>
-            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark15.png" alt="Screenshot 1">
-            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark16.png" alt="Screenshot 2">
-        </div>
-    </section>
+    <div class="section-title" id="step-4">Step 4: Running the Test</div>
+    <p>Finally, I executed the process, fetched the results, and displayed the month with the highest travel numbers in 1958.</p>
 
-    <footer>
-        <p>&copy; 2025 Your Name. All Rights Reserved.</p>
-    </footer>
+    <p>Below are screenshots showing the code execution in the terminal:</p>
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark15.png" alt="Spark Terminal Execution Image 1">
+    </div>
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark16.png" alt="Spark Terminal Execution Image 2">
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Fetching Data with Spark | Created by You</p>
+</footer>
+
 </body>
 </html>
