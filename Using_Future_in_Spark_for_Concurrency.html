@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Using Future in Spark for Concurrency</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0f4b6e;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        section {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: auto;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            color: #0f4b6e;
+            font-size: 1.8em;
+            margin-top: 0;
+        }
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #d14d53;
+        }
+        .code-section {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+        }
+        .img-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .img-container img {
+            max-width: 48%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #0f4b6e;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #f1c40f;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Using Future in Spark for Concurrency</h1>
+    </header>
+
+    <section>
+        <h2>Overview</h2>
+        <p>In Spark, using <strong>Future</strong> is a way to achieve concurrency, allowing multiple tasks to be executed simultaneously instead of sequentially. This is especially helpful when performing multiple queries concurrently without blocking the main thread.</p>
+
+        <p>In this code, I was addressing the question: <strong>"How can I run SQL queries in parallel in Spark using Scala?"</strong> I utilized <code>Future</code> to enable asynchronous execution. With <code>Future</code>, I could initiate both SQL queries without waiting for one to finish before starting the other, making the process more efficient.</p>
+
+        <h2>Approach and Code Explanation</h2>
+        <p>Here’s a simplified explanation of the steps I took in the code:</p>
+        <ul>
+            <li><strong>Spark Session Setup:</strong> I initialized a <code>SparkSession</code> to interact with Spark.</li>
+            <li><strong>Creating DataFrames:</strong> I created two DataFrames, <code>df1</code> and <code>df2</code>, representing data about people and subjects.</li>
+            <li><strong>Creating Temp Views:</strong> I registered these DataFrames as temporary views, named <code>people</code> and <code>subjects</code>, to be used in SQL queries.</li>
+            <li><strong>SQL Queries:</strong> Two SQL queries were defined:
+                <ul>
+                    <li><code>Query 1:</code> Selects names and ages of people older than 30.</li>
+                    <li><code>Query 2:</code> Joins the <code>people</code> and <code>subjects</code> tables and selects names and subjects.</li>
+                </ul>
+            </li>
+            <li><strong>Running Queries in Parallel:</strong> I wrapped each query inside a <code>Future</code>, allowing both queries to be executed concurrently.</li>
+            <li><strong>Waiting for Completion:</strong> I used <code>Await.result</code> to block the main thread until both futures completed, ensuring that the program doesn’t exit prematurely.</li>
+            <li><strong>Spark Cleanup:</strong> After completing the queries, I stopped the Spark session to release the resources.</li>
+        </ul>
+
+        <div class="code-section">
+            <pre><code>
+// Scala code example
+
+val spark = SparkSession.builder.appName("Future Example").getOrCreate()
+
+// DataFrames
+val df1 = spark.read.option("header", "true").csv("people.csv")
+val df2 = spark.read.option("header", "true").csv("subjects.csv")
+
+// Register Temp Views
+df1.createOrReplaceTempView("people")
+df2.createOrReplaceTempView("subjects")
+
+// Future for Query 1
+val query1Future = Future {
+    spark.sql("SELECT name, age FROM people WHERE age > 30").show()
+}
+
+// Future for Query 2
+val query2Future = Future {
+    spark.sql("SELECT p.name, s.subject FROM people p JOIN subjects s ON p.id = s.person_id").show()
+}
+
+// Wait for both queries to complete
+Await.result(query1Future, Duration.Inf)
+Await.result(query2Future, Duration.Inf)
+
+spark.stop()
+            </code></pre>
+        </div>
+
+        <h2>Visuals</h2>
+        <p>Below are images representing the results and the system architecture during the execution of the Spark SQL queries:</p>
+        <div class="img-container">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark13_enhanced.png" alt="Spark SQL Execution 1">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/spark14_enhanced.png" alt="Spark SQL Execution 2">
+        </div>
+    </section>
+
+    <footer>
+        <p>For more details, visit <a href="https://github.com/nbahador">my GitHub</a>.</p>
+    </footer>
+</body>
+</html>
