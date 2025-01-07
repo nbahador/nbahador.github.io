@@ -4,10 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A guide on running Phi-3, an open-source language model developed by Microsoft, on NixOS.">
-    <title>Running with large language models locally</title>
+    <title>Running Phi-3 Locally on NixOS</title>
     <link rel="stylesheet" href="styles.css"> <!-- Assuming you may want to link to an external stylesheet -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+            color: #333;
+        }
+
+        header {
+            background-color: #005b96;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 4px solid #003f7d;
+        }
+
+        header h1 {
+            font-size: 2.4em;
+            margin: 0;
+        }
+
+        main {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 1.6em;
+            color: #004c8c;
+            margin-bottom: 15px;
+        }
+
+        p {
+            line-height: 1.7;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: #005b96;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .code-container {
+            background-color: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            color: #ecf0f1;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .code-container pre {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .image-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #005b96;
+            color: white;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: #ff6347;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+
     <header>
         <h1>Running Phi-3 Locally on NixOS</h1>
     </header>
@@ -20,48 +120,56 @@
         <section>
             <h2>Installing Ollama</h2>
             <p>To begin, I needed to install Ollama, a tool for managing and running models like Phi-3 locally. I navigated to the NixOS package search for Ollama, located here: <a href="https://search.nixos.org/packages?channel=24.11&show=ollama&from=0&size=50&sort=relevance&type=packages&query=ollama" target="_blank" rel="noopener noreferrer">NixOS Ollama Search</a>. There, I found that Ollama was available, so I proceeded with a temporary installation using the following command:</p>
-            <pre><code>nix-shell -p ollama</code></pre>
-            <figure>
+            <div class="code-container">
+                <pre><code>nix-shell -p ollama</code></pre>
+            </div>
+            <div class="image-container">
                 <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/Oll_p1_1.png" alt="Ollama installation screenshot">
                 <figcaption>Temporary installation of Ollama on NixOS</figcaption>
-            </figure>
+            </div>
             <p>This allowed me to install Ollama on the fly without permanently altering my system configuration, a feature of NixOS that allows for flexible and reproducible environments.</p>
         </section>
 
         <section>
             <h2>Checking Available Commands</h2>
             <p>Once installed, I checked the available commands by typing the following in the terminal:</p>
-            <pre><code>ollama --help</code></pre>
-            <figure>
+            <div class="code-container">
+                <pre><code>ollama --help</code></pre>
+            </div>
+            <div class="image-container">
                 <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/Oll_p1_2.png" alt="Ollama help command screenshot">
                 <figcaption>Available commands for interacting with Ollama</figcaption>
-            </figure>
+            </div>
         </section>
 
         <section>
             <h2>Starting the Ollama Model Server</h2>
             <p>This displayed a list of commands for interacting with Ollama, including how to start the model server and run various tasks. To initialize the Ollama model server, I typed:</p>
-            <pre><code>ollama serve</code></pre>
-            <figure>
+            <div class="code-container">
+                <pre><code>ollama serve</code></pre>
+            </div>
+            <div class="image-container">
                 <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/Oll_p1_3.png" alt="Ollama model server screenshot">
                 <figcaption>Starting the Ollama model server</figcaption>
-            </figure>
+            </div>
             <p>The server started successfully, which allowed me to interact with the models it supported. In a separate terminal window, I initiated the Phi-3 model by running:</p>
-            <pre><code>ollama run phi</code></pre>
+            <div class="code-container">
+                <pre><code>ollama run phi</code></pre>
+            </div>
             <p>At this point, Ollama prompted me with <strong>"Send a message (/? for help)"</strong>, signaling that it was ready for queries.</p>
-            <figure>
+            <div class="image-container">
                 <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/Oll_p1_4.png" alt="Phi-3 ready for queries screenshot">
                 <figcaption>Phi-3 model ready for queries</figcaption>
-            </figure>
+            </div>
         </section>
 
         <section>
             <h2>Testing Phi-3's Natural Language Processing</h2>
             <p>I took the opportunity to ask Phi-3, "What is the role of protein in nature?" to test its natural language processing capabilities. It began answering my question.</p>
-            <figure>
+            <div class="image-container">
                 <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/Oll_p1_5.png" alt="Phi-3 response screenshot">
                 <figcaption>Phi-3 answering a natural language question</figcaption>
-            </figure>
+            </div>
         </section>
 
         <section>
@@ -71,7 +179,8 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 MyName. All rights reserved.</p>
+        <p>&copy; 2025 MyName. All rights reserved. | <a href="https://example.com">Visit for more tutorials</a></p>
     </footer>
+
 </body>
 </html>
