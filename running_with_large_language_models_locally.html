@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A guide on running Phi-3, an open-source language model developed by Microsoft, on NixOS.">
+    <title>Running with large language models locally</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Assuming you may want to link to an external stylesheet -->
+</head>
+<body>
+    <header>
+        <h1>Running Phi-3 Locally on NixOS</h1>
+    </header>
+
+    <main>
+        <section>
+            <p>I wanted to run Phi-3 locally on my NixOS system, as I was eager to leverage a lightweight, open-source large language model. Phi-3, developed by Microsoft, comes in two variants: the 3B model (Mini) and the 14B model (Medium). These models are designed to be high-performing yet efficient, making them ideal for local deployments on systems like mine. You can find more information about Phi-3 on <a href="https://ollama.com/library/phi3" target="_blank" rel="noopener noreferrer">Ollama's website</a>.</p>
+        </section>
+
+        <section>
+            <h2>Installing Ollama</h2>
+            <p>To begin, I needed to install Ollama, a tool for managing and running models like Phi-3 locally. I navigated to the NixOS package search for Ollama, located here: <a href="https://search.nixos.org/packages?channel=24.11&show=ollama&from=0&size=50&sort=relevance&type=packages&query=ollama" target="_blank" rel="noopener noreferrer">NixOS Ollama Search</a>. There, I found that Ollama was available, so I proceeded with a temporary installation using the following command:</p>
+            <pre><code>nix-shell -p ollama</code></pre>
+            <figure>
+                <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/Oll_p1_1.png" alt="Ollama installation screenshot">
+                <figcaption>Temporary installation of Ollama on NixOS</figcaption>
+            </figure>
+            <p>This allowed me to install Ollama on the fly without permanently altering my system configuration, a feature of NixOS that allows for flexible and reproducible environments.</p>
+        </section>
+
+        <section>
+            <h2>Checking Available Commands</h2>
+            <p>Once installed, I checked the available commands by typing the following in the terminal:</p>
+            <pre><code>ollama --help</code></pre>
+            <figure>
+                <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/Oll_p1_2.png" alt="Ollama help command screenshot">
+                <figcaption>Available commands for interacting with Ollama</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h2>Starting the Ollama Model Server</h2>
+            <p>This displayed a list of commands for interacting with Ollama, including how to start the model server and run various tasks. To initialize the Ollama model server, I typed:</p>
+            <pre><code>ollama serve</code></pre>
+            <figure>
+                <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/Oll_p1_3.png" alt="Ollama model server screenshot">
+                <figcaption>Starting the Ollama model server</figcaption>
+            </figure>
+            <p>The server started successfully, which allowed me to interact with the models it supported. In a separate terminal window, I initiated the Phi-3 model by running:</p>
+            <pre><code>ollama run phi</code></pre>
+            <p>At this point, Ollama prompted me with <strong>"Send a message (/? for help)"</strong>, signaling that it was ready for queries.</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/Oll_p1_4.png" alt="Phi-3 ready for queries screenshot">
+                <figcaption>Phi-3 model ready for queries</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h2>Testing Phi-3's Natural Language Processing</h2>
+            <p>I took the opportunity to ask Phi-3, "What is the role of protein in nature?" to test its natural language processing capabilities. It began answering my question.</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/Oll_p1_5.png" alt="Phi-3 response screenshot">
+                <figcaption>Phi-3 answering a natural language question</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h2>Conclusion</h2>
+            <p>This setup was straightforward and demonstrated the ease with which I could deploy and interact with large language models on NixOS.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 MyName. All rights reserved.</p>
+    </footer>
+</body>
+</html>
