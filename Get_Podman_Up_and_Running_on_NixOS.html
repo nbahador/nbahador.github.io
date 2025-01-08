@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Podman Up and Running on NixOS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .content {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        pre {
+            background-color: #2e2e2e;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 16px;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 14px;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 30px;
+            color: #333;
+        }
+        .step-title {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Get Podman Up and Running on NixOS</h1>
+</header>
+
+<div class="content">
+    <p>In this guide, I will walk you through the process of getting Podman up and running on NixOS.</p>
+
+    <div class="section-title" id="intro">Introduction to Podman</div>
+    <p>I first came across containers when I needed a way to run applications in isolated environments. Containers made it easy to avoid issues like conflicting libraries or unsatisfied dependencies. Essentially, containers offered a smart way to ensure applications and their dependencies could coexist without causing problems on the same host.</p>
+    <p>What I found interesting about containers is how they use images. These images are like pre-packaged environments that I can download and use to run a container. The images come from registries, which are repositories that store image data. Some of the most popular registries are quay.io and docker.io.</p>
+    <p>Building these images requires a Dockerfile, a text file that outlines the steps to assemble the image. The process starts with writing the Dockerfile, then building the image, pushing it to a registry, and finally pulling it to use. The cool part is that when I build my own image, it’s self-consistent—meaning it can run on any system without needing to worry about missing dependencies.</p>
+    <p>Containers don’t store data, but they give me a consistent environment to run applications. For storage, I can use volumes, which are external locations linked to my containers.</p>
+    <p>One thing that became clear to me was the portability of containers. Since all the application’s dependencies are packaged together, containers can easily be moved across systems. This portability is one reason why companies are shifting away from virtual machines to containers for their applications. In fact, many modern DevOps workflows use containers in CI/CD pipelines to speed up application development and deployment.</p>
+    <p>Podman, similar to Docker, provides a way to interact with containers. It allows me to create, manage, and run containers with ease.</p>
+
+    <div class="section-title" id="setup">How to Get Podman Up and Running on NixOS</div>
+    <p>To install Podman on NixOS, you can follow these steps:</p>
+    
+    <div class="step-title">1. Check Podman in NixOS Package Repository</div>
+    <p>Here is the link to the Podman package on NixOS: <a href="https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/by-name/po/podman/package.nix#L187" target="_blank">Podman package details</a>.</p>
+    <p>To search for Podman in the NixOS packages, use the following link:</p>
+    <p><a href="https://search.nixos.org/packages?channel=24.11&show=podman&from=0&size=50&sort=relevance&type=packages&query=Podman" target="_blank">Search Podman in NixOS Packages</a></p>
+
+    <div class="step-title">2. Temporary Installation with nix-shell</div>
+    <p>To temporarily install Podman in your NixOS environment, use the following command:</p>
+    <pre><code>nix-shell -p podman</code></pre>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/pod_p1_1.png" alt="Podman Installation 1">
+    </div>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/pod_p1_2.png" alt="Podman Installation 2">
+    </div>
+
+    <div class="section-title" id="registries">Understanding Podman's Registries</div>
+    <p>One of the first things I had to understand was how Podman searches for container images. These images are like packages that contain everything needed to run a container, including software and dependencies.</p>
+    <p>Podman looks for these images in certain places called container registries. Registries are online locations where container images are stored, like Docker Hub, for example. By default, Podman searches a list of trusted registries for images to download and use. These registries include:</p>
+    <ul>
+        <li>registry.fedoraproject.org</li>
+        <li>registry.access.redhat.com</li>
+        <li>docker.io</li>
+        <li>quay.io</li>
+    </ul>
+    <p>I found out that I could customize this list by editing a configuration file located at <code>/etc/containers/registries.conf</code>. This file lets me add or remove registries, giving me the flexibility to pull images from different locations if needed. It was easy to modify the file and set up Podman to search additional registries or remove ones I didn’t need.</p>
+    <p>After configuring Podman, I had a fully working environment where it could automatically search the right places for images.</p>
+</div>
+
+<footer>
+    <p>&copy; 2025 Podman on NixOS | Created by Nooshin</p>
+</footer>
+
+</body>
+</html>
