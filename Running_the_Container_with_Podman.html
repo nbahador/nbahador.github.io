@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running the Container with Podman</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .content {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        pre {
+            background-color: #2e2e2e;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 16px;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 14px;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 30px;
+            color: #333;
+        }
+        .step-title {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Running the Container with Podman</h1>
+</header>
+
+<div class="content">
+    <p>In this section, I walk through running a container with Podman, including pulling the NGINX container, verifying images, and interacting with the container.</p>
+
+    <div class="section-title" id="intro">What if I Couldn't Install Podman?</div>
+    <p>If I couldn’t install Podman on my system, I found a solution on Red Hat’s interactive labs: <a href="https://www.redhat.com/en/interactive-labs/deploy-containers-podman-container-tools" target="_blank">Red Hat Interactive Labs</a>.</p>
+
+    <div class="section-title" id="list-images">Listing Local Images</div>
+    <p>To list all images in the local storage, I typed:</p>
+    <pre><code>podman images</code></pre>
+    <p>This gave me the output shown here:</p>
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/pod_p1_3.png" alt="Podman Images Output">
+    </div>
+
+    <div class="section-title" id="run-nginx">Running NGINX with Podman</div>
+    <p>I wanted to run NGINX, a popular web server for static websites. Running it in a container allows me to test it without installing it directly on my system.</p>
+    <p>To pull the NGINX image, I used the following command:</p>
+    <pre><code>podman pull nginx</code></pre>
+    <p>This command fetches the NGINX image from a container registry, such as Docker Hub, and downloads it to my local machine. Podman prepares it for use in a container.</p>
+
+    <p>When I ran the <code>podman pull nginx</code> command, I saw several options for where to pull the image from:</p>
+    <ul>
+        <li>registry.access.redhat.com/nginx:latest (Red Hat registry)</li>
+        <li>registry.redhat.io/nginx:latest (another Red Hat registry)</li>
+        <li>docker.io/library/nginx:latest (Docker Hub)</li>
+    </ul>
+    <p>Podman asked me to choose an image with the prompt: <strong>"Please select an image:"</strong></p>
+    <p>I selected the image from Docker Hub: <code>docker.io/library/nginx:latest</code>, and Podman began the pull process.</p>
+    <p>The progress was shown as "Copying blob," indicating parts of the image being downloaded. Once complete, Podman finished by writing the image’s manifest to my system. Now, the image was ready for use.</p>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/pod_p1_4.png" alt="Pulling NGINX Image Step 1">
+    </div>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/pod_p1_5.png" alt="Pulling NGINX Image Step 2">
+    </div>
+
+    <div class="section-title" id="verifying-images">Verifying Available Images</div>
+    <p>After pulling the image, I used the command:</p>
+    <pre><code>podman images</code></pre>
+    <p>This listed the images on my system:</p>
+    <ul>
+        <li><code>localhost/rhel9-httpd</code> (A local RHEL9 image with Apache HTTP server)</li>
+        <li><code>docker.io/library/nginx:latest</code> (The NGINX image I just pulled from Docker Hub)</li>
+    </ul>
+    <p>Now, I had two images:</p>
+    <ul>
+        <li>RHEL9 with Apache HTTPD (created 18 minutes ago, size: 365 MB)</li>
+        <li>NGINX (created 6 weeks ago, size: 196 MB)</li>
+    </ul>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/pod_p1_6.png" alt="Podman Images List">
+    </div>
+
+    <div class="section-title" id="run-container">Running the NGINX Container</div>
+    <p>Next, I wanted to run the NGINX container. I executed the command:</p>
+    <pre><code>podman run -d --name my-nginx-container -p 8080:80 docker.io/library/nginx:latest</code></pre>
+    <p>I then ran <code>podman ps</code> to confirm that the container was running. The result was shown here:</p>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/pod_p1_7.png" alt="Running NGINX Container">
+    </div>
+
+    <div class="section-title" id="verifying-web-server">Verifying the Web Server</div>
+    <p>I checked if the NGINX container was working by running:</p>
+    <pre><code>curl http://localhost:8080</code></pre>
+    <p>I saw the default NGINX welcome page, confirming the server was up and running. To customize it, I would need to replace the default content with my own files. This result is shown here:</p>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/pod_p1_8.png" alt="NGINX Default Page">
+    </div>
+
+    <div class="section-title" id="download-bbc">Downloading the BBC Homepage</div>
+    <p>Next, I wanted to download a webpage. Using <code>curl</code>, I fetched the HTML of the BBC homepage:</p>
+    <pre><code>curl -o /root/bbc_homepage.html https://www.bbc.com/</code></pre>
+    <p>This saved the HTML as <code>bbc_homepage.html</code> in the <code>/root</code> directory. I verified the download by listing the files in <code>/root</code> with the <code>ls</code> command, shown here:</p>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/pod_p1_9.png" alt="Downloading BBC Homepage">
+    </div>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/pod_p1_10.png" alt="Listing Files in /root">
+    </div>
+
+    <p>To confirm the file's content, I used the <code>cat</code> command:</p>
+    <pre><code>cat /root/bbc_homepage.html</code></pre>
+    <p>This displayed the HTML content, as shown here:</p>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/pod_p1_11.png" alt="Viewing HTML Content">
+    </div>
+
+    <div class="section-title" id="analyze-html">Analyzing the HTML File</div>
+    <p>I could use tools like <code>grep</code> or <code>awk</code> to extract specific data from the downloaded HTML. For example, to extract all the links, I ran:</p>
+    <pre><code>grep -oP '(?<=href=")[^"]+' /root/bbc_homepage.html</code></pre>
+    <p>This command found and listed all the links in the HTML, shown here:</p>
+
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/pod_p1_12.png" alt="Extracting Links from HTML">
+    </div>
+
+    <p>This is how I set up and ran an NGINX container using Podman, pulled a webpage, and analyzed its content.</p>
+</div>
+
+<footer>
+    <p>&copy; 2025 Running Containers with Podman | Created by Nooshin</p>
+</footer>
+
+</body>
+</html>
