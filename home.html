@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raw Code for home.html</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            width: 80%;
+            max-width: 1000px;
+        }
+
+        .card h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        code {
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .code-block {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Card for home.html Template -->
+        <div class="card">
+            <h2>home.html Template (Main Page)</h2>
+            <p>This page will have a black background with two containers. The left container will have three yellow buttons, and the right container will display the image (Figure.jpg).</p>
+            
+            <div class="code-block">
+                <h3>Raw HTML Code:</h3>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Main Page&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .left-card {
+            width: 30%;
+            background-color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .right-card {
+            width: 70%;
+            background-color: #444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button {
+            background-color: yellow;
+            color: black;
+            border: none;
+            padding: 15px;
+            margin: 40px 0;
+            font-size: 25px;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #ccc;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .back-button {
+            background-color: gray;
+            margin-top: 20px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+    &lt;div class="container"&gt;
+        &lt;!-- Left Card: Buttons --&gt;
+        &lt;div class="left-card"&gt;
+            &lt;button class="button" onclick="window.location.href='https://surfer.nmr.mgh.harvard.edu/'"&gt;Access to FreeSurfer&lt;/button&gt;
+            &lt;button class="button" onclick="window.location.href='https://surfer.nmr.mgh.harvard.edu/fswiki'"&gt;Wiki&lt;/button&gt;
+            &lt;button class="button" onclick="window.location.href='{% url 'alliance' %}'"&gt;Alliance&lt;/button&gt;
+        &lt;/div&gt;
+        
+        &lt;!-- Right Card: Image --&gt;
+        &lt;div class="right-card"&gt;
+            &lt;div class="image-container"&gt;
+                &lt;img src="/static/Figure.jpg" alt="Figure Image"&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
