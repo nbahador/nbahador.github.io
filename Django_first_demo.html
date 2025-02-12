@@ -33,47 +33,25 @@
             width: 48%;
             box-sizing: border-box;
         }
-        .left-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .right-card {
-            display: flex;
-            flex-direction: column;
+        .left-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin: 10px 0;
         }
         h1, h2 {
             text-align: center;
             color: #FFD700;
         }
-        .card img {
-            width: 100%;
-            border-radius: 10px;
-            margin: 10px 0;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            margin: 12px 0;
-            text-align: center;
-            background-color: #FFD700;
-            color: #1a1a1a;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            font-size: 1.2rem;
-            transition: background-color 0.3s;
-        }
-        .btn:hover {
-            background-color: #ffcc00;
+        p, pre {
+            font-size: 1rem;
+            color: #f1f1f1;
+            line-height: 1.6;
         }
         pre {
             background-color: #444444;
             padding: 15px;
             border-radius: 5px;
             font-family: monospace;
-            color: #f1f1f1;
             overflow-x: auto;
         }
         .footer {
@@ -82,30 +60,24 @@
             background-color: #222222;
             color: #f1f1f1;
         }
-        .footer a {
-            color: #FFD700;
-            text-decoration: none;
-        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Left Card (Images and Buttons) -->
+    <!-- Left Card (Images) -->
     <div class="left-card">
-        <h1>Django Web Development Demo</h1>
-        <h2>Introduction to Django</h2>
+        <h2>Proof of Work</h2>
         <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic1.jpg" alt="Django Image 1">
         <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic2.jpg" alt="Django Image 2">
         <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic3.jpg" alt="Django Image 3">
-        <a href="https://surfer.nmr.mgh.harvard.edu/" class="btn">Access to FreeSurfer</a>
-        <a href="https://surfer.nmr.mgh.harvard.edu/fswiki" class="btn">Wiki</a>
-        <a href="alliance.html" class="btn">Alliance</a>
     </div>
 
-    <!-- Right Card (Text and Project Structure) -->
+    <!-- Right Card (Explanation Text) -->
     <div class="right-card">
-        <h2>Project Structure</h2>
+        <h2>Project Explanation</h2>
+        
+        <p>The project structure should look like this:</p>
         <pre>C:/Users/Nooshin/djangotutorial/
   ├── myapp/
   ├── mysite/
@@ -114,8 +86,36 @@
   ├── templates/
   ├── manage.py
   └── db.sqlite3</pre>
+        
+        <h3>1. Main Page Layout:</h3>
+        <p>The layout will have:</p>
+        <ul>
+            <li>A black background for the page.</li>
+            <li>The page will be split into two cards/containers:</li>
+            <ul>
+                <li>On the left card: Three yellow buttons (vertically aligned with proper spacing).</li>
+                <li>On the right card: A displayed image (Figure.jpg).</li>
+            </ul>
+        </ul>
 
-        <h2>Steps to Implement</h2>
+        <h3>2. Buttons (on the left side):</h3>
+        <ul>
+            <li>The first button ("Access to FreeSurfer") will direct the user to <a href="https://surfer.nmr.mgh.harvard.edu/" target="_blank">FreeSurfer</a>.</li>
+            <li>The second button ("Wiki") will direct the user to <a href="https://surfer.nmr.mgh.harvard.edu/fswiki" target="_blank">Wiki</a>.</li>
+            <li>The third button ("Alliance") will direct the user to another page with text and another button ("Access to Alliance").</li>
+        </ul>
+
+        <h3>3. Alliance Page Layout:</h3>
+        <ul>
+            <li>On this new page:</li>
+            <ul>
+                <li>Display the provided text about the Digital Research Alliance of Canada.</li>
+                <li>Provide a button ("Access to Alliance") that directs the user to <a href="https://alliancecan.ca/en" target="_blank">Digital Research Alliance</a>.</li>
+                <li>Include a button at the bottom of the page to return to the main page.</li>
+            </ul>
+        </ul>
+
+        <h3>Steps to Implement</h3>
         <ol>
             <li>Create the <a href="Main_Page_Layout.html">home.html</a> Template for the main page.</li>
             <li>Create the <a href="Alliance_Page_Layout.html">alliance.html</a> Template for the Alliance page.</li>
