@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raw Code for Alliance Page</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            width: 80%;
+            max-width: 1000px;
+        }
+
+        .card h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        code {
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .code-block {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Card for alliance.html Template -->
+        <div class="card">
+            <h2>alliance.html Template</h2>
+            <p>This page will show the provided text about the Digital Research Alliance of Canada, along with a button leading to the Alliance website and a button to go back to the main page.</p>
+            
+            <div class="code-block">
+                <h3>Raw HTML Code:</h3>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Alliance&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+            text-align: left;
+        }
+        .button {
+            background-color: yellow;
+            color: black;
+            border: none;
+            padding: 15px;
+            font-size: 25px;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #ccc;
+        }
+        .back-button {
+            background-color: gray;
+            margin-top: 60px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;div class="container"&gt;
+        &lt;h1&gt;The Digital Research Alliance of Canada&lt;/h1&gt;
+        &lt;p&gt;The Digital Research Alliance of Canada serves Canadian researchers, with the objective of advancing Canada’s position as a leader in the knowledge economy on the international stage. By integrating, championing and funding the infrastructure and activities required for advanced research computing (ARC), research data management (RDM) and research software (RS), we provide the platform for the research community to access tools and services faster than ever before.&lt;/p&gt;
+        
+        &lt;!-- Button to Access Alliance --&gt;
+        &lt;button class="button" onclick="window.location.href='https://alliancecan.ca/en'"&gt;Access to Alliance&lt;/button&gt;
+        
+        &lt;!-- Back button to main page --&gt;
+        &lt;button class="button back-button" onclick="window.location.href='{% url 'home' %}'"&gt;Back to Main Page&lt;/button&gt;
+    &lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
