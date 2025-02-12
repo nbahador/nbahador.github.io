@@ -30,10 +30,19 @@
             border-radius: 10px;
             padding: 20px;
             width: 48%;
+            box-sizing: border-box;
+        }
+        /* Adjust the left card width to be wider */
+        .left-card {
+            width: 60%;
         }
         h1, h2 {
             text-align: center;
             color: #FFD700;
+            font-size: 2.5rem;
+        }
+        h2 {
+            font-size: 2rem;
         }
         .card img {
             width: 100%;
@@ -43,14 +52,15 @@
         .btn {
             display: block;
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
+            padding: 12px;
+            margin: 12px 0;
             text-align: center;
             background-color: #FFD700;
             color: #1a1a1a;
             text-decoration: none;
             font-weight: bold;
             border-radius: 5px;
+            font-size: 1.2rem;
             transition: background-color 0.3s;
         }
         .btn:hover {
@@ -69,53 +79,44 @@
             color: #FFD700;
             text-decoration: none;
         }
+        /* Align footer items better */
+        ol {
+            text-align: left;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <!-- Left Card (Buttons) -->
-    <div class="card">
+    <div class="card left-card">
         <h1>Django Web Development Demo</h1>
         <h2>Introduction to Django for Building a Web App</h2>
         <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic1.jpg" alt="Django Image 1">
         <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic2.jpg" alt="Django Image 2">
         <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic3.jpg" alt="Django Image 3">
-
-        <div class="content">
-            <h2>Project Structure</h2>
-            <pre style="background-color: #444444; padding: 10px; border-radius: 5px;">C:/Users/Nooshin/djangotutorial/
-  ├── myapp/
-  ├── mysite/
-  ├── static/
-  │    └── Figure.jpg
-  ├── templates/
-  ├── manage.py
-  └── db.sqlite3</pre>
-        </div>
-
-        <div class="content">
-            <h2>Main Page Layout</h2>
-            <ul>
-                <li><strong>Background:</strong> Black</li>
-                <li><strong>Layout:</strong> Two containers (left with buttons, right with an image)</li>
-            </ul>
-        </div>
-        
-        <h2>Buttons</h2>
-        <a href="https://surfer.nmr.mgh.harvard.edu/" class="btn">Access to FreeSurfer</a>
-        <a href="https://surfer.nmr.mgh.harvard.edu/fswiki" class="btn">Wiki</a>
-        <a href="alliance.html" class="btn">Alliance</a>
     </div>
 
     <!-- Right Card (Image) -->
     <div class="card">
-        <h2>Alliance Page Layout</h2>
-        <p>This page will display information about the Digital Research Alliance of Canada.</p>
-        <a href="https://alliancecan.ca/en" class="btn">Access to Alliance</a>
-        <a href="home.html" class="btn">Return to Main Page</a>
+        <h2>Project Structure</h2>
+        <pre style="background-color: #444444; padding: 10px; border-radius: 5px;">C:/Users/Nooshin/djangotutorial/
+          ├── myapp/
+          ├── mysite/
+          ├── static/
+          │    └── Figure.jpg
+          ├── templates/
+          ├── manage.py
+          └── db.sqlite3</pre>
     </div>
 </div>
+
+<!-- Additional Section Below Cards -->
+<h2>Alliance Page Layout</h2>
+<p>This page will display information about the Digital Research Alliance of Canada.</p>
+<a href="https://alliancecan.ca/en" class="btn">Access to Alliance</a>
+<a href="home.html" class="btn">Return to Main Page</a>
 
 <div class="footer">
     <p>Steps to Implement:</p>
