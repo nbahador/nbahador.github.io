@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raw Code for urls.py</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            width: 80%;
+            max-width: 1000px;
+        }
+
+        .card h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        code {
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .code-block {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Card for urls.py Code -->
+        <div class="card">
+            <h2>Update urls.py</h2>
+            <p>This update involves adding a URL pattern for the new Alliance page in the Django project.</p>
+            
+            <div class="code-block">
+                <h3>Raw Python Code:</h3>
+                <pre><code>from django.urls import path
+from myapp import views
+
+urlpatterns = [
+    path('', views.home, name='home'),  # Root URL maps to home page
+    path('alliance/', views.alliance, name='alliance'),  # New URL for Alliance page
+]</code></pre>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
