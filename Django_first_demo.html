@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Web Development Demo</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background-color: #2b2b2b;
+            border-radius: 10px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #f5a623;
+            margin-bottom: 20px;
+        }
+
+        .images {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .images img {
+            width: 30%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .card {
+            display: flex;
+            background-color: #3b3b3b;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .card .left, .card .right {
+            padding: 20px;
+        }
+
+        .card .left {
+            flex: 1;
+            background-color: #f5a623;
+        }
+
+        .card .right {
+            flex: 2;
+            background-color: #444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card .left h3 {
+            color: #1e1e1e;
+            font-size: 22px;
+        }
+
+        .card .left .button {
+            background-color: #1e1e1e;
+            color: #f5a623;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .card .left .button:hover {
+            background-color: #f5a623;
+            color: #1e1e1e;
+        }
+
+        .card .right img {
+            max-width: 90%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            color: #f5a623;
+            margin-top: 40px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #f5a623;
+            color: #1e1e1e;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #1e1e1e;
+            color: #f5a623;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Django Web Development Demo</h1>
+        <h2>An Introduction to Django for Building a Web App</h2>
+
+        <div class="images">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic1.jpg" alt="Django 1">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic2.jpg" alt="Django 2">
+            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic3.jpg" alt="Django 3">
+        </div>
+
+        <div class="section">
+            <h2>Project Structure</h2>
+            <pre style="background-color: #333; padding: 20px; border-radius: 5px;">
+C:/Users/Nooshin/djangotutorial/
+  ├── myapp/
+  ├── mysite/
+  ├── static/
+  │    └── Figure.jpg
+  ├── templates/
+  ├── manage.py
+  └── db.sqlite3
+            </pre>
+        </div>
+
+        <div class="section">
+            <h2>Main Page Layout</h2>
+            <div class="card">
+                <div class="left">
+                    <h3>Buttons on the Left Side:</h3>
+                    <a href="https://surfer.nmr.mgh.harvard.edu/" class="button">Access to FreeSurfer</a>
+                    <a href="https://surfer.nmr.mgh.harvard.edu/fswiki" class="button">Wiki</a>
+                    <a href="alliance.html" class="button">Alliance</a>
+                </div>
+                <div class="right">
+                    <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic1.jpg" alt="Figure.jpg">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Alliance Page Layout</h2>
+            <p>This page will display information about the Digital Research Alliance of Canada, and provide access to the Alliance website.</p>
+            <a href="https://alliancecan.ca/en" class="back-btn">Access to Alliance</a>
+            <a href="index.html" class="back-btn">Back to Main Page</a>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Django Web Development Demo | All Rights Reserved</p>
+        </footer>
+    </div>
+</body>
+</html>
