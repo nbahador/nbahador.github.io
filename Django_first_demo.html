@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Django Web Development Demo</title>
     <style>
-        /* Global Styles */
         body {
             font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
-            color: #f0f0f0;
+            background-color: #1a1a1a;
+            color: #f1f1f1;
             margin: 0;
             padding: 0;
             display: flex;
@@ -17,165 +16,116 @@
             align-items: center;
             height: 100vh;
         }
-
         .container {
-            max-width: 1200px;
-            margin: 40px;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            background-color: #2b2b2b;
-            border-radius: 10px;
-        }
-
-        h1, h2 {
-            text-align: center;
-            color: #f5a623;
-            margin-bottom: 20px;
-        }
-
-        .images {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 30px;
-        }
-
-        .images img {
-            width: 30%;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .section {
-            margin-bottom: 40px;
-        }
-
-        .card {
-            display: flex;
-            background-color: #3b3b3b;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .card .left, .card .right {
+            width: 80%;
+            max-width: 1200px;
+            background-color: #282828;
             padding: 20px;
+            border-radius: 10px;
         }
-
-        .card .left {
-            flex: 1;
-            background-color: #f5a623;
+        .card {
+            background-color: #333333;
+            border-radius: 10px;
+            padding: 20px;
+            width: 48%;
         }
-
-        .card .right {
-            flex: 2;
-            background-color: #444;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        h1, h2 {
+            text-align: center;
+            color: #FFD700;
         }
-
-        .card .left h3 {
-            color: #1e1e1e;
-            font-size: 22px;
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+            margin: 10px 0;
         }
-
-        .card .left .button {
-            background-color: #1e1e1e;
-            color: #f5a623;
-            padding: 15px;
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
             margin: 10px 0;
             text-align: center;
-            border-radius: 5px;
+            background-color: #FFD700;
+            color: #1a1a1a;
             text-decoration: none;
-            display: block;
-            transition: background-color 0.3s ease;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
-
-        .card .left .button:hover {
-            background-color: #f5a623;
-            color: #1e1e1e;
+        .btn:hover {
+            background-color: #ffcc00;
         }
-
-        .card .right img {
-            max-width: 90%;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        .content {
+            margin-top: 30px;
         }
-
-        footer {
+        .footer {
             text-align: center;
-            color: #f5a623;
-            margin-top: 40px;
+            padding: 20px;
+            background-color: #222222;
+            color: #f1f1f1;
         }
-
-        .back-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #f5a623;
-            color: #1e1e1e;
+        .footer a {
+            color: #FFD700;
             text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-        }
-
-        .back-btn:hover {
-            background-color: #1e1e1e;
-            color: #f5a623;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+
+<div class="container">
+    <!-- Left Card (Buttons) -->
+    <div class="card">
         <h1>Django Web Development Demo</h1>
-        <h2>An Introduction to Django for Building a Web App</h2>
+        <h2>Introduction to Django for Building a Web App</h2>
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic1.jpg" alt="Django Image 1">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic2.jpg" alt="Django Image 2">
+        <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic3.jpg" alt="Django Image 3">
 
-        <div class="images">
-            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic1.jpg" alt="Django 1">
-            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic2.jpg" alt="Django 2">
-            <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic3.jpg" alt="Django 3">
-        </div>
-
-        <div class="section">
+        <div class="content">
             <h2>Project Structure</h2>
-            <pre style="background-color: #333; padding: 20px; border-radius: 5px;">
-C:/Users/Nooshin/djangotutorial/
+            <pre style="background-color: #444444; padding: 10px; border-radius: 5px;">C:/Users/Nooshin/djangotutorial/
   ├── myapp/
   ├── mysite/
   ├── static/
   │    └── Figure.jpg
   ├── templates/
   ├── manage.py
-  └── db.sqlite3
-            </pre>
+  └── db.sqlite3</pre>
         </div>
 
-        <div class="section">
+        <div class="content">
             <h2>Main Page Layout</h2>
-            <div class="card">
-                <div class="left">
-                    <h3>Buttons on the Left Side:</h3>
-                    <a href="https://surfer.nmr.mgh.harvard.edu/" class="button">Access to FreeSurfer</a>
-                    <a href="https://surfer.nmr.mgh.harvard.edu/fswiki" class="button">Wiki</a>
-                    <a href="alliance.html" class="button">Alliance</a>
-                </div>
-                <div class="right">
-                    <img src="https://raw.githubusercontent.com/nbahador/nbahador.github.io/main/assets/img/django_pic1.jpg" alt="Figure.jpg">
-                </div>
-            </div>
+            <ul>
+                <li><strong>Background:</strong> Black</li>
+                <li><strong>Layout:</strong> Two containers (left with buttons, right with an image)</li>
+            </ul>
         </div>
-
-        <div class="section">
-            <h2>Alliance Page Layout</h2>
-            <p>This page will display information about the Digital Research Alliance of Canada, and provide access to the Alliance website.</p>
-            <a href="https://alliancecan.ca/en" class="back-btn">Access to Alliance</a>
-            <a href="index.html" class="back-btn">Back to Main Page</a>
-        </div>
-
-        <footer>
-            <p>&copy; 2025 Django Web Development Demo | All Rights Reserved</p>
-        </footer>
+        
+        <h2>Buttons</h2>
+        <a href="https://surfer.nmr.mgh.harvard.edu/" class="btn">Access to FreeSurfer</a>
+        <a href="https://surfer.nmr.mgh.harvard.edu/fswiki" class="btn">Wiki</a>
+        <a href="alliance.html" class="btn">Alliance</a>
     </div>
+
+    <!-- Right Card (Image) -->
+    <div class="card">
+        <h2>Alliance Page Layout</h2>
+        <p>This page will display information about the Digital Research Alliance of Canada.</p>
+        <a href="https://alliancecan.ca/en" class="btn">Access to Alliance</a>
+        <a href="home.html" class="btn">Return to Main Page</a>
+    </div>
+</div>
+
+<div class="footer">
+    <p>Steps to Implement:</p>
+    <ol>
+        <li>Create the <a href="Main_Page_Layout.html">home.html</a> Template for the main page.</li>
+        <li>Create the <a href="Alliance_Page_Layout.html">alliance.html</a> Template for the Alliance page.</li>
+        <li>Update <a href="Update_views.html">views.py</a> to render both templates.</li>
+        <li>Update <a href="Update_urls.html">urls.py</a> to route to the new Alliance page.</li>
+    </ol>
+</div>
+
 </body>
 </html>
